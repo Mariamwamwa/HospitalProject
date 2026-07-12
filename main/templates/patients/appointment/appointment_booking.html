@@ -2,98 +2,116 @@
 {% load static %}
 
 {% block title %}
+{% if appointment %}
+Reschedule Appointment
+{% else %}
 Book Appointment
+{% endif %}
 {% endblock %}
-
 
 {% block sidebar %}
     {% include "patients/dashboard/sidebar.html" %}
 {% endblock %}
 
-
-
-
-
 {% block content %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/patient_appointment_booking.css' %}">
 {% endblock %}
+
 <div class="appointment-wrapper">
 
     <div class="appointment-card">
 
-
         <div class="card-header">
-            <h2>Book Appointment</h2>
-            <p>Schedule your consultation with one of our doctors.</p>
+
+            <h2>
+                {% if appointment %}
+                    Reschedule Appointment
+                {% else %}
+                    Book Appointment
+                {% endif %}
+            </h2>
+
+            <p>
+                {% if appointment %}
+                    Update your appointment details below.
+                {% else %}
+                    Schedule your consultation with one of our doctors.
+                {% endif %}
+            </p>
+
         </div>
-
-
 
         <form method="POST">
 
             {% csrf_token %}
 
-
-
+            <!-- Doctor -->
             <div class="form-group">
 
                 <label>Doctor</label>
 
-                <select name="doctor">
+                <select name="doctor" required>
 
-                    <option value="1">
-                        Dr. John Smith - Cardiologist
+                    <option value="">-- Select Doctor --</option>
+
+                    {% for doctor in doctors %}
+
+                    <option value="{{ doctor.id }}"
+                        {% if appointment and appointment.doctor.id == doctor.id %}
+                            selected
+                        {% endif %}>
+
+                        Dr. {{ doctor.user.get_full_name }}
+
                     </option>
 
-                    <option value="2">
-                        Dr. Maria Santos - Dentist
-                    </option>
-
-                    <option value="3">
-                        Dr. Alex Cruz - General Medicine
-                    </option>
+                    {% endfor %}
 
                 </select>
 
-
-                <a href="#" class="view-doctor-btn">
+                <a href="{% url 'doctor_list' %}" class="view-doctor-btn">
                     View All Doctors
                 </a>
 
             </div>
 
-
-
-
-
             <div class="form-row">
 
-
+                <!-- Date -->
                 <div class="form-group">
 
                     <label>Appointment Date</label>
 
-                    <input 
+                    <input
                         type="date"
                         name="date"
-                        value="2026-07-15">
+                        value="{% if appointment %}{{ appointment.date|date:'Y-m-d' }}{% endif %}"
+                        required>
 
                 </div>
 
-
-
+                <!-- Time -->
                 <div class="form-group">
 
                     <label>Appointment Time</label>
 
-                    <select name="time">
+                    <select name="time_period" required>
 
-                        <option value="AM">
+                        <option value="">-- Select Time --</option>
+
+                        <option value="AM"
+                            {% if appointment and appointment.time_period == "AM" %}
+                                selected
+                            {% endif %}>
                             Morning (AM)
                         </option>
 
-                        <option value="PM">
+                        <option value="PM"
+                            {% if appointment and appointment.time_period == "PM" %}
+                                selected
+                            {% endif %}>
                             Afternoon (PM)
                         </option>
 
@@ -101,51 +119,46 @@ Book Appointment
 
                 </div>
 
-
             </div>
 
-
-
-
-
+            <!-- Reason -->
             <div class="form-group">
 
                 <label>Reason for Visit</label>
 
-                <textarea name="reason" rows="5">Regular health check-up</textarea>
+                <textarea
+                    name="reason"
+                    rows="5"
+                    placeholder="Enter your reason for visit...">{% if appointment %}{{ appointment.reason }}{% endif %}</textarea>
 
             </div>
 
-
-
-
-
+            <!-- Buttons -->
             <div class="button-group">
 
-    <button type="submit" class="book-btn">
-        📅 Book Appointment
-    </button>
-<div class="cancel-wrapper">
+                <button type="submit" class="book-btn">
 
-    <a href="{% url 'patient_appointment_list' %}" class="cancel-btn">
-        Cancel
-    </a>
+                    {% if appointment %}
+                        🔄 Update Appointment
+                    {% else %}
+                        📅 Book Appointment
+                    {% endif %}
 
-</div>
-</div>
+                </button>
 
+                <div class="cancel-wrapper">
 
+                    <a href="{% url 'patient_appointment_list' %}" class="cancel-btn">
+                        Cancel
+                    </a>
 
+                </div>
 
-
+            </div>
 
         </form>
 
-
     </div>
-
-
-</div>
 
 
 {% endblock %}

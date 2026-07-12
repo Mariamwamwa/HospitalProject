@@ -257,27 +257,79 @@ class DoctorSchedule(models.Model):
 
 
 class Appointment(models.Model):
+
     STATUS_CHOICES = [
         ('Pending', 'Pending'),
         ('Confirmed', 'Confirmed'),
         ('Completed', 'Completed'),
         ('Cancelled', 'Cancelled'),
     ]
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='appointments')
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='appointments')
+
+    TIME_PERIOD_CHOICES = [
+        ('AM', 'AM'),
+        ('PM', 'PM'),
+    ]
+
+    patient = models.ForeignKey(
+        Patient,
+        on_delete=models.CASCADE,
+        related_name='appointments'
+    )
+
+    doctor = models.ForeignKey(
+        Doctor,
+        on_delete=models.CASCADE,
+        related_name='appointments'
+    )
+
     date = models.DateField()
-    time = models.TimeField()
+
+    time_period = models.CharField(
+        max_length=2,
+        choices=TIME_PERIOD_CHOICES,
+        default='AM'
+
+    )
+
     reason = models.TextField()
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Pending')
+
+    status = models.CharField(
+        max_length=15,
+        choices=STATUS_CHOICES,
+        default='Pending'
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
 class MedicalRecord(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='medical_records')
-    doctor = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True, related_name='created_records')
+    patient = models.ForeignKey(
+        Patient,
+        on_delete=models.CASCADE,
+        related_name='medical_records'
+    )
+
+    doctor = models.ForeignKey(
+        Doctor,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='created_records'
+    )
+
     diagnosis = models.TextField()
-    treatment_plan = models.TextField()
+
+    prescription = models.TextField()
+
+    notes = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Additional notes or doctor's remarks"
+    )
+
     visit_date = models.DateField(auto_now_add=True)
 
+    def __str__(self):
+        doctor_name = self.doctor.user.get_full_name() if self.doctor else "Unknown Doctor"
+        return f"{self.patient.user.get_full_name()} - {doctor_name} ({self.visit_date})"
 class Prescription(models.Model):
     appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE, related_name='prescription')
     medication_name = models.CharField(max_length=255)

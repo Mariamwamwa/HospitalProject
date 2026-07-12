@@ -5,173 +5,329 @@
 
 
 {% block sidebar %}
-    {% include "patients/dashboard/sidebar.html" %}
+{% include "patients/dashboard/sidebar.html" %}
 {% endblock %}
+
+
+
+
+
+
 {% block content %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/patient_appointment_list.css' %}">
 {% endblock %}
 <div class="appointments-page">
 
-    <!-- Hero -->
+
+    <!-- HERO -->
+
     <section class="appointments-hero">
 
         <div class="hero-text">
-            <h1>My Appointments</h1>
-            <p>Manage your upcoming and previous appointments with CareNest.</p>
+
+            <h1>
+                My Appointments
+            </h1>
+
+            <p>
+                Manage your upcoming and previous appointments with CareNest.
+            </p>
+
         </div>
 
-  <a href="{% url 'appointment_booking' %}" class="book-btn">
-    + Book Appointment
-</a>
+
+        <a href="{% url 'appointment_booking' %}" class="book-btn">
+
+            + Book Appointment
+
+        </a>
+
 
     </section>
 
 
-    <!-- Filter Section -->
+
+
+
+    <!-- FILTER -->
+
     <section class="filter-section">
+
 
         <div class="appointment-tabs">
 
+
             <button class="tab active">
+
                 Upcoming
-                <span>3</span>
+
+                <span>
+                    {{ upcoming_count }}
+                </span>
+
             </button>
 
+
+
+
             <button class="tab">
+
                 Completed
-                <span>12</span>
+
+                <span>
+                    {{ completed_count }}
+                </span>
+
             </button>
+
+
+
+
 
             <button class="tab">
+
                 Cancelled
-                <span>1</span>
+
+                <span>
+                    {{ cancelled_count }}
+                </span>
+
             </button>
 
-        </div>
 
-        <div class="search-filter">
-
-            <input
-                type="text"
-                placeholder="Search appointments..."
-            >
-
-            <select>
-                <option>All Status</option>
-                <option>Confirmed</option>
-                <option>Pending</option>
-                <option>Completed</option>
-                <option>Cancelled</option>
-            </select>
 
         </div>
+
+
+
+
+
+        <form method="GET" class="search-filter">
+
+    <input
+        type="text"
+        name="search"
+        value="{{ request.GET.search }}"
+        placeholder="Search appointments..."
+    >
+
+    <select name="status">
+
+        <option value="">All Status</option>
+
+        <option value="Pending">Pending</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Completed">Completed</option>
+        <option value="Cancelled">Cancelled</option>
+
+    </select>
+
+    <button type="submit"class="search-btn">Search</button>
+
+</form>
+
 
     </section>
 
 
-    <!-- Appointment Card -->
+
+
+
+
+    <!-- APPOINTMENT LIST -->
+
+
+    {% for appointment in appointments %}
+
 
     <div class="appointment-card">
 
-        <div class="status confirmed">
-            Confirmed
+
+        <div class="status {{ appointment.status|lower }}">
+
+            {{ appointment.status }}
+
         </div>
+
+
+
 
         <div class="appointment-content">
 
-            <div class="doctor-avatar">
-                MS
-            </div>
-
-            <div class="appointment-details">
-
-                <h2>Dr. Maria Santos</h2>
-
-                <p class="specialty">
-                    Cardiology
-                </p>
-
-                <div class="appointment-meta">
-
-                    <span>📅 July 15, 2026</span>
-
-                    <span>🕘 10:00 AM</span>
-
-                    <span>📍 Room 203</span>
-
-                </div>
-
-            </div>
-
-            <div class="appointment-actions">
-
-                <a href="#" class="btn secondary-btn">
-                    View Details
-                </a>
-
-                <a href="#" class="btn primary-btn">
-                    Reschedule
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
 
 
-    <!-- Appointment Card -->
 
-    <div class="appointment-card">
+<div class="doctor-avatar">
 
-        <div class="status pending">
-            Pending
-        </div>
+    {% if appointment.doctor.profile_picture %}
 
-        <div class="appointment-content">
+        <img
+            src="{{ appointment.doctor.profile_picture.url }}"
+            alt="Dr. {{ appointment.doctor.user.get_full_name }}">
 
-            <div class="doctor-avatar">
-                JC
-            </div>
+    {% else %}
 
-            <div class="appointment-details">
+        <img
+            src="{% static 'images/CarenestLOGO.png' %}"
+            alt="CareNest">
 
-                <h2>Dr. James Cruz</h2>
-
-                <p class="specialty">
-                    General Medicine
-                </p>
-
-                <div class="appointment-meta">
-
-                    <span>📅 July 20, 2026</span>
-
-                    <span>🕘 2:00 PM</span>
-
-                    <span>💻 Online Consultation</span>
-
-                </div>
-
-            </div>
-
-            <div class="appointment-actions">
-
-                <a href="#" class="btn secondary-btn">
-                    View Details
-                </a>
-
-                <a href="#" class="btn danger-btn">
-                    Cancel
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
+    {% endif %}
 
 </div>
 
+
+
+
+
+            <div class="appointment-details">
+
+
+
+                <h2>
+
+                    Dr. {{ appointment.doctor.user.get_full_name }}
+
+                </h2>
+
+
+
+
+                <p class="specialty">
+
+                    {{ appointment.doctor.specialization }}
+
+                </p>
+
+
+
+
+
+                <div class="appointment-meta">
+
+
+                    <span>
+                        📅 
+                        {{ appointment.date|date:"F j, Y" }}
+                    </span>
+
+
+
+                    <span>
+                        🕘
+                        {{ appointment.time_period }}
+                    </span>
+
+
+
+                    <span>
+                        🩺
+                        {{ appointment.reason }}
+                    </span>
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+            <div class="appointment-actions">
+
+
+
+                <a 
+                href="{% url 'appointment_detail' appointment.id %}"
+                class="btn secondary-btn">
+
+                    View Details
+
+                </a>
+
+
+
+
+
+                {% if appointment.status == "Pending" %}
+
+
+                <a 
+                href="{% url 'appointment_booking' %}?reschedule={{ appointment.id }}"
+                class="btn primary-btn">
+
+                    Reschedule
+
+                </a>
+
+
+
+                {% elif appointment.status == "Confirmed" %}
+
+
+                <a 
+                href="#"
+                class="btn danger-btn">
+
+                    Cancel
+
+                </a>
+
+
+
+                {% endif %}
+
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    {% empty %}
+
+
+
+    <div class="no-appointment">
+
+
+        <h3>
+            No Appointments Found
+        </h3>
+
+
+        <p>
+            You don't have any appointments scheduled.
+        </p>
+
+
+    </div>
+
+
+
+    {% endfor %}
+
+
+
+
+
+</div>
+
+
 {% endblock %}
-```

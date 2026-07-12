@@ -4,7 +4,7 @@
 {% block title %}Patient Dashboard{% endblock %}
 
 {% block sidebar %}
-    {% include "patients/dashboard/sidebar.html" %}
+{% include "patients/dashboard/sidebar.html" %}
 {% endblock %}
 {% block content %}
 {% block extra_css %}
@@ -36,11 +36,11 @@
             </span>
 
             <h2>
-                Saturday
+                {% now "l" %}
             </h2>
 
             <p>
-                July 11, 2026
+                {% now "F j, Y" %}
             </p>
 
         </div>
@@ -58,15 +58,16 @@
 
             <div class="card-icon">📅</div>
 
-            <h2>3</h2>
+            <h2>{{appointment_count }}</h2>
 
             <h3>Appointments</h3>
 
             <p>
-                You have 3 upcoming appointments scheduled this month.
+                You have {{appointment_count }} upcoming appointments scheduled.
             </p>
 
-            <a href="#" class="card-link">
+            <a href="{% url 'patient_appointment_list' %}" class="card-link"
+                class="{% if request.resolver_match.url_name == 'patient_appointment_list' %}active{% endif %}">
                 View Details →
             </a>
 
@@ -77,15 +78,16 @@
 
             <div class="card-icon">💊</div>
 
-            <h2>5</h2>
+            <h2>{{prescription_count}} </h2>
 
             <h3>Prescriptions</h3>
 
             <p>
-                You currently have 5 active prescriptions available.
+                You currently have {{prescription_count}} active prescriptions available.
             </p>
 
-            <a href="#" class="card-link">
+            <a href="{% url 'patient_medical_record' %}" class="card-link"
+                class="{% if request.resolver_match.url_name == 'patient_medical_record' %}active{% endif %}">
                 View Details →
             </a>
 
@@ -96,7 +98,7 @@
 
             <div class="card-icon">📋</div>
 
-            <h2>12</h2>
+            <h2>{{medical_record_count}} </h2>
 
             <h3>Medical Records</h3>
 
@@ -104,30 +106,31 @@
                 Access your complete medical history and laboratory results.
             </p>
 
-            <a href="#" class="card-link">
+            <a href="{% url 'patient_medical_record' %}" class="card-link"
+                class="{% if request.resolver_match.url_name == 'patient_medical_record' %}active{% endif %}">
                 View Details →
             </a>
 
         </div>
 
-        <!-- Notifications -->
         <div class="summary-card doctors">
 
-    <div class="card-icon">👨‍⚕️</div>
+            <div class="card-icon">👨‍⚕️</div>
 
-    <h2>10+</h2>
+            <h2>{{doctor_count }}</h2>
 
-    <h3>Doctors</h3>
+            <h3>Doctors </h3>
 
-    <p>
-        Browse available doctors and find the right specialist for your consultation.
-    </p>
+            <p>
+                Browse available doctors and find the right specialist for your consultation.
+            </p>
 
-    <a href="#" class="card-link">
-        View Doctors →
-    </a>
+            <a href="{% url 'doctor_list' %}" class="card-link"
+                class="{% if request.resolver_match.url_name == 'doctor_list' %}active{% endif %}">
+                View Doctors →
+            </a>
 
-</div>
+        </div>
 
     </section>
 
@@ -144,13 +147,17 @@
                 <h2>Upcoming Appointment</h2>
             </div>
 
-            <a href="#" class="panel-link">
+            <a href="{% url 'patient_appointment_list' %}" class="panel-link"
+                class="{% if request.resolver_match.url_name == 'patient_appointment_list' %}active{% endif %}">
+
                 View All →
             </a>
 
         </div>
 
         <div class="appointment-card">
+
+            {% if upcoming_appointment %}
 
             <div class="appointment-doctor">
 
@@ -160,9 +167,11 @@
 
                 <div>
 
-                    <h3>Dr. Maria Santos</h3>
+                    <h3>Dr. {{ upcoming_appointment.doctor.user.get_full_name }}</h3>
 
-                    <p>General Medicine</p>
+                    <p>
+                        {{ upcoming_appointment.doctor.specialization }}
+                    </p>
 
                 </div>
 
@@ -172,37 +181,55 @@
 
                 <div class="detail-box">
                     <span>📅 Date</span>
-                    <strong>July 15, 2026</strong>
+                    <strong>
+                        {{ upcoming_appointment.date|date:"F j, Y" }}
+                    </strong>
                 </div>
 
                 <div class="detail-box">
                     <span>🕘 Time</span>
-                    <strong>9:30 AM</strong>
+                    <strong>
+                        {{ upcoming_appointment.time_period }}
+                    </strong>
                 </div>
 
                 <div class="detail-box">
-                    <span>📍 Room</span>
-                    <strong>Room 204</strong>
+                    <span>📍 Status</span>
+                    <strong>
+                        {{ upcoming_appointment.status }}
+                    </strong>
                 </div>
 
                 <div class="detail-box">
-                    <span>🩺 Type</span>
-                    <strong>General Check-up</strong>
+                    <span>🩺 Reason</span>
+                    <strong>
+                        {{ upcoming_appointment.reason }}
+                    </strong>
                 </div>
 
             </div>
 
-            <div class="appointment-actions">
-
-                <button class="primary-btn">
+            <!-- <div class="appointment-actions">
+                <a href="{% url 'appointment_detail' upcoming_appointment.id %}" class="primary-btn">
                     View Details
-                </button>
+                </a> -->
 
-                <button class="secondary-btn">
-                    Reschedule
-                </button>
 
             </div>
+
+            {% else %}
+
+            <div class="no-appointment">
+
+                <h3>No Upcoming Appointment</h3>
+
+                <p>
+                    You don't have any upcoming appointments scheduled.
+                </p>
+
+            </div>
+
+            {% endif %}
 
         </div>
 
@@ -228,125 +255,193 @@
                     <h2>Appointment History</h2>
                 </div>
 
-                <a href="#" class="panel-link">
-                    View All →
-                </a>
+              <a href="{% url 'patient_appointment_list' %}" class="panel-link"
+                class="{% if request.resolver_match.url_name == 'patient_appointment_list' %}active{% endif %}">
+
+                View All →
+            </a>
 
             </div>
             <div class="history-container">
-                <table class="history-table">
 
-                    <thead>
+    <table class="history-table">
 
-                        <tr>
-                            <th>Date</th>
-                            <th>Doctor</th>
-                            <th>Department</th>
-                            <th>Status</th>
-                        </tr>
+        <thead>
 
-                    </thead>
+            <tr>
+                <th>Date</th>
+                <th>Doctor</th>
+                <th>Department</th>
+                <th>Status</th>
+            </tr>
 
-                    <tbody>
+        </thead>
 
-                        <tr>
-                            <td>Jun 15, 2026</td>
-                            <td>Dr. Maria Santos</td>
-                            <td>General Medicine</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
 
-                        <tr>
-                            <td>May 30, 2026</td>
-                            <td>Dr. Juan Cruz</td>
-                            <td>Cardiology</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
+        <tbody>
 
-                        <tr>
-                            <td>Apr 18, 2026</td>
-                            <td>Dr. Ana Garcia</td>
-                            <td>Dermatology</td>
-                            <td><span class="status cancelled">Cancelled</span></td>
-                        </tr>
 
-                        <tr>
-                            <td>Jun 15, 2026</td>
-                            <td>Dr. Maria Santos</td>
-                            <td>General Medicine</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
+        {% for appointment in appointments %}
 
-                        <tr>
-                            <td>May 30, 2026</td>
-                            <td>Dr. Juan Cruz</td>
-                            <td>Cardiology</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
+            <tr>
 
-                        <tr>
-                            <td>Apr 18, 2026</td>
-                            <td>Dr. Ana Garcia</td>
-                            <td>Dermatology</td>
-                            <td><span class="status cancelled">Cancelled</span></td>
-                        </tr>
+                <td>
+                    {{ appointment.date|date:"M j, Y" }}
+                </td>
 
-                    </tbody>
 
-                </table>
-            </div>
+                <td>
+                    Dr. {{ appointment.doctor.user.get_full_name }}
+                </td>
+
+
+                <td>
+                    {{ appointment.doctor.specialization }}
+                </td>
+
+
+                <td>
+
+                    <span class="status {{ appointment.status|lower }}">
+
+                        {{ appointment.status }}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="4" class="empty-history">
+
+                    No appointment history found.
+
+                </td>
+
+            </tr>
+
+
+        {% endfor %}
+
+
+        </tbody>
+
+    </table>
+
+</div>
         </div>
 
         <!-- ==========================
      PATIENT PROFILE
 ========================== -->
+<div class="panel profile-panel">
 
-        <div class="panel profile-panel">
 
-            <div class="profile-header">
+    <div class="profile-header">
 
-                <img src="{% static 'images/default_profile.png' %}" alt="Patient">
 
-                <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+        {% if patient.profile_picture %}
 
-                <span class="profile-badge">
-                    Patient
-                </span>
+            <img 
+                src="{{ patient.profile_picture.url }}" 
+                alt="Patient"
+            >
 
-            </div>
+        {% else %}
 
-            <div class="profile-details">
+            <img 
+                src="{% static 'images/CarenestLOGO.png' %}" 
+                alt="Patient"
+            >
 
-                <div class="detail-row">
-                    <span>🆔 Patient ID</span>
-                    <strong>PT-1001</strong>
-                </div>
+        {% endif %}
 
-                <div class="detail-row">
-                    <span>📧 Email</span>
-                    <strong>{{ request.user.email }}</strong>
-                </div>
 
-                <div class="detail-row">
-                    <span>📞 Phone</span>
-                    <strong>09XX XXX XXXX</strong>
-                </div>
 
-            </div>
+        <h2>
+            {{ patient.first_name }} {{ patient.last_name }}
+        </h2>
 
-            <div class="profile-actions">
 
-                <button class="primary-btn">
-                    View Profile
-                </button>
 
-            </div>
+        <span class="profile-badge">
+            Patient
+        </span>
+
+
+    </div>
+
+
+
+
+    <div class="profile-details">
+
+
+        <div class="detail-row">
+
+            <span>
+                🆔 Patient ID
+            </span>
+
+            <strong>
+                PT-{{ patient.id|stringformat:"04d" }}
+            </strong>
 
         </div>
 
+
+
+        <div class="detail-row">
+
+            <span>
+                📧 Email
+            </span>
+
+            <strong>
+                {{ patient.user.email }}
+            </strong>
+
+        </div>
+
+
+
+        <div class="detail-row">
+
+            <span>
+                📞 Phone
+            </span>
+
+            <strong>
+                {{ patient.contact_number }}
+            </strong>
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <div class="profile-actions">
+
+        <a href="{% url 'patient_account' %}" class="primary-btn">
+            View Profile
+        </a>
+
+    </div>
+
+
+</div>
+
     </section>
 
-  
+
 
 </div>
 

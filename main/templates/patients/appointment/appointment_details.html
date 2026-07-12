@@ -1,0 +1,155 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Appointment Details
+{% endblock %}
+
+
+{% block sidebar %}
+{% include "patients/dashboard/sidebar.html" %}
+{% endblock %}
+
+
+
+
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/patient_appointment_details.css' %}">
+{% endblock %}
+
+<div class="appointment-detail-page">
+
+    <div class="appointment-detail-card">
+
+        <div class="detail-header">
+
+            <div>
+
+                <span class="detail-tag">
+                    APPOINTMENT DETAILS
+                </span>
+
+                <h1>Your Appointment</h1>
+
+                <p>Review your consultation information.</p>
+
+            </div>
+
+            <a href="{% url 'patient_appointment_list' %}" class="back-btn">
+                ← Back
+            </a>
+
+        </div>
+
+
+        <hr class="detail-divider">
+
+
+        <div class="doctor-section">
+
+          <div class="doctor-avatar">
+
+    {% if appointment.doctor.profile_picture %}
+
+        <img
+            src="{{ appointment.doctor.profile_picture.url }}"
+            alt="Dr. {{ appointment.doctor.user.get_full_name }}">
+
+    {% else %}
+
+        <img
+            src="{% static 'images/CarenestLOGO.png' %}"
+            alt="CareNest">
+
+    {% endif %}
+
+</div>
+
+            <div class="doctor-info">
+
+                <h2>
+                    Dr. {{ appointment.doctor.user.get_full_name }}
+                </h2>
+
+                <p>
+                    {{ appointment.doctor.specialization }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="details-grid">
+
+            <div class="info-box">
+
+                <span>📅 Appointment Date</span>
+
+                <strong>
+                    {{ appointment.date|date:"F j, Y" }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>🕘 Time</span>
+
+                <strong>
+                    {{ appointment.time_period }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>📌 Status</span>
+
+                <strong class="status {{ appointment.status|lower }}">
+                    {{ appointment.status }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>🩺 Reason for Visit</span>
+
+                <strong>
+                    {{ appointment.reason }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="detail-actions">
+
+            {% if appointment.status == "Pending" %}
+
+            <a href="{% url 'appointment_booking' %}?reschedule={{ appointment.id }}"
+               class="reschedule-btn">
+                Reschedule
+            </a>
+
+            {% endif %}
+
+            <a href="{% url 'patient_appointment_list' %}"
+               class="close-btn">
+                Close
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
