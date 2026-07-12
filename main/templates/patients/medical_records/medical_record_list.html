@@ -1,0 +1,197 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}Medical Records{% endblock %}
+
+{% block sidebar %}
+    {% include "patients/dashboard/sidebar.html" %}
+{% endblock %}
+
+
+
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/patient_medical_record.css' %}">
+{% endblock %}
+<div class="records-page">
+
+    <!-- Header -->
+    <div class="records-header-card">
+
+    <div class="records-header">
+
+        <div>
+            <h1>📋 Medical Records</h1>
+            <p>Your complete consultation history in one place.</p>
+        </div>
+
+        <div class="records-count">
+            <span>12</span>
+            <small>Total Records</small>
+        </div>
+
+    </div>
+
+</div>
+    <!-- Summary -->
+    <div class="summary-grid">
+
+        <div class="summary-card">
+            <div class="icon">🏥</div>
+            <h2>12</h2>
+            <p>Hospital Visits</p>
+        </div>
+
+        <div class="summary-card">
+            <div class="icon">💊</div>
+            <h2>8</h2>
+            <p>Prescriptions</p>
+        </div>
+
+        <div class="summary-card">
+            <div class="icon">🩺</div>
+            <h2>5</h2>
+            <p>Diagnoses</p>
+        </div>
+
+    </div>
+
+    <!-- Search -->
+    <div class="search-bar">
+
+        <input
+            type="text"
+            placeholder="Search doctor, diagnosis or prescription...">
+
+    </div>
+
+    <!-- Record Card -->
+
+    <div class="record-card">
+
+        <div class="record-top">
+
+            <div>
+
+                <span class="date">
+                    📅 July 10, 2026
+                </span>
+
+                <h3>Dr. John Smith</h3>
+
+                <small>Cardiology Department</small>
+
+            </div>
+
+            <span class="status">
+                ✓ Completed
+            </span>
+
+        </div>
+
+        <div class="record-body">
+
+            <div>
+
+                <h4>Diagnosis</h4>
+
+                <p>Hypertension</p>
+
+            </div>
+
+            <div>
+
+                <h4>Prescription</h4>
+
+                <p>Losartan 50mg</p>
+
+            </div>
+
+            <div>
+
+                <h4>Notes</h4>
+
+                <p>
+                    Continue medication and monitor blood pressure weekly.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="record-footer">
+
+             <a href="{% url 'patient_medical_detail' %}"
+            class="{% if request.resolver_match.url_name == 'patient_medical_detail' %}active{% endif %}">
+            View Details →
+        </a>
+
+        </div>
+
+    </div>
+
+    <!-- Record Card -->
+
+    <div class="record-card">
+
+        <div class="record-top">
+
+            <div>
+
+                <span class="date">
+                    📅 June 18, 2026
+                </span>
+
+                <h3>Dr. Maria Santos</h3>
+
+                <small>Dentistry Department</small>
+
+            </div>
+
+            <span class="status">
+                ✓ Completed
+            </span>
+
+        </div>
+
+        <div class="record-body">
+
+            <div>
+
+                <h4>Diagnosis</h4>
+
+                <p>Dental Check-up</p>
+
+            </div>
+
+            <div>
+
+                <h4>Prescription</h4>
+
+                <p>None</p>
+
+            </div>
+
+            <div>
+
+                <h4>Notes</h4>
+
+                <p>
+                    No cavities found. Follow-up after six months.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="record-footer">
+
+            <a href="#">View Details →</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

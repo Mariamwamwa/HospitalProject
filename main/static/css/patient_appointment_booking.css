@@ -1,0 +1,256 @@
+/* ==========================
+   PAGE
+========================== */
+
+.appointment-wrapper{
+
+    width:100%;
+
+    min-height:calc(100vh - 130px);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    padding:40px;
+
+    box-sizing:border-box;
+
+}
+
+
+/* ==========================
+   CARD
+========================== */
+
+.appointment-card{
+
+    width:100%;
+
+    max-width:1100px;
+
+    background:#ffffff;
+
+    padding:45px;
+
+    border-radius:24px;
+
+    box-sizing:border-box;
+
+    box-shadow:
+        0 15px 35px rgba(124,77,255,.12);
+
+}
+
+
+/* ==========================
+   HEADER
+========================== */
+
+.card-header{
+
+    margin-bottom:35px;
+
+}
+
+
+.card-header h2{
+
+    margin:0;
+
+    font-size:32px;
+
+    color:#5e35b1;
+
+}
+
+
+.card-header p{
+
+    margin-top:10px;
+
+    color:#666;
+
+}
+
+
+/* ==========================
+   FORM
+========================== */
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:25px;
+
+}
+
+
+.form-group label{
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+    color:#444;
+
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    border:1px solid #ddd;
+
+    font-size:16px;
+
+    box-sizing:border-box;
+
+}
+
+
+/* ==========================
+   DATE & TIME
+========================== */
+
+.form-row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:25px;
+
+}
+
+
+/* ==========================
+   BUTTONS
+========================== */
+
+.button-group{
+
+    margin-top:30px;
+
+}
+
+
+.book-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        135deg,
+        #7c4dff,
+        #5e35b1
+    );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+
+.view-doctor-btn{
+
+    margin-top:15px;
+
+    width:max-content;
+
+    display:inline-block;
+
+    padding:12px 25px;
+
+    border-radius:12px;
+
+    background:#f0ebff;
+
+    color:#6a35ff;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+
+.cancel-wrapper{
+
+    margin-top:20px;
+
+    text-align:center;
+
+}
+
+
+.cancel-btn{
+
+    display:inline-block;
+
+    padding:12px 35px;
+
+    border-radius:12px;
+
+    background:#f5f5f5;
+
+    color:#555;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    border:1px solid #ddd;
+
+}
+
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media(max-width:768px){
+
+    .appointment-wrapper{
+
+        padding:20px;
+
+    }
+
+
+    .appointment-card{
+
+        padding:25px;
+
+    }
+
+
+    .form-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

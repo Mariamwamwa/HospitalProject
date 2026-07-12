@@ -1,0 +1,25 @@
+{% load static %}
+<header>
+
+    <div class="brand">
+
+        <img src="{% static 'images/CarenestLOGO.png' %}" alt="CareNest Logo" class="logo">
+
+        <div class="brand-text">
+            <span class="hospital-name">CareNest Hospital</span>
+            <span class="tagline">Appointment System</span>
+        </div>
+
+    </div>
+
+    <nav class="nav-menu">
+
+        <a href="{% url 'home' %}">Home</a>
+
+        <a href="{% url 'about' %}">About</a>
+
+        <a href="{% url 'login' %}" class="login-btn">Login</a>
+
+    </nav>
+
+</header>

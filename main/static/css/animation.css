@@ -1,0 +1,88 @@
+  .bubble-nest {
+            position: absolute;
+            bottom: -150px;
+            right: 0;
+            width: 70%;
+            height: 150%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bubble-float {
+            position: absolute;
+            bottom: 0;
+            background: var(--primary-purple);
+            border-radius: 50%;
+            opacity: 0.06;
+            filter: blur(50px);
+            animation: floatUp 15s infinite ease-in-out;
+        }
+
+        .bf1 { width: 450px; height: 450px; left: 5%; animation-delay: 0s; }
+        .bf2 { width: 350px; height: 350px; right: 5%; animation-delay: 3s; }
+        .bf3 { width: 550px; height: 550px; left: 35%; animation-delay: 6s; }
+        .bf4 { width: 300px; height: 300px; left: 20%; animation-delay: 9s; opacity: 0.04; }
+        .bf5 { width: 400px; height: 400px; right: 20%; animation-delay: 12s; opacity: 0.05; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 0.08; }
+            100% { transform: translateY(-1000px) scale(1.4); opacity: 0; }
+        }
+
+        /* 2. Defined Circular Bubbles (LAYERED) */
+        .bubble-static-container {  
+            position: relative;
+            flex: 1;
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .bubble-static {
+            position: absolute;
+            background-color: var(--primary-purple);
+            border-radius: 50%;
+            opacity: 0.12;
+            animation: pulseGentle 7s infinite ease-in-out;
+        }
+
+        /* Increased count of defined bubbles */
+        .bs1 { width: 280px; height: 280px; top: 10%; right: 5%; animation-delay: 0s; }
+        .bs2 { width: 180px; height: 180px; bottom: 15%; right: 25%; animation-delay: 1s; }
+        .bs3 { width: 120px; height: 120px; top: 35%; right: 35%; animation-delay: 2s; }
+        .bs4 { width: 220px; height: 220px; bottom: 35%; right: 5%; animation-delay: 3.5s; opacity: 0.08; }
+        .bs5 { width: 90px; height: 90px; top: 20%; right: 45%; animation-delay: 5s; opacity: 0.1; }
+
+        @keyframes pulseGentle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) scale(1.08); }
+        }
+
+        .micro-bubble {
+            position: absolute;
+            background: var(--primary-purple);
+            border-radius: 50%;
+            opacity: 0.15;
+            z-index: 6;
+            animation: microFloat 5s infinite linear;
+        }
+
+        .m1 { width: 20px; height: 20px; bottom: 10%; right: 15%; animation-delay: 0s; }
+        .m2 { width: 15px; height: 15px; bottom: 20%; right: 40%; animation-delay: 2s; }
+        .m3 { width: 25px; height: 25px; bottom: 5%; right: 30%; animation-delay: 4s; }
+
+        @keyframes microFloat {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 0.2; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+
+        @media (max-width: 992px) {
+            .hero { flex-direction: column; text-align: center; height: auto; padding: 80px 5%; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .bubble-nest { width: 100%; height: 100%; }
+            .bubble-static-container { width: 100%; height: 400px; margin-top: 20px; }
+        }

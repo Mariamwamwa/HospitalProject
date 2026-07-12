@@ -1,0 +1,45 @@
+{% block sidebar %}
+
+<ul>
+
+    <li>
+        <a href="{% url 'patient_dashboard' %}"
+            class="{% if request.resolver_match.url_name == 'patient_dashboard' %}active{% endif %}">
+            Dashboard
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'patient_appointment_list' %}"
+            class="{% if request.resolver_match.url_name == 'patient_appointment_list' %}active{% endif %}">
+            My Appointments
+        </a>
+    </li>
+    <li>
+       <a href="{% url 'patient_medical_record' %}"
+            class="{% if request.resolver_match.url_name == 'patient_medical_record' %}active{% endif %}">
+            Medical Records
+        </a>
+    </li>
+
+    <li>
+        <a href="#">
+            Health Summary
+        </a>
+    </li>
+
+    <li>
+        <a href="#">
+            Account
+        </a>
+    </li>
+
+    <li>
+        <a href="#">
+            Logout
+        </a>
+    </li>
+
+</ul>
+
+{% endblock %}

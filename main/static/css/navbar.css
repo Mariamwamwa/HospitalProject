@@ -1,0 +1,43 @@
+header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #ddd0ff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+.logo{
+    width:32px;
+    height:32px;
+    object-fit:contain;
+    margin-right:8px;
+}
+.brand-text{
+    display:flex;
+    flex-direction:column;
+}
+        .hospital-name { font-size: 1.6rem; font-weight: 700; color: var(--deep-purple); letter-spacing: -0.5px; }
+        .tagline { font-size: 0.8rem; color: var(--primary-purple); font-weight: 500; margin-top: -4px; }
+
+        .nav-menu { display: flex; align-items: center; gap: 40px; }
+        .nav-menu a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        .nav-menu a:hover { color: var(--primary-purple); }
+
+        .login-btn {
+            color: var(--primary-purple) !important;
+            border: 2px solid var(--primary-purple);
+            padding: 8px 24px;
+            border-radius: 50px;
+        }
+
+        

@@ -1,0 +1,16 @@
+:root {
+            --primary-purple: #7c4dff;
+            --soft-purple: #f3f0ff;
+            --deep-purple: #4a148c;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --white: #ffffff;
+        }
+body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }

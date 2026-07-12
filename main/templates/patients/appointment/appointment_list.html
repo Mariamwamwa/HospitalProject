@@ -1,0 +1,177 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}My Appointments{% endblock %}
+
+
+{% block sidebar %}
+    {% include "patients/dashboard/sidebar.html" %}
+{% endblock %}
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/patient_appointment_list.css' %}">
+{% endblock %}
+<div class="appointments-page">
+
+    <!-- Hero -->
+    <section class="appointments-hero">
+
+        <div class="hero-text">
+            <h1>My Appointments</h1>
+            <p>Manage your upcoming and previous appointments with CareNest.</p>
+        </div>
+
+  <a href="{% url 'appointment_booking' %}" class="book-btn">
+    + Book Appointment
+</a>
+
+    </section>
+
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+
+        <div class="appointment-tabs">
+
+            <button class="tab active">
+                Upcoming
+                <span>3</span>
+            </button>
+
+            <button class="tab">
+                Completed
+                <span>12</span>
+            </button>
+
+            <button class="tab">
+                Cancelled
+                <span>1</span>
+            </button>
+
+        </div>
+
+        <div class="search-filter">
+
+            <input
+                type="text"
+                placeholder="Search appointments..."
+            >
+
+            <select>
+                <option>All Status</option>
+                <option>Confirmed</option>
+                <option>Pending</option>
+                <option>Completed</option>
+                <option>Cancelled</option>
+            </select>
+
+        </div>
+
+    </section>
+
+
+    <!-- Appointment Card -->
+
+    <div class="appointment-card">
+
+        <div class="status confirmed">
+            Confirmed
+        </div>
+
+        <div class="appointment-content">
+
+            <div class="doctor-avatar">
+                MS
+            </div>
+
+            <div class="appointment-details">
+
+                <h2>Dr. Maria Santos</h2>
+
+                <p class="specialty">
+                    Cardiology
+                </p>
+
+                <div class="appointment-meta">
+
+                    <span>📅 July 15, 2026</span>
+
+                    <span>🕘 10:00 AM</span>
+
+                    <span>📍 Room 203</span>
+
+                </div>
+
+            </div>
+
+            <div class="appointment-actions">
+
+                <a href="#" class="btn secondary-btn">
+                    View Details
+                </a>
+
+                <a href="#" class="btn primary-btn">
+                    Reschedule
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Appointment Card -->
+
+    <div class="appointment-card">
+
+        <div class="status pending">
+            Pending
+        </div>
+
+        <div class="appointment-content">
+
+            <div class="doctor-avatar">
+                JC
+            </div>
+
+            <div class="appointment-details">
+
+                <h2>Dr. James Cruz</h2>
+
+                <p class="specialty">
+                    General Medicine
+                </p>
+
+                <div class="appointment-meta">
+
+                    <span>📅 July 20, 2026</span>
+
+                    <span>🕘 2:00 PM</span>
+
+                    <span>💻 Online Consultation</span>
+
+                </div>
+
+            </div>
+
+            <div class="appointment-actions">
+
+                <a href="#" class="btn secondary-btn">
+                    View Details
+                </a>
+
+                <a href="#" class="btn danger-btn">
+                    Cancel
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+```

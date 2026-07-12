@@ -1,0 +1,623 @@
+/* ==========================================
+   APPOINTMENTS PAGE
+========================================== */
+
+.appointments-page{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:20px;
+
+}
+
+
+
+/* ==========================================
+   HERO
+========================================== */
+
+.appointments-hero{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:35px 40px;
+
+    margin-bottom:35px;
+
+    border-radius:28px;
+
+     background:#fff;
+    border:1px solid #ece8ff;
+box-shadow: 0 20px 45px rgba(124, 77, 255, 0.22);
+
+}
+
+.hero-text h1{
+
+    margin:0;
+
+    font-size:2.1rem;
+
+    color:#3d2b6f;
+
+    font-weight:700;
+
+}
+
+.hero-text p{
+
+    margin-top:10px;
+
+    color:#6b7280;
+
+    font-size:1rem;
+
+}
+
+
+
+/* ==========================================
+   BOOK BUTTON
+========================================== */
+
+.book-btn{
+
+    text-decoration:none;
+
+    background:#7c4dff;
+
+    color:white;
+
+    padding:14px 28px;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+    box-shadow:
+        0 10px 25px rgba(124,77,255,.25);
+
+}
+
+.book-btn:hover{
+
+    transform:translateY(-3px);
+
+    background:#6d3ef7;
+
+}
+
+
+
+/* ==========================================
+   FILTER BAR
+========================================== */
+
+.filter-section{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:22px 25px;
+
+    margin-bottom:30px;
+
+    border-radius:22px;
+
+        background:#fff;
+    border:1px solid #ece8ff;
+box-shadow: 0 20px 45px rgba(124, 77, 255, 0.22);
+
+}
+
+
+
+/* ==========================================
+   TABS
+========================================== */
+
+.appointment-tabs{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.tab{
+
+    border:none;
+
+    background:#f3efff;
+
+    color:#7c4dff;
+
+    padding:12px 20px;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.tab span{
+
+    margin-left:6px;
+
+    background:white;
+
+    color:#7c4dff;
+
+    padding:2px 8px;
+
+    border-radius:20px;
+
+    font-size:.8rem;
+
+}
+
+.tab:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.tab.active{
+
+    background:#7c4dff;
+
+    color:white;
+
+}
+
+.tab.active span{
+
+    background:white;
+
+    color:#7c4dff;
+
+}
+
+
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+.search-filter{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.search-filter input{
+
+    width:260px;
+
+    padding:13px 18px;
+
+    border-radius:14px;
+
+    border:1px solid #e4defd;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.search-filter input:focus{
+
+    border-color:#7c4dff;
+
+    box-shadow:
+        0 0 0 4px rgba(124,77,255,.10);
+
+}
+
+.search-filter select{
+
+    padding:13px 18px;
+
+    border-radius:14px;
+
+    border:1px solid #e4defd;
+
+    outline:none;
+
+    cursor:pointer;
+
+}
+/* ==========================================
+   APPOINTMENT CARD
+========================================== */
+
+.appointment-card{
+
+    position:relative;
+
+    background:#ffffff;
+
+    border-radius:24px;
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    border:1px solid #ece8ff;
+
+    box-shadow:
+        0 12px 30px rgba(124,77,255,.10);
+
+    transition:.35s ease;
+
+    overflow:hidden;
+
+}
+
+.appointment-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 22px 45px rgba(124,77,255,.18);
+
+}
+
+
+/* Decorative gradient */
+
+.appointment-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:6px;
+    height:100%;
+
+    background:linear-gradient(
+        to bottom,
+        #7c4dff,
+        #b794f6
+    );
+
+}
+
+
+/* ==========================================
+   STATUS BADGE
+========================================== */
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    font-size:.85rem;
+
+    font-weight:700;
+
+    margin-bottom:25px;
+
+}
+
+.confirmed{
+
+    background:#e8f8ef;
+
+    color:#1d9b5d;
+
+}
+
+.pending{
+
+    background:#fff5d9;
+
+    color:#c68600;
+
+}
+
+.completed{
+
+    background:#e8f2ff;
+
+    color:#2d6cdf;
+
+}
+
+.cancelled{
+
+    background:#ffe9e9;
+
+    color:#d83a3a;
+
+}
+
+
+/* ==========================================
+   CARD LAYOUT
+========================================== */
+
+.appointment-content{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:30px;
+
+}
+
+
+/* ==========================================
+   DOCTOR AVATAR
+========================================== */
+
+.doctor-avatar{
+
+    width:75px;
+
+    height:75px;
+
+    min-width:75px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:linear-gradient(
+        135deg,
+        #7c4dff,
+        #9f7aea
+    );
+
+    color:white;
+
+    font-size:1.3rem;
+
+    font-weight:700;
+
+    box-shadow:
+        0 10px 25px rgba(124,77,255,.20);
+
+}
+
+
+/* ==========================================
+   DETAILS
+========================================== */
+
+.appointment-details{
+
+    flex:1;
+
+}
+
+.appointment-details h2{
+
+    margin:0;
+
+    font-size:1.45rem;
+
+    color:#2d2d2d;
+
+}
+
+.specialty{
+
+    margin:8px 0 18px;
+
+    color:#7b7b7b;
+
+    font-size:.98rem;
+
+}
+
+.appointment-meta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+
+}
+
+.appointment-meta span{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    color:#555;
+
+    font-size:.95rem;
+
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.appointment-actions{
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+.btn{
+
+    text-decoration:none;
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.primary-btn{
+
+    background:#7c4dff;
+
+    color:white;
+
+    box-shadow:
+        0 10px 20px rgba(124,77,255,.18);
+
+}
+
+.primary-btn:hover{
+
+    background:#6c3df2;
+
+    transform:translateY(-2px);
+
+}
+
+.secondary-btn{
+
+    background:#f4f1ff;
+
+    color:#7c4dff;
+
+}
+
+.secondary-btn:hover{
+
+    background:#ebe5ff;
+
+}
+
+.danger-btn{
+
+    background:#ffe8e8;
+
+    color:#d83a3a;
+
+}
+
+.danger-btn:hover{
+
+    background:#ffdada;
+
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:900px){
+
+    .appointment-content{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .appointment-actions{
+
+        width:100%;
+
+    }
+
+    .appointment-actions .btn{
+
+        flex:1;
+
+        text-align:center;
+
+    }
+
+}
+
+
+@media(max-width:700px){
+
+    .appointments-hero{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+    .filter-section{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    .appointment-tabs{
+
+        overflow:auto;
+
+    }
+
+    .search-filter{
+
+        flex-direction:column;
+
+    }
+
+    .search-filter input,
+    .search-filter select{
+
+        width:100%;
+
+    }
+
+}

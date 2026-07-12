@@ -1,0 +1,112 @@
+.login-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(180deg,#ffffff,#f7f4ff);
+    padding:20px;
+}
+
+.login-card{
+    width:420px;
+    background:#fff;
+    padding:45px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(124,77,255,.12);
+}
+
+.login-card h1{
+    color:#4a148c;
+    margin-bottom:10px;
+    text-align:center;
+}
+
+.login-card p{
+    color:#636e72;
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+.form-group input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+    box-sizing:border-box;
+}
+
+.form-group input:focus{
+    outline:none;
+    border-color:#7c4dff;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#7c4dff;
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#6936ff;
+}
+.login-links{
+    margin-top:25px;
+    text-align:center;
+}
+
+.login-links p{
+    margin:18px 0 10px;
+    color:#666;
+    font-size:14px;
+}
+
+.forgot-link{
+    text-decoration: none;
+    display:inline-block;
+    color:#7c4dff;
+    text-decoration:none;
+    font-weight:600;
+    margin-top: 10px;
+    margin-bottom:10px;
+}
+
+.forgot-link:hover{
+    text-decoration:underline;
+}
+
+.register-link{
+    display:inline-block;
+    width:100%;
+    padding:14px;
+    margin-top:8px;
+    border:2px solid #7c4dff;
+    border-radius:12px;
+    color:#7c4dff;
+    text-decoration:none;
+    font-weight:700;
+    transition:.3s;
+    box-sizing:border-box;
+}
+
+.register-link:hover{
+    background:#7c4dff;
+    color:#fff;
+}

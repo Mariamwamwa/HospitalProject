@@ -1,0 +1,225 @@
+:root{
+    --header-height:70px;
+    --footer-height:70px;
+    --sidebar-width:260px;
+
+    --primary-purple:#7c4dff;
+    --soft-purple:#f3f0ff;
+    --deep-purple:#4a148c;
+    --text-main:#2d3436;
+    --text-muted:#636e72;
+    --white:#ffffff;
+}
+
+/* ================= GLOBAL ================= */
+
+body{
+    margin:0;
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:#fafaff;
+    color:var(--text-main);
+
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* ================= HEADER ================= */
+
+.dashboard-header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 30px;
+
+    background:var(--white);
+    border-bottom:1px solid #ddd0ff;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.menu-btn{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:10px;
+    background:var(--soft-purple);
+    color:var(--primary-purple);
+    font-size:24px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.menu-btn:hover{
+    background:var(--primary-purple);
+    color:var(--white);
+}
+
+/* ================= BRAND ================= */
+
+        .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+.logo{
+    width:32px;
+    height:32px;
+    object-fit:contain;
+    margin-right:8px;
+}
+.brand-text{
+    display:flex;
+    flex-direction:column;
+}
+        .hospital-name { font-size: 1.6rem; font-weight: 700; color: var(--deep-purple); letter-spacing: -0.5px; }
+        .tagline { font-size: 0.8rem; color: var(--primary-purple); font-weight: 500; margin-top: -4px; }
+
+
+/* ================= USER ================= */
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:16px;
+}
+
+.welcome-text{
+    color:var(--text-muted);
+}
+
+.user-name{
+    font-weight:700;
+    color:var(--primary-purple);
+}
+
+/* ================= MAIN ================= */
+.dashboard-content{
+    padding:30px;
+    transition:margin-left .3s ease;
+    background:#eee9ff;
+}
+/* ================= FOOTER ================= */
+.dashboard-content.shift{
+    margin-left:260px;
+}
+.dashboard-footer{
+    height:70px;
+    background:var(--deep-purple);
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    flex-shrink:0;
+     z-index:1000;
+
+}
+/* ================= SIDEBAR ================= */
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    top:var(--header-height);
+    left:calc(var(--sidebar-width) * -1);
+
+    width:var(--sidebar-width);
+    height:calc(100vh - var(--header-height));
+
+    overflow-y:auto;
+
+    background:var(--white);
+    border-right:1px solid #ece8ff;
+    box-shadow:4px 0 15px rgba(0,0,0,.08);
+
+    transition:left .3s ease;
+    z-index:999;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+/* Menu */
+
+.sidebar ul{
+    list-style:none;
+    margin:0;
+    padding:20px 15px;
+}
+
+.sidebar li{
+    margin-bottom:12px;
+}
+
+/* Buttons */
+
+.sidebar a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:14px 18px;
+
+    background:#faf7ff;              /* Softer light purple */
+    color:var(--primary-purple);
+    text-decoration:none;
+    font-weight:600;
+    font-size:15px;
+
+    border:2px solid #d9c9ff;        /* Light purple border */
+    border-radius:14px;
+
+    transition:all .25s ease;
+}
+
+/* Hover */
+
+.sidebar a:hover{
+    background:var(--soft-purple);
+    color:var(--deep-purple);
+    border-color:var(--deep-purple);
+    transform:translateX(5px);
+}
+
+/* Active / Current Page */
+
+.sidebar a.active{
+    background:var(--primary-purple);
+    color:var(--white);
+    border-color:var(--primary-purple);
+    box-shadow:0 6px 15px rgba(124,77,255,.25);
+}
+
+/* Click Animation */
+
+.sidebar a:active{
+    transform:scale(.98);
+}
+
+.sidebar-title{
+    padding:30px 18px 20px;
+    margin-bottom:8px;
+    text-align:center;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+
+    color:var(--deep-purple);
+
+    border-bottom:2px solid #e9ddff;
+}
