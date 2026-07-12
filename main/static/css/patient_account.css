@@ -1,0 +1,886 @@
+/* ==========================================
+   ACCOUNT PAGE
+========================================== */
+
+.account-page{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:20px;
+
+}
+
+
+/* ==========================================
+   HERO
+========================================== */
+
+.account-hero{
+  display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:40px;
+    background:#fff;
+
+    border:1px solid #ece8ff;
+
+    border-radius:28px;
+
+    padding:30px 40px;
+
+    margin-bottom:35px;
+
+    box-shadow:0 20px 45px rgba(124,77,255,.22);
+
+}
+
+.hero-profile{
+
+     display:flex;
+
+    align-items:center;
+
+    gap:28px;
+
+    margin-left:60px;
+}
+
+.hero-profile img{
+
+    width:110px;
+
+    height:110px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:5px solid #f3efff;
+
+    box-shadow:0 12px 28px rgba(124,77,255,.18);
+
+    transition:.3s;
+
+}
+
+.hero-profile img:hover{
+
+    transform:scale(1.05);
+
+}
+
+.hero-info{
+
+     display:flex;
+
+    flex-direction:column;
+
+    margin-left:45px;
+}
+
+.hero-badge{
+
+    display:inline-block;
+
+    width:fit-content;
+
+    padding:8px 18px;
+
+    margin-bottom:14px;
+
+    border-radius:30px;
+
+    background:#f3efff;
+
+    color:#7c4dff;
+
+    font-size:.9rem;
+
+    font-weight:700;
+
+    border:1px solid #e4dcff;
+
+}
+
+.hero-info h1{
+
+    margin:0;
+
+    color:#3d2b6f;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+}
+
+.hero-username{
+
+    margin:10px 0 4px;
+
+    color:#7c4dff;
+
+    font-weight:700;
+
+    font-size:1rem;
+
+}
+
+.hero-id{
+
+    margin:0;
+
+    color:#777;
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+} 
+.hero-actions{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:stretch;
+
+    gap:15px;
+
+    min-width:220px;
+
+}
+
+.hero-actions a{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:14px 20px;
+
+    border-radius:14px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.hero-actions .primary-btn{
+
+    background:#7c4dff;
+
+    color:#fff;
+
+    box-shadow:0 12px 25px rgba(124,77,255,.20);
+
+}
+
+.hero-actions .primary-btn:hover{
+
+    background:#6c3df2;
+
+    transform:translateY(-3px);
+
+}
+
+.hero-actions .secondary-btn{
+
+    background:#f3efff;
+
+    color:#7c4dff;
+
+    border:1px solid #e5dcff;
+
+}
+
+.hero-actions .secondary-btn:hover{
+
+    background:#ece5ff;
+
+    transform:translateY(-3px);
+
+}
+
+/* ==========================================
+   GRID
+========================================== */
+
+.account-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:25px;
+
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.account-card{
+
+    position:relative;
+
+    background:#fff;
+
+    border-radius:24px;
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    border:1px solid #ece8ff;
+
+    box-shadow:
+        0 12px 30px rgba(124,77,255,.10);
+
+    transition:.35s;
+
+    overflow:hidden;
+
+}
+
+.account-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 22px 45px rgba(124,77,255,.18);
+
+}
+
+.account-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:6px;
+
+    height:100%;
+
+    background:linear-gradient(
+        to bottom,
+        #7c4dff,
+        #b794f6
+    );
+
+}
+
+/* ==========================================
+   CARD TITLE
+========================================== */
+
+.account-card h2{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:0;
+
+    padding-bottom:16px;
+
+    margin-bottom:24px;
+
+    font-size:1.3rem;
+
+    color:#3d2b6f;
+
+    border-bottom:2px solid #d6c8ff;
+
+}
+
+.account-card h2::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-2px;
+
+    width:70px;
+
+    height:4px;
+
+    border-radius:20px;
+
+    background:#7c4dff;
+
+}
+
+.account-card h2 i{
+
+    color:#7c4dff;
+
+}
+
+/* ==========================================
+   INFO ITEM
+========================================== */
+
+.info-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px 0;
+
+    border-bottom:1px solid #f1edff;
+
+}
+
+.info-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.info-item span{
+
+    color:#777;
+
+    font-size:.95rem;
+
+}
+
+.info-item strong{
+
+    color:#333;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   ADDRESS
+========================================== */
+
+.account-card p{
+
+    margin:0;
+
+    color:#555;
+
+    line-height:1.8;
+
+}
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.account-actions{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.account-actions a{
+
+    text-decoration:none;
+
+    text-align:center;
+
+    padding:15px 20px;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.primary-btn{
+
+    background:#7c4dff;
+
+    color:#fff;
+
+    box-shadow:
+        0 12px 25px rgba(124,77,255,.20);
+
+}
+
+.primary-btn:hover{
+
+    background:#6c3df2;
+
+    transform:translateY(-3px);
+
+}
+
+.secondary-btn{
+
+    background:#f3efff;
+
+    color:#7c4dff;
+
+    border:1px solid #e5dcff;
+
+}
+
+.secondary-btn:hover{
+
+    background:#ece5ff;
+
+    transform:translateY(-3px);
+
+}
+
+.account-actions i{
+
+    margin-right:8px;
+
+}
+
+/* ==========================================
+   PROFILE IMAGE HOVER
+========================================== */
+
+.hero-profile img{
+
+    transition:.35s;
+
+}
+
+.hero-profile img:hover{
+
+    transform:scale(1.05);
+
+}
+/* ==========================================
+   PROFILE PICTURE
+========================================== */
+
+.profile-picture{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:12px;
+
+    min-width:110px;
+
+}
+
+.edit-photo-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    background:#f8f5ff;
+
+    color:#7c4dff;
+
+    text-decoration:none;
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+    border:1px solid #e5dcff;
+
+    transition:.3s;
+
+}
+
+.edit-photo-btn:hover{
+
+    background:#7c4dff;
+
+    color:#fff;
+
+    border-color:#7c4dff;
+
+    transform:translateY(-2px);
+
+}
+
+.edit-photo-btn i{
+
+    font-size:.8rem;
+
+}
+/* ==========================================
+   CARD ANIMATION
+========================================== */
+
+.account-card{
+
+    animation:fadeUp .5s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+    .account-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .account-actions{
+
+        flex-direction:row;
+
+    }
+
+    .account-actions a{
+
+        flex:1;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .account-page{
+
+        padding:15px;
+
+    }
+
+    .account-hero{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:25px;
+
+        padding:25px;
+
+    }
+
+    .hero-profile{
+
+        flex-direction:column;
+
+        align-items:center;
+
+        text-align:center;
+
+        width:100%;
+
+    }
+
+    .hero-profile img{
+
+        width:100px;
+
+        height:100px;
+
+    }
+
+    .hero-profile h1{
+
+        font-size:1.7rem;
+
+    }
+
+    .profile-progress{
+
+        width:100%;
+
+        height:auto;
+
+        padding:25px;
+
+    }
+
+    .account-card{
+
+        padding:25px;
+
+    }
+
+    .info-item{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:6px;
+
+    }
+
+    .account-actions{
+
+        flex-direction:column;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .hero-profile h1{
+
+        font-size:1.5rem;
+
+    }
+
+    .profile-progress span{
+
+        font-size:34px;
+
+    }
+
+    .account-card h2{
+
+        font-size:1.15rem;
+
+    }
+
+}.hero-username{
+
+    display:inline-block;
+
+    margin-bottom:10px;
+
+    color:#7c4dff;
+
+    font-size:.95rem;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+}
+
+.hero-id{
+
+    margin:10px 0;
+
+    color:#666;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+}
+
+.hero-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-top:8px;
+
+    padding:10px 18px;
+
+    border-radius:50px;
+
+    background:#f3efff;
+
+    color:#7c4dff;
+
+    font-weight:700;
+
+    font-size:.9rem;
+
+    border:1px solid #e4dcff;
+
+}
+
+@media(max-width:768px){
+
+    .account-hero{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .hero-actions{
+
+        width:100%;
+
+    }
+
+    .hero-actions a{
+
+        width:100%;
+
+    }
+
+}
+/* ==========================================
+   SAVE SECTION
+========================================== */
+
+.save-section{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+    gap:15px;
+
+    width:240px;
+
+    margin-top:20px;
+
+    margin-left:auto;
+
+}
+
+.save-btn,
+.cancel-btn{
+
+    width:100%;
+
+    box-sizing:border-box;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:15px 20px;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+    transition:.3s;
+}
+.save-btn{
+
+    border:none;
+
+    cursor:pointer;
+
+    background:#7c4dff;
+
+    color:#fff;
+
+    box-shadow:0 12px 28px rgba(124,77,255,.22);
+
+}
+
+.save-btn:hover{
+
+    background:#6c3df2;
+
+    transform:translateY(-2px);
+
+}
+
+.cancel-btn{
+
+    background:#f3efff;
+
+    color:#7c4dff;
+
+    border:1px solid #e5dcff;
+
+}
+
+.cancel-btn:hover{
+
+    background:#ece5ff;
+
+    transform:translateY(-2px);
+
+}
+
+@media(max-width:768px){
+
+    .save-section{
+
+        align-items:stretch;
+
+    }
+
+    .save-btn,
+    .cancel-btn{
+
+        width:100%;
+
+    }
+
+}

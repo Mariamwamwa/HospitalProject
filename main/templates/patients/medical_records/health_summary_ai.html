@@ -1,0 +1,150 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Health Summary
+{% endblock %}
+
+{% block sidebar %}
+    {% include "patients/dashboard/sidebar.html" %}
+{% endblock %}
+
+
+
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/patient_health_summary.css' %}">
+{% endblock %}
+<div class="health-page">
+
+    <!-- ===================================== -->
+    <!-- HERO -->
+    <!-- ===================================== -->
+
+    <div class="health-hero">
+
+        <div class="hero-text">
+
+            <h1>❤️ Health Summary</h1>
+
+            <p>
+                A yearly overview of your health journey, consultations,
+                and personalized wellness recommendations.
+            </p>
+
+        </div>
+
+        <div class="hero-year">
+
+            <span>2026</span>
+
+            <small>Health Report</small>
+
+        </div>
+
+    </div>
+
+    <div class="summary-card">
+
+        <h2>
+            📅 This Year's Health Summary
+        </h2>
+
+        <p>
+
+            Throughout <strong>2026</strong>, you demonstrated a proactive
+            approach to maintaining your health by attending your scheduled
+            consultations and follow-up appointments. Your visits included
+            routine check-ups, preventive healthcare, and the treatment of
+            common medical concerns. By consulting healthcare professionals
+            across different specialties, you ensured continuous monitoring
+            of your overall well-being and received timely medical care
+            whenever necessary.
+
+        </p>
+
+    </div>
+
+    <!-- ===================================== -->
+    <!-- OVERALL -->
+    <!-- ===================================== -->
+
+    <div class="summary-card">
+
+        <h2>
+            📊 Overall Summary
+        </h2>
+
+        <p>
+
+            Based on your recorded consultations, your overall health has
+            remained stable throughout the year. Most of your conditions were
+            successfully managed through medication, lifestyle advice, and
+            regular follow-up visits. No major medical complications were
+            identified during your recorded consultations. Your commitment
+            to preventive healthcare continues to contribute positively to
+            your long-term wellness.
+
+        </p>
+
+    </div>
+
+    <!-- ===================================== -->
+    <!-- RECOMMENDATIONS -->
+    <!-- ===================================== -->
+
+    <div class="summary-card">
+
+        <h2>
+            💡 Recommendations
+        </h2>
+
+        <ul>
+
+            <li>Continue attending routine annual medical check-ups.</li>
+
+            <li>Take prescribed medications exactly as directed.</li>
+
+            <li>Maintain a healthy and balanced diet.</li>
+
+            <li>Exercise regularly for at least 30 minutes most days.</li>
+
+            <li>Drink enough water throughout the day.</li>
+
+            <li>Sleep 7–9 hours every night.</li>
+
+            <li>Reduce stress through healthy daily activities.</li>
+
+            <li>Seek medical attention whenever unusual symptoms appear.</li>
+
+        </ul>
+
+    </div>
+
+    <!-- ===================================== -->
+    <!-- QUOTE -->
+    <!-- ===================================== -->
+
+    <div class="quote-card">
+
+        <div class="quote-icon">
+            ❤️
+        </div>
+
+        <blockquote>
+
+            "Good health is built through consistent care, healthy habits,
+            and regular medical check-ups. Every small step you take today
+            contributes to a healthier tomorrow."
+
+        </blockquote>
+
+        <span>
+            — CareNest Wellness Reminder
+        </span>
+
+    </div>
+
+</div>
+
+{% endblock %}

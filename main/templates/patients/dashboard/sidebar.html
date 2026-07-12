@@ -23,22 +23,25 @@
     </li>
 
     <li>
-        <a href="#">
+        <a href="{% url 'patient_health_summary' %}"
+            class="{% if request.resolver_match.url_name == 'patient_health_summary' %}active{% endif %}">
             Health Summary
         </a>
     </li>
 
     <li>
-        <a href="#">
+        <a href="{% url 'patient_account' %}"
+            class="{% if request.resolver_match.url_name == 'patient_account' %}active{% endif %}">
             Account
         </a>
     </li>
 
     <li>
-        <a href="#">
-            Logout
-        </a>
-    </li>
+    <a href="#" onclick="confirmLogout(event)">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </a>
+</li>
 
 </ul>
 

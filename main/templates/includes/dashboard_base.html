@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/dashboard_base.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -85,6 +86,28 @@ menuButton.addEventListener("click", () => {
 
 });
 </script>
+<script>
+function confirmLogout(event){
+    event.preventDefault();
+
+    Swal.fire({
+        title: 'Logout?',
+        text: 'Are you sure you want to logout?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#7c4dff',
+        cancelButtonColor: '#9ca3af',
+        confirmButtonText: 'Yes, Logout',
+        cancelButtonText: 'No',
+        reverseButtons: true,
+        backdrop: true
+    }).then((result) => {
+        if(result.isConfirmed){
+            window.location.href = "{% url 'home' %}";
+        }
+    });
+}
+</script>   
 </body>
 
 </html>

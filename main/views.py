@@ -260,3 +260,7 @@ def patient_medical_record(request):
     return render(request, "patients/medical_records/medical_record_list.html")
 def patient_medical_detail(request):
     return render(request, "patients/medical_records/medical_record_detail.html")
+def patient_health_summary(request):
+    return render(request, "patients/medical_records/health_summary_ai.html")
+def patient_account(request):
+    return render(request, "patients/patient_details/patient_account.html")

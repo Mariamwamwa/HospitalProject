@@ -1,0 +1,409 @@
+/* ==========================================
+   HEALTH SUMMARY PAGE
+========================================== */
+
+.health-page{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:20px;
+
+}
+
+/* ==========================================
+   HERO
+========================================== */
+
+.health-hero{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:35px 40px;
+
+    margin-bottom:35px;
+
+    border-radius:28px;
+
+    background:#fff;
+
+    border:1px solid #ece8ff;
+
+    box-shadow:0 20px 45px rgba(124,77,255,.22);
+
+}
+
+.hero-text h1{
+
+    margin:0;
+
+    font-size:2.1rem;
+
+    color:#3d2b6f;
+
+    font-weight:700;
+
+}
+
+.hero-text p{
+
+    margin-top:10px;
+
+    color:#6b7280;
+
+    line-height:1.7;
+
+    max-width:700px;
+
+}
+
+.hero-year{
+
+    width:140px;
+
+    height:140px;
+
+    border-radius:24px;
+
+    background:linear-gradient(
+        135deg,
+        #7c4dff,
+        #9f7aea
+    );
+
+    color:#fff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    box-shadow:0 15px 35px rgba(124,77,255,.25);
+
+}
+
+.hero-year span{
+
+    font-size:42px;
+
+    font-weight:700;
+
+}
+
+.hero-year small{
+
+    margin-top:8px;
+
+    opacity:.9;
+
+}
+
+/* ==========================================
+   SUMMARY CARD
+========================================== */
+
+.summary-card{
+
+    position:relative;
+
+    background:#fff;
+
+    border-radius:24px;
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    border:1px solid #ece8ff;
+
+    box-shadow:0 12px 30px rgba(124,77,255,.10);
+
+    overflow:hidden;
+
+    transition:.35s;
+
+}
+
+.summary-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 22px 45px rgba(124,77,255,.18);
+
+}
+
+.summary-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:6px;
+
+    height:100%;
+
+    background:linear-gradient(
+        to bottom,
+        #7c4dff,
+        #b794f6
+    );
+
+}
+
+.summary-card h2{
+
+    margin:0;
+
+    padding-bottom:16px;
+
+    margin-bottom:22px;
+
+    font-size:1.35rem;
+
+    color:#3d2b6f;
+
+    border-bottom:2px solid #d8ccff;
+
+    position:relative;
+
+}
+
+.summary-card h2::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-2px;
+
+    width:70px;
+
+    height:4px;
+
+    border-radius:20px;
+
+    background:#7c4dff;
+
+}
+
+.summary-card p{
+
+    margin:0;
+
+    color:#555;
+
+    line-height:1.9;
+
+    text-align:justify;
+
+}
+
+/* ==========================================
+   RECOMMENDATIONS
+========================================== */
+
+.summary-card ul{
+
+    margin:0;
+
+    padding:0;
+
+    list-style:none;
+
+}
+
+.summary-card li{
+
+    position:relative;
+
+    padding:14px 0 14px 40px;
+
+    border-bottom:1px solid #f1edff;
+
+    color:#555;
+
+    line-height:1.6;
+
+}
+
+.summary-card li:last-child{
+
+    border-bottom:none;
+
+}
+
+.summary-card li::before{
+
+    content:"✓";
+
+    position:absolute;
+
+    left:0;
+
+    top:12px;
+
+    width:24px;
+
+    height:24px;
+
+    border-radius:50%;
+
+    background:#7c4dff;
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+/* ==========================================
+   QUOTE CARD
+========================================== */
+
+.quote-card{
+
+    background:linear-gradient(
+        135deg,
+        #7c4dff,
+        #5e35b1
+    );
+
+    color:#fff;
+
+    border-radius:28px;
+
+    padding:40px;
+
+    margin-top:30px;
+
+    text-align:center;
+
+    box-shadow:0 20px 45px rgba(124,77,255,.25);
+
+}
+
+.quote-icon{
+
+    font-size:48px;
+
+    margin-bottom:20px;
+
+}
+
+.quote-card blockquote{
+
+    margin:0 auto;
+
+    max-width:800px;
+
+    font-size:1.25rem;
+
+    line-height:1.9;
+
+    font-style:italic;
+
+    font-weight:500;
+
+}
+
+.quote-card span{
+
+    display:block;
+
+    margin-top:25px;
+
+    opacity:.9;
+
+    font-size:.95rem;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:900px){
+
+    .health-hero{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:25px;
+
+    }
+
+    .hero-year{
+
+        width:100%;
+
+        height:auto;
+
+        padding:25px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .health-page{
+
+        padding:15px;
+
+    }
+
+    .health-hero{
+
+        padding:25px;
+
+    }
+
+    .summary-card{
+
+        padding:25px;
+
+    }
+
+    .quote-card{
+
+        padding:30px 25px;
+
+    }
+
+    .hero-text h1{
+
+        font-size:1.8rem;
+
+    }
+
+    .quote-card blockquote{
+
+        font-size:1.05rem;
+
+    }
+
+}
