@@ -1,0 +1,48 @@
+{% block sidebar %}
+
+<ul>
+
+    <li>
+        <a href="{% url 'doctor_dashboard' %}"
+            class="{% if request.resolver_match.url_name == 'doctor_dashboard' %}active{% endif %}">
+             Dashboard
+        </a>
+    </li>
+
+    <li>
+         <a href="{% url 'doctor_appointments' %}"
+            class="{% if request.resolver_match.url_name == 'doctor_appointments' %}active{% endif %}">
+            Appointment
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            
+            Patient
+        </a>
+    </li>
+
+    <li>
+         <a href="#">
+            
+            Medical Records
+        </a>
+    </li>
+<li>
+         <a href="{% url 'doctor_schedule' %}"
+            class="{% if request.resolver_match.url_name == 'doctor_schedule' %}active{% endif %}">
+            Schedule
+        </a>
+    </li>
+
+
+    <li>
+    <a href="#" onclick="confirmLogout(event)">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </a>
+</li>
+
+</ul>
+
+{% endblock %}

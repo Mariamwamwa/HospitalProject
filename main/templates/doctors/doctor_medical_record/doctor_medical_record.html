@@ -1,0 +1,138 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Medical Record
+{% endblock %}
+
+{% block sidebar %}
+{% include "doctors/dashboard/sidebar.html" %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/doctor_medical_record.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="medical-record-page">
+
+    <div class="page-header">
+        <h2>Medical Record</h2>
+        <a href="{% url 'doctor_appointments' %}" class="back-btn">
+            ← Back to Appointments
+        </a>
+    </div>
+
+    <!-- Patient Information -->
+    <div class="record-card">
+
+        <h3>Patient Information</h3>
+
+        <div class="info-grid">
+
+            <div class="info-item">
+                <label>Patient</label>
+                <p>{{ record.patient.user.get_full_name }}</p>
+            </div>
+
+            <div class="info-item">
+                <label>Doctor</label>
+                <p>{{ record.doctor.user.get_full_name }}</p>
+            </div>
+
+            <div class="info-item">
+                <label>Visit Date</label>
+                <p>{{ record.visit_date }}</p>
+            </div>
+
+            {% if record.appointment %}
+            <div class="info-item">
+                <label>Appointment Date</label>
+                <p>{{ record.appointment.date }}</p>
+            </div>
+
+            <div class="info-item">
+                <label>Appointment Time</label>
+                <p>{{ record.appointment.start_time }} - {{ record.appointment.end_time }}</p>
+            </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- Diagnosis -->
+    <div class="record-card">
+
+        <h3>Diagnosis</h3>
+
+        <div class="record-box">
+            {{ record.diagnosis|linebreaks }}
+        </div>
+
+    </div>
+
+    <!-- Prescription -->
+    <div class="record-card">
+
+        <h3>Prescription Notes</h3>
+
+        <div class="record-box">
+            {{ record.prescription|linebreaks }}
+        </div>
+
+    </div>
+
+    <!-- Detailed Prescription -->
+    {% if prescription %}
+    <div class="record-card">
+
+        <h3>Medication Details</h3>
+
+        <table class="prescription-table">
+
+            <tr>
+                <th>Medication</th>
+                <td>{{ prescription.medication_name }}</td>
+            </tr>
+
+            <tr>
+                <th>Dosage</th>
+                <td>{{ prescription.dosage }}</td>
+            </tr>
+
+            <tr>
+                <th>Frequency</th>
+                <td>{{ prescription.frequency }}</td>
+            </tr>
+
+            <tr>
+                <th>Instructions</th>
+                <td>{{ prescription.instructions|default:"None" }}</td>
+            </tr>
+
+            <tr>
+                <th>Issued Date</th>
+                <td>{{ prescription.issued_date }}</td>
+            </tr>
+
+        </table>
+
+    </div>
+    {% endif %}
+
+    <!-- Doctor Notes -->
+    <div class="record-card">
+
+        <h3>Doctor's Notes</h3>
+
+        <div class="record-box">
+            {{ record.notes|default:"No additional notes."|linebreaks }}
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,288 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+
+{% block title %}
+My Appointments
+{% endblock %}
+
+
+
+{% block sidebar %}
+{% include "doctors/dashboard/sidebar.html" %}
+{% endblock %}
+
+
+
+{% block content %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/doctor_appointment_list.css' %}">
+{% endblock %}
+
+
+
+<div class="appointments-page">
+
+
+
+<section class="appointments-header">
+    
+
+<div>
+
+<h1>
+My Appointments
+</h1>
+
+
+<p>
+View and manage your scheduled patient consultations.
+</p>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+<!-- SEARCH -->
+
+<form method="GET" class="appointment-search">
+
+
+<input 
+type="text"
+name="search"
+placeholder="Search patient..."
+>
+
+
+<select name="status">
+
+
+<option value="">
+All Status
+</option>
+
+
+<option value="Pending">
+Pending
+</option>
+
+
+<option value="Confirmed">
+Confirmed
+</option>
+
+
+<option value="Completed">
+Completed
+</option>
+
+
+<option value="Cancelled">
+Cancelled
+</option>
+
+
+</select>
+
+
+
+<button type="submit">
+Search
+</button>
+
+
+</form>
+
+
+
+
+
+
+
+
+<section class="appointment-table-card">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Patient
+</th>
+
+
+<th>
+Date
+</th>
+
+
+<th>
+Time
+</th>
+
+
+<th>
+Reason
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Action
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+{% for appointment in appointments %}
+
+
+
+<tr>
+
+
+<td>
+
+<strong>
+
+{{ appointment.patient.first_name }}
+{{ appointment.patient.last_name }}
+
+</strong>
+
+<br>
+
+{{ appointment.patient.contact_number }}
+
+</td>
+
+
+
+
+
+<td>
+
+{{ appointment.date|date:"M d, Y" }}
+
+</td>
+
+
+
+
+
+<td>
+
+{{ appointment.time_period }}
+
+</td>
+
+
+
+
+
+<td>
+
+{{ appointment.reason }}
+
+</td>
+
+
+
+
+
+
+<td>
+
+<span class="status {{ appointment.status|lower }}">
+
+{{ appointment.status }}
+
+</span>
+
+
+</td>
+
+
+
+
+
+
+<td>
+
+
+<a href="{% url 'doctor_appointment_detail' appointment.id %}" class="view-btn">
+    View
+</a>
+
+
+</td>
+
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="6" class="empty">
+
+No appointments found.
+
+</td>
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</section>
+
+
+
+
+</div>
+
+
+
+{% endblock %}

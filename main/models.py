@@ -239,22 +239,139 @@ class Receptionist(models.Model):
 # ==========================================
 class DoctorSchedule(models.Model):
 
+    DAYS = [
+        ("Monday","Monday"),
+        ("Tuesday","Tuesday"),
+        ("Wednesday","Wednesday"),
+        ("Thursday","Thursday"),
+        ("Friday","Friday"),
+        ("Saturday","Saturday"),
+        ("Sunday","Sunday"),
+    ]
+
+
     doctor = models.ForeignKey(
         Doctor,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name="weekly_schedule"
     )
 
-    day_of_week = models.CharField(max_length=10)
 
-    start_time = models.TimeField()
+    day_of_week = models.CharField(
+        max_length=10,
+        choices=DAYS
+    )
 
-    end_time = models.TimeField()
 
-    is_available = models.BooleanField(default=True)
+    morning_available = models.BooleanField(
+        default=False
+    )
+
+    morning_start = models.TimeField(
+        null=True,
+        blank=True
+    )
+
+    morning_end = models.TimeField(
+        null=True,
+        blank=True
+    )
+
+
+
+    afternoon_available = models.BooleanField(
+        default=False
+    )
+
+
+    afternoon_start = models.TimeField(
+        null=True,
+        blank=True
+    )
+
+
+    afternoon_end = models.TimeField(
+        null=True,
+        blank=True
+    )
+
 
     def __str__(self):
+
         return f"{self.doctor} - {self.day_of_week}"
 
+class DoctorDateSchedule(models.Model):
+
+
+    STATUS = [
+
+        ("AVAILABLE","Whole Day"),
+
+        ("MORNING","Morning Only"),
+
+        ("AFTERNOON","Afternoon Only"),
+
+        ("OFF","Unavailable"),
+
+    ]
+
+
+
+    doctor = models.ForeignKey(
+        Doctor,
+        on_delete=models.CASCADE,
+        related_name="date_schedule"
+    )
+
+
+
+    date = models.DateField()
+
+
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS
+    )
+
+
+
+    morning_start = models.TimeField(
+        null=True,
+        blank=True
+    )
+
+
+    morning_end = models.TimeField(
+        null=True,
+        blank=True
+    )
+
+
+
+    afternoon_start = models.TimeField(
+        null=True,
+        blank=True
+    )
+
+
+    afternoon_end = models.TimeField(
+        null=True,
+        blank=True
+    )
+
+
+
+    reason = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+
+
+    def __str__(self):
+
+        return f"{self.doctor} - {self.date}"
 
 class Appointment(models.Model):
 
@@ -302,17 +419,26 @@ class Appointment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class MedicalRecord(models.Model):
+
+    appointment = models.OneToOneField(
+        Appointment,
+        on_delete=models.CASCADE,
+        related_name="medical_record",
+        null=True,
+        blank=True
+    )
+
     patient = models.ForeignKey(
         Patient,
         on_delete=models.CASCADE,
-        related_name='medical_records'
+        related_name="medical_records"
     )
 
     doctor = models.ForeignKey(
         Doctor,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='created_records'
+        related_name="created_records"
     )
 
     diagnosis = models.TextField()
@@ -328,7 +454,10 @@ class MedicalRecord(models.Model):
     visit_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        doctor_name = self.doctor.user.get_full_name() if self.doctor else "Unknown Doctor"
+        doctor_name = (
+            self.doctor.user.get_full_name()
+            if self.doctor else "Unknown Doctor"
+        )
         return f"{self.patient.user.get_full_name()} - {doctor_name} ({self.visit_date})"
 class Prescription(models.Model):
     appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE, related_name='prescription')

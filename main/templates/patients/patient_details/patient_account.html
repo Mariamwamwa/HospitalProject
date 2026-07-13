@@ -1,9 +1,12 @@
 {% extends "includes/dashboard_base.html" %}
 {% load static %}
 
+
 {% block title %}
 My Account
 {% endblock %}
+
+
 
 {% block sidebar %}
 {% include "patients/dashboard/sidebar.html" %}
@@ -11,200 +14,686 @@ My Account
 
 
 
+
+
 {% block content %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/patient_account.css' %}">
 {% endblock %}
+
 <div class="account-page">
 
-    <!-- ========================================= -->
-    <!-- HERO -->
-    <!-- ========================================= -->
+
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+
+
+<!-- ================= HERO ================= -->
 
 <div class="account-hero">
+<h2 class="account-title">
+    <i class="fas fa-user-circle"></i>
+    Patient Account
+</h2>
 
+    <!-- PROFILE AREA -->
     <div class="hero-profile">
 
-     <div class="profile-picture">
 
-    <img src="{{ patient.profile_picture.url }}" alt="Profile Picture">
+        <div class="profile-picture">
 
-    <a href="#" class="edit-photo-btn">
-        <i class="fas fa-pen"></i>
-        Edit Photo
-    </a>
 
-</div>
-        <div class="hero-info">
+            {% if patient.profile_picture %}
 
-            <span class="hero-badge">
-                Patient Account
-            </span>
+            <img src="{{ patient.profile_picture.url }}"
+            alt="Profile Picture">
 
-            <h1>{{ patient.first_name }} {{ patient.last_name }}</h1>
+            {% else %}
 
-            <p class="hero-username">
-                @{{ request.user.username }}
-            </p>
+            <img src="{% static 'images/default.jpg' %}">
 
-            <p class="hero-id">
-                Patient ID: #{{ patient.user_id }}
-            </p>
+            {% endif %}
+
+
+
+            <label class="edit-photo-btn">
+
+                <i class="fas fa-pen"></i>
+                Edit Photo
+
+
+                <input 
+                type="file"
+                name="profile_picture"
+                accept="image/*"
+                hidden
+                onchange="this.form.submit()">
+
+
+            </label>
+
 
         </div>
 
+
+
+
+
+        <!-- NAME + EMAIL -->
+
+        <div class="hero-info">
+
+
+            <h1>
+                {{ patient.first_name }}
+                {{ patient.last_name }}
+            </h1>
+
+
+          
+ <p class="hero-id">
+
+            Patient ID:
+            #{{ patient.user_id }}
+
+        </p>
+        </div>
+
+
+
     </div>
+
+
+
+
+
+
+
+    <!-- ACCOUNT INFO -->
+
 
     <div class="hero-actions">
 
-        <a href="#" class="primary-btn">
-            <i class="fas fa-user-pen"></i>
+
+        <button
+        type="button"
+        class="primary-btn"
+        onclick="enableEdit()">
             Edit Profile
+
+        </button>
+
+
+
+
+
+        <a href="{% url 'change_password' %}"
+        class="secondary-btn">
+
+
+            <i class="fas fa-key"></i>
+
+            Change Password
+
+
         </a>
 
-        <a href="#" class="secondary-btn">
-            <i class="fas fa-key"></i>
-            Change Password
-        </a>
 
     </div>
 
+
+
 </div>
 
-    <!-- ========================================= -->
-    <!-- CONTENT -->
-    <!-- ========================================= -->
 
-    <div class="account-grid">
 
-        <!-- LEFT COLUMN -->
 
-        <div>
 
-            <div class="account-card">
 
-                <h2>
-                    <i class="fas fa-user"></i>
-                    Personal Information
-                </h2>
+<!-- ================= CONTENT ================= -->
 
-                <div class="info-item">
-                    <span>First Name</span>
-                    <strong>{{ patient.first_name }}</strong>
-                </div>
 
-                <div class="info-item">
-                    <span>Middle Name</span>
-                    <strong>{{ patient.middle_name|default:"—" }}</strong>
-                </div>
 
-                <div class="info-item">
-                    <span>Last Name</span>
-                    <strong>{{ patient.last_name }}</strong>
-                </div>
+<div class="account-grid">
 
-                <div class="info-item">
-                    <span>Date of Birth</span>
-                    <strong>{{ patient.date_of_birth }}</strong>
-                </div>
 
-                <div class="info-item">
-                    <span>Age</span>
-                    <strong>{{ patient.age }}</strong>
-                </div>
 
-                <div class="info-item">
-                    <span>Sex</span>
-                    <strong>{{ patient.sex }}</strong>
-                </div>
 
-                <div class="info-item">
-                    <span>Contact Number</span>
-                    <strong>{{ patient.contact_number }}</strong>
-                </div>
-                <div class="info-item">
-                    <span>Email Address</span>
-                    <strong>{{ patient.email }}</strong>
-                </div>
-            </div>
 
-            <div class="account-card">
+<!-- LEFT COLUMN -->
 
-                <h2>
-                    <i class="fas fa-location-dot"></i>
-                    Address
-                </h2>
 
-                <p>{{ patient.address }}</p>
+<div>
 
-            </div>
 
-        </div>
 
-        <!-- RIGHT COLUMN -->
+<div class="account-card">
 
-        <div>
 
-            <div class="account-card">
+<h2>
 
-                <h2>
-                    <i class="fas fa-heart-pulse"></i>
-                    Health Information
-                </h2>
+<i class="fas fa-user"></i>
 
-                <div class="info-item">
-                    <span>Blood Type</span>
-                    <strong>{{ patient.blood_type }}</strong>
-                </div>
+Personal Information
 
-                <div class="info-item">
-                    <span>Height</span>
-                    <strong>{{ patient.height }} cm</strong>
-                </div>
+</h2>
 
-                <div class="info-item">
-                    <span>Weight</span>
-                    <strong>{{ patient.weight }} kg</strong>
-                </div>
 
-            </div>
 
-            <div class="account-card">
 
-                <h2>
-                    <i class="fas fa-shield-halved"></i>
-                    Security
-                </h2>
 
-                <div class="info-item">
-                    <span>Password</span>
-                    <strong>••••••••••••</strong>
-                </div>
 
-                <div class="info-item">
-                    <span>Last Login</span>
-                    <strong>{{ request.user.last_login }}</strong>
-                </div>
+<div class="info-item">
 
-            </div>
+<span>
+First Name
+</span>
+
+
+<input
+type="text"
+name="first_name"
+value="{{ patient.first_name }}"
+disabled>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="info-item">
+
+<span>
+Middle Name
+</span>
+
+
+<input
+type="text"
+name="middle_name"
+value="{{ patient.middle_name|default:'' }}"
+disabled>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="info-item">
+
+<span>
+Last Name
+</span>
+
+
+<input
+type="text"
+name="last_name"
+value="{{ patient.last_name }}"
+disabled>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="info-item">
+
+<span>
+Date of Birth
+</span>
+
+
+<input
+type="date"
+name="date_of_birth"
+value="{{ patient.date_of_birth|date:'Y-m-d' }}"
+disabled>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="info-item">
+
+<span>
+Sex
+</span>
+
+
+<select 
+name="sex"
+disabled>
+
+
+{% for value,label in sex_choices %}
+
+
+<option value="{{ value }}"
+
+{% if patient.sex == value %}
+selected
+{% endif %}
+
+>
+
+{{ label }}
+
+</option>
+
+
+{% endfor %}
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="info-item">
+
+<span>
+Contact Number
+</span>
+
+
+<input
+type="text"
+name="contact_number"
+value="{{ patient.contact_number }}"
+disabled>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="info-item">
+
+<span>
+Email
+</span>
+
+
+<strong>
+
+{{ patient.email }}
+
+</strong>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="account-card">
+
+
+<h2>
+
+<i class="fas fa-location-dot"></i>
+
+Address
+
+</h2>
+
+
+
+
+<textarea
+name="address"
+disabled>{{ patient.address }}</textarea>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- RIGHT COLUMN -->
+
+
+<div>
+
+
+
+
+<div class="account-card">
+
+
+<h2>
+
+<i class="fas fa-heart-pulse"></i>
+
+Health Information
+
+</h2>
+
+
+
+
+
+
+
+<div class="info-item">
+
+<span>
+
+Blood Type
+
+</span>
+
+
+
+
+<select
+name="blood_type"
+disabled>
+
+
+{% for value,label in blood_types %}
+
+
+<option value="{{ value }}"
+
+
+{% if patient.blood_type == value %}
+selected
+{% endif %}
+
+>
+
+{{ label }}
+
+</option>
+
+
+{% endfor %}
+
+
+</select>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="info-item">
+
+<span>
+
+Height
+
+</span>
+
+
+
+<input
+type="number"
+step="0.01"
+name="height"
+value="{{ patient.height|default:'' }}"
+disabled>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="info-item">
+
+<span>
+
+Weight
+
+</span>
+
+
+
+<input
+type="number"
+step="0.01"
+name="weight"
+value="{{ patient.weight|default:'' }}"
+disabled>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="account-card">
+
+
+<h2>
+
+<i class="fas fa-shield-halved"></i>
+
+Security
+
+</h2>
+
+
+
+
+
+<div class="info-item">
+
+
+<span>
+Password
+</span>
+
+
+<strong>
+
+••••••••••••
+
+</strong>
+
+
+</div>
+
+
+
+
+
+
+<div class="info-item">
+
+
+<span>
+Last Login
+</span>
+
+
+<strong>
+
+{{ request.user.last_login }}
+
+</strong>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
 
 <div class="save-section">
- <button type="submit" class="save-btn">
-        <i class="fas fa-floppy-disk"></i>
-        Save Changes
-    </button>
-    <a href="{% url 'patient_account' %}" class="cancel-btn">
-        <i class="fas fa-xmark"></i>
-        Cancel
-    </a>
 
-   
+
+<button
+type="submit"
+class="save-btn">
+
+
+<i class="fas fa-floppy-disk"></i>
+
+Save Changes
+
+
+</button>
+
+
+
+
+
+<a href="{% url 'patient_account' %}"
+class="cancel-btn">
+
+
+<i class="fas fa-xmark"></i>
+
+Cancel
+
+
+</a>
+
+
+
 
 </div>
-        </div>
 
-    </div>
+
+
+
+
 
 </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+{% block extra_js %}
+
+<script>
+
+
+function enableEdit(){
+
+
+let fields = document.querySelectorAll(
+"input, textarea, select"
+);
+
+
+
+fields.forEach(function(field){
+
+    field.disabled = false;
+
+});
+
+
+}
+
+
+</script>
+
+
+{% endblock %}
+
+
+
+
 
 {% endblock %}

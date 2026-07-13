@@ -52,15 +52,7 @@ Health Summary
 
         <p>
 
-            Throughout <strong>2026</strong>, you demonstrated a proactive
-            approach to maintaining your health by attending your scheduled
-            consultations and follow-up appointments. Your visits included
-            routine check-ups, preventive healthcare, and the treatment of
-            common medical concerns. By consulting healthcare professionals
-            across different specialties, you ensured continuous monitoring
-            of your overall well-being and received timely medical care
-            whenever necessary.
-
+           {{ summary|linebreaks }}
         </p>
 
     </div>
@@ -69,58 +61,61 @@ Health Summary
     <!-- OVERALL -->
     <!-- ===================================== -->
 
-    <div class="summary-card">
+ <div class="summary-card">
 
-        <h2>
-            📊 Overall Summary
-        </h2>
+    <h2>
+        📊 Patient Information
+    </h2>
 
-        <p>
+    <p>
+        <strong>Name:</strong>
+        {{ patient.first_name }} {{ patient.last_name }}
+    </p>
 
-            Based on your recorded consultations, your overall health has
-            remained stable throughout the year. Most of your conditions were
-            successfully managed through medication, lifestyle advice, and
-            regular follow-up visits. No major medical complications were
-            identified during your recorded consultations. Your commitment
-            to preventive healthcare continues to contribute positively to
-            your long-term wellness.
+    <p>
+        <strong>Age:</strong>
+        {{ patient.age }} years old
+    </p>
 
-        </p>
+    <p>
+        <strong>Sex:</strong>
+        {{ patient.sex }}
+    </p>
 
-    </div>
+    <p>
+        <strong>Blood Type:</strong>
+        {{ patient.blood_type }}
+    </p>
+
+    <p>
+        <strong>Height:</strong>
+        {{ patient.height }} cm
+    </p>
+
+    <p>
+        <strong>Weight:</strong>
+        {{ patient.weight }} kg
+    </p>
+
+</div>
 
     <!-- ===================================== -->
     <!-- RECOMMENDATIONS -->
     <!-- ===================================== -->
 
-    <div class="summary-card">
+   <div class="summary-card">
 
-        <h2>
-            💡 Recommendations
-        </h2>
+    <h2>
+        💡 AI Recommendations
+    </h2>
 
-        <ul>
 
-            <li>Continue attending routine annual medical check-ups.</li>
+    <p>
+        {{ summary|linebreaks }}
+    </p>
 
-            <li>Take prescribed medications exactly as directed.</li>
 
-            <li>Maintain a healthy and balanced diet.</li>
-
-            <li>Exercise regularly for at least 30 minutes most days.</li>
-
-            <li>Drink enough water throughout the day.</li>
-
-            <li>Sleep 7–9 hours every night.</li>
-
-            <li>Reduce stress through healthy daily activities.</li>
-
-            <li>Seek medical attention whenever unusual symptoms appear.</li>
-
-        </ul>
-
-    </div>
-
+</div>
     <!-- ===================================== -->
     <!-- QUOTE -->
     <!-- ===================================== -->

@@ -1,0 +1,1004 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+
+{% block title %}
+Doctor Schedule
+{% endblock %}
+
+
+
+{% block sidebar %}
+{% include "doctors/dashboard/sidebar.html" %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/doctor_schedule.css' %}">
+{% endblock %}
+
+<div class="schedule-page">
+
+
+
+    <!-- ==============================
+HEADER
+================================ -->
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ==============================
+REGULAR WORK SCHEDULE
+================================ -->
+
+
+    <div class="schedule-card">
+
+        <div class="schedule-header">
+
+
+            <div>
+
+                <h1>
+                    Work Schedule
+                </h1>
+
+
+                <p>
+                    Manage regular availability and specific date schedules.
+                </p>
+
+
+            </div>
+
+
+        </div>
+    
+
+       
+
+        <div class="section-divider">
+            <span>Work Day Schedule</span>
+        </div>
+
+
+
+        <form method="POST">
+
+
+            {% csrf_token %}
+
+            <input type="hidden" name="action" value="regular">
+
+
+
+
+
+            <h3>
+                Working Days
+            </h3>
+
+
+
+            <div class="day-selector">
+
+
+
+                <label>
+
+                    <input type="checkbox" name="working_days" value="Monday" {% if "Monday" in working_days %} checked
+                        {% endif %}>
+
+                    Monday
+
+                </label>
+
+
+
+
+                <label>
+
+                    <input type="checkbox" name="working_days" value="Tuesday" {% if "Tuesday" in working_days %}
+                        checked {% endif %}>
+
+                    Tuesday
+
+                </label>
+
+
+
+
+
+                <label>
+
+                    <input type="checkbox" name="working_days" value="Wednesday" {% if "Wednesday" in working_days %}
+                        checked {% endif %}>
+
+                    Wednesday
+
+                </label>
+
+
+
+
+
+                <label>
+
+                    <input type="checkbox" name="working_days" value="Thursday" {% if "Thursday" in working_days %}
+                        checked {% endif %}>
+
+                    Thursday
+
+                </label>
+
+
+
+
+
+                <label>
+
+                    <input type="checkbox" name="working_days" value="Friday" {% if "Friday" in working_days %} checked
+                        {% endif %}>
+
+                    Friday
+
+                </label>
+
+
+
+
+
+                <label>
+
+                    <input type="checkbox" name="working_days" value="Saturday" {% if "Saturday" in working_days %}
+                        checked {% endif %}>
+
+                    Saturday
+
+                </label>
+
+
+
+
+
+                <label>
+
+                    <input type="checkbox" name="working_days" value="Sunday" {% if "Sunday" in working_days %} checked
+                        {% endif %}>
+
+                    Sunday
+
+                </label>
+
+
+
+            </div>
+
+
+
+
+
+
+
+            <div class="section-divider">
+                <span>Time Schedule</span>
+            </div>
+
+            <div class="time-grid">
+
+                <!-- MORNING -->
+                <div class="time-section">
+
+                    <h3>Morning Time</h3>
+
+                    <div class="time-inputs">
+                        <input type="time" name="regular_morning_start" step="1800" value="{{ regular_morning_start }}">
+
+                        <span>-</span>
+
+                        <input type="time" name="regular_morning_end" step="1800" value="{{ regular_morning_end }}">
+                    </div>
+
+                </div>
+
+                <!-- AFTERNOON -->
+                <div class="time-section">
+
+                    <h3>Afternoon Time</h3>
+
+                    <div class="time-inputs">
+                        <input type="time" name="regular_afternoon_start" step="1800"
+                            value="{{ regular_afternoon_start }}">
+
+                        <span>-</span>
+
+                        <input type="time" name="regular_afternoon_end" step="1800" value="{{ regular_afternoon_end }}">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="button-center">
+                <button class="save-btn">
+                    Save Regular Schedule
+                </button>
+            </div>
+
+
+
+
+        </form>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ==============================
+CALENDAR + ADD SCHEDULE
+================================ -->
+
+
+
+    <div class="schedule-layout">
+
+
+
+
+
+        <!-- CALENDAR -->
+
+
+        <div class="schedule-card">
+
+
+
+            
+
+
+
+<div class="calendar-header">           
+    <h3>{{ current_month }} {{ current_year }}</h3>
+</div>
+      <div class="section-divider">
+                <span>PERSONAL SCHEDULE</span>
+            </div>
+
+            <div class="calendar-week">
+
+
+                <span>
+                    Sun
+                </span>
+
+
+                <span>
+                    Mon
+                </span>
+
+
+                <span>
+                    Tue
+                </span>
+
+
+                <span>
+                    Wed
+                </span>
+
+
+                <span>
+                    Thu
+                </span>
+
+
+                <span>
+                    Fri
+                </span>
+
+
+                <span>
+                    Sat
+                </span>
+
+
+
+            </div>
+
+
+
+
+
+
+
+            <div class="calendar-days">
+
+
+
+                {% for day in calendar_days %}
+
+{% if day.date %}
+<div
+    class="calendar-day
+    {% if day.status == 'AVAILABLE' %}available
+    {% elif day.status == 'MORNING' %}morning-only
+    {% elif day.status == 'AFTERNOON' %}afternoon-only
+    {% elif day.status == 'OFF' %}day-off
+    {% endif %}"
+    data-date="{{ day.date|date:'Y-m-d' }}"
+    data-display="{{ day.date|date:'F j, Y' }}"
+    onclick="selectDate(this)"
+>
+    <span>{{ day.number }}</span>
+
+    {% if day.status %}
+        <small>{{ day.status }}</small>
+    {% endif %}
+</div>
+{% else %}
+<div class="calendar-day empty"></div>
+{% endif %}
+
+{% endfor %}
+
+
+
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ADD SCHEDULE -->
+
+
+        <form method="POST" class="schedule-card">
+
+
+
+            {% csrf_token %}
+
+
+            <input type="hidden" name="action" value="date">
+
+
+
+            <input type="hidden" name="selected_date" id="selected_date">
+
+
+
+
+            <h2>
+                Add Schedule
+            </h2>
+
+
+
+
+            <h3 id="selectedDateTitle">
+
+                Select Date
+
+            </h3>
+
+
+
+            <p id="selectedDateText">
+
+                Click a date from calendar.
+
+            </p>
+
+
+
+
+
+
+
+            <div class="availability-options">
+
+
+
+                <label>
+
+
+                    <input type="radio" name="status" value="AVAILABLE" checked>
+
+
+                    🟢 Whole Day
+
+
+                </label>
+
+
+
+
+
+                <label>
+
+
+                    <input type="radio" name="status" value="MORNING">
+
+
+                    🟠 Morning Only
+
+
+                </label>
+
+
+
+
+
+                <label>
+
+
+                    <input type="radio" name="status" value="AFTERNOON">
+
+
+                    🔵 Afternoon Only
+
+
+                </label>
+
+
+
+
+
+                <label>
+
+
+                    <input type="radio" name="status" value="OFF">
+
+
+                    ⚪ Not Available
+
+
+                </label>
+
+
+
+
+
+            </div>
+
+
+            <!-- MORNING TIME -->
+
+            <div class="time-section">
+
+
+                <h3>
+                    Morning Time
+                </h3>
+
+
+                <div class="time-inputs">
+
+
+                    <div>
+
+                        <label>
+                            Start
+                        </label>
+
+
+                        <input type="time" name="morning_start" step="1800">
+
+
+                    </div>
+
+
+
+                    <span>
+                        -
+                    </span>
+
+
+
+                    <div>
+
+                        <label>
+                            End
+                        </label>
+
+
+                        <input type="time" name="morning_end" step="1800">
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- AFTERNOON TIME -->
+
+
+            <div class="time-section">
+
+
+                <h3>
+                    Afternoon Time
+                </h3>
+
+
+
+                <div class="time-inputs">
+
+
+                    <div>
+
+                        <label>
+                            Start
+                        </label>
+
+
+                        <input type="time" name="afternoon_start" step="1800">
+
+
+                    </div>
+
+
+
+                    <span>
+                        -
+                    </span>
+
+
+
+                    <div>
+
+                        <label>
+                            End
+                        </label>
+
+
+                        <input type="time" name="afternoon_end" step="1800">
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <h3>
+                Reason
+            </h3>
+
+
+            <textarea name="reason" placeholder="Vacation, conference, emergency leave..."></textarea>
+
+
+
+
+
+
+
+
+            <button class="save-btn">
+
+                Save Schedule
+
+            </button>
+
+
+
+
+        </form>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ==============================
+ADDITIONAL SCHEDULES
+================================ -->
+
+
+    <div class="schedule-card">
+
+
+
+        <h2>
+            Additional Schedules
+        </h2>
+
+
+        <p>
+            Only changes from regular schedule.
+        </p>
+
+
+
+
+
+        <table>
+
+
+
+            <thead>
+
+
+                <tr>
+
+                    <th>
+                        Date
+                    </th>
+
+
+                    <th>
+                        Morning
+                    </th>
+
+
+                    <th>
+                        Afternoon
+                    </th>
+
+
+                    <th>
+                        Status
+                    </th>
+
+
+                    <th>
+                        Reason
+                    </th>
+
+
+                </tr>
+
+
+            </thead>
+
+
+
+
+
+
+
+            <tbody>
+
+
+
+                {% for schedule in extra_schedule %}
+
+
+
+
+                <tr>
+
+
+                    <td>
+
+                        {{schedule.date}}
+
+                    </td>
+
+
+
+
+                    <td>
+
+
+                        {% if schedule.morning_start %}
+
+                        {{ schedule.morning_start }}
+                        -
+                        {{ schedule.morning_end }}
+
+                        {% else %}
+
+                        OFF
+
+                        {% endif %}
+
+
+                    </td>
+
+
+
+                    <td>
+
+
+                        {% if schedule.afternoon_start %}
+
+
+                        {{ schedule.afternoon_start }}
+                        -
+                        {{ schedule.afternoon_end }}
+
+
+                        {% else %}
+
+
+                        OFF
+
+
+                        {% endif %}
+
+
+                    </td>
+
+
+
+
+                    <td>
+
+                        {% if schedule.status == "OFF" %}
+                        Unavailable
+                        {% elif schedule.status == "MORNING" %}
+                        Morning Only
+                        {% elif schedule.status == "AFTERNOON" %}
+                        Afternoon Only
+                        {% else %}
+                        {{ schedule.status }}
+                        {% endif %}
+
+                    </td>
+
+
+
+
+
+                    <td>
+
+
+                        {{schedule.reason}}
+
+
+                    </td>
+
+
+
+
+
+                </tr>
+
+
+
+
+
+                {% empty %}
+
+
+                <tr>
+
+                    <td colspan="5">
+
+                        No additional schedules.
+
+                    </td>
+
+
+                </tr>
+
+
+
+                {% endfor %}
+
+
+
+
+
+            </tbody>
+
+
+        </table>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ==============================
+BOOKING SCHEDULE
+================================ -->
+
+
+    <div class="schedule-card booking-card">
+
+
+        <h2>
+            Booking Schedule
+        </h2>
+
+
+
+        <p>
+            Manage patient appointment availability.
+        </p>
+
+
+
+
+        <a href="#" class="save-btn">
+
+            Manage Booking Schedule
+
+        </a>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+    function selectDate(element) {
+
+
+        let date = element.dataset.date;
+
+        let display = element.dataset.display;
+
+
+
+        if (!date) {
+
+            return;
+
+        }
+
+
+
+
+        document.querySelectorAll(".calendar-day")
+            .forEach(function (day) {
+
+
+                day.classList.remove("selected");
+
+
+            });
+
+
+
+
+
+        element.classList.add("selected");
+
+
+
+
+
+        document.getElementById(
+            "selected_date"
+        ).value = date;
+
+
+
+
+
+        document.getElementById(
+            "selectedDateTitle"
+        ).innerHTML = display;
+
+
+        document.getElementById(
+            "selectedDateText"
+        ).innerHTML =
+            "Customize availability for " + display;
+
+
+    }
+
+
+
+
+</script>
+
+
+
+
+
+{% endblock %}

@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # ==========================================
@@ -23,6 +25,28 @@ urlpatterns = [
     path( "patient/account_settings",views.patient_account,name="patient_account"),
     path( "patient/doctors",views.doctor_list,name="doctor_list"),
     path(  'appointment/<int:id>/', views.appointment_detail, name='appointment_detail'),
-    
+    path("AI Summary/", views.health_summary, name="health_summary"),
+    path("change-password/",views.change_password,name="change_password"),
+    path("doctors/dashboard/", views.doctor_dashboard, name="doctor_dashboard"),
+    path("doctor/appointments/", views.doctor_appointments, name="doctor_appointments"),
+    path("doctor/appointments/<int:appointment_id>/",views.doctor_appointment_detail, name="doctor_appointment_detail",),
+    path("doctor/appointments/<int:appointment_id>/confirm/", views.confirm_appointment, name="confirm_appointment",),
+    path("doctor/appointments/<int:appointment_id>/cancel/",views.cancel_appointment,name="cancel_appointment",),
+    path("doctor/appointments/<int:appointment_id>/complete/",views.complete_appointment,name="complete_appointment",),
+    path(
+    "doctor/appointments/<int:appointment_id>/reschedule/",
+    views.reschedule_appointment,
+    name="reschedule_appointment",
+),
+    path(
+        "doctor/schedule/",
+        views.doctor_schedule,
+        name="doctor_schedule"
+    ),
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )

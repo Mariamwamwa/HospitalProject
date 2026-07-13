@@ -387,38 +387,7 @@ box-shadow: 0 20px 45px rgba(124, 77, 255, 0.22);
    DOCTOR AVATAR
 ========================================== */
 
-.doctor-avatar{
 
-    width:75px;
-
-    height:75px;
-
-    min-width:75px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:linear-gradient(
-        135deg,
-        #7c4dff,
-        #9f7aea
-    );
-
-    color:white;
-
-    font-size:1.3rem;
-
-    font-weight:700;
-
-    box-shadow:
-        0 10px 25px rgba(124,77,255,.20);
-
-}
 
 
 /* ==========================================
@@ -596,7 +565,38 @@ box-shadow: 0 20px 45px rgba(124, 77, 255, 0.22);
     box-shadow:none;
 
 }
+.doctor-avatar{
 
+    width:75px;
+
+    height:75px;
+
+    min-width:75px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:linear-gradient(
+        135deg,
+        #7c4dff,
+        #9f7aea
+    );
+
+    color:white;
+
+    font-size:1.3rem;
+
+    font-weight:700;
+
+    box-shadow:
+        0 10px 25px rgba(124,77,255,.20);
+
+}
 .doctor-avatar{
     width:72px;
     height:72px;
