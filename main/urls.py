@@ -33,16 +33,34 @@ urlpatterns = [
     path("doctor/appointments/<int:appointment_id>/confirm/", views.confirm_appointment, name="confirm_appointment",),
     path("doctor/appointments/<int:appointment_id>/cancel/",views.cancel_appointment,name="cancel_appointment",),
     path("doctor/appointments/<int:appointment_id>/complete/",views.complete_appointment,name="complete_appointment",),
+    path("doctor/appointments/<int:appointment_id>/reschedule/",views.reschedule_appointment,name="reschedule_appointment",),
+    path( "doctor/schedule/",views.doctor_schedule,name="doctor_schedule" ),
+    path( "doctor/medical-record/",views.doctor_medical_record,name="doctor_medical_record"),
+    path( "doctor/create-medical/<int:appointment_id>/",views.doctor_create_medical,name="doctor_create_medical",),
+    path("doctor/patients/",views.doctor_patient_list,name="doctor_patient_list"),
     path(
-    "doctor/appointments/<int:appointment_id>/reschedule/",
-    views.reschedule_appointment,
-    name="reschedule_appointment",
+    "receptionist/dashboard/",
+    views.receptionist_dashboard,
+    name="receptionist_dashboard"
 ),
-    path(
-        "doctor/schedule/",
-        views.doctor_schedule,
-        name="doctor_schedule"
-    ),
+path(
+    "receptionist/appointments/",
+    views.receptionist_appointments,
+    name="receptionist_appointments",
+),path(
+    "appointments/<int:appointment_id>/deny/",
+    views.deny_appointment,
+    name="deny_appointment",
+),path(
+    "receptionist/patients/",
+    views.receptionist_patients,
+    name="receptionist_patients"
+),
+path(
+    "receptionist/doctors/",
+    views.receptionist_doctors,
+    name="receptionist_doctors"
+),
 ]
 
 if settings.DEBUG:

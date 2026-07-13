@@ -376,10 +376,12 @@ class DoctorDateSchedule(models.Model):
 class Appointment(models.Model):
 
     STATUS_CHOICES = [
+        ('Waiting', 'Waiting'),
         ('Pending', 'Pending'),
         ('Confirmed', 'Confirmed'),
         ('Completed', 'Completed'),
         ('Cancelled', 'Cancelled'),
+        
     ]
 
     TIME_PERIOD_CHOICES = [
@@ -459,10 +461,3 @@ class MedicalRecord(models.Model):
             if self.doctor else "Unknown Doctor"
         )
         return f"{self.patient.user.get_full_name()} - {doctor_name} ({self.visit_date})"
-class Prescription(models.Model):
-    appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE, related_name='prescription')
-    medication_name = models.CharField(max_length=255)
-    dosage = models.CharField(max_length=100)
-    frequency = models.CharField(max_length=100)
-    instructions = models.TextField(blank=True, null=True)
-    issued_date = models.DateField(auto_now_add=True)

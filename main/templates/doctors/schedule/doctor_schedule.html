@@ -54,7 +54,7 @@ REGULAR WORK SCHEDULE
     <div class="schedule-card">
 
         <div class="schedule-header">
-
+            
 
             <div>
 
@@ -62,10 +62,6 @@ REGULAR WORK SCHEDULE
                     Work Schedule
                 </h1>
 
-
-                <p>
-                    Manage regular availability and specific date schedules.
-                </p>
 
 
             </div>
@@ -360,16 +356,36 @@ CALENDAR + ADD SCHEDULE
     {% elif day.status == 'MORNING' %}morning-only
     {% elif day.status == 'AFTERNOON' %}afternoon-only
     {% elif day.status == 'OFF' %}day-off
-    {% endif %}"
+    {% endif %}
+
+    {% for appointment in confirmed_schedules %}
+        {% if appointment.date == day.date %}
+
+            {% if appointment.time_period == 'AM' %}
+                confirmed-am
+            {% endif %}
+
+            {% if appointment.time_period == 'PM' %}
+                confirmed-pm
+            {% endif %}
+
+        {% endif %}
+    {% endfor %}"
+
     data-date="{{ day.date|date:'Y-m-d' }}"
     data-display="{{ day.date|date:'F j, Y' }}"
     onclick="selectDate(this)"
 >
+
+
     <span>{{ day.number }}</span>
+
 
     {% if day.status %}
         <small>{{ day.status }}</small>
     {% endif %}
+
+
 </div>
 {% else %}
 <div class="calendar-day empty"></div>
@@ -384,7 +400,7 @@ CALENDAR + ADD SCHEDULE
 
 
 
-
+    
 
 
         </div>
@@ -662,22 +678,7 @@ CALENDAR + ADD SCHEDULE
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-    <!-- ==============================
-ADDITIONAL SCHEDULES
-================================ -->
-
-
-    <div class="schedule-card">
+<div class="schedule-card">
 
 
 
@@ -872,46 +873,148 @@ ADDITIONAL SCHEDULES
 
     </div>
 
-
-
-
-
-
-
-
-
-
-
     <!-- ==============================
 BOOKING SCHEDULE
 ================================ -->
 
 
-    <div class="schedule-card booking-card">
+  <!-- ==============================
+CONFIRMED APPOINTMENTS
+================================ -->
 
 
-        <h2>
-            Booking Schedule
-        </h2>
+<div class="schedule-card booking-card">
 
 
-
-        <p>
-            Manage patient appointment availability.
-        </p>
-
+    <h2>
+        Confirmed Appointments
+    </h2>
 
 
-
-        <a href="#" class="save-btn">
-
-            Manage Booking Schedule
-
-        </a>
+    <p>
+        View upcoming confirmed patient appointments.
+    </p>
 
 
 
-    </div>
+    <table>
+
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Patient
+                </th>
+
+
+                <th>
+                    Date
+                </th>
+
+
+                <th>
+                    Time
+                </th>
+
+
+                <th>
+                    Reason
+                </th>
+
+
+                <th>
+                    Status
+                </th>
+
+            </tr>
+
+
+        </thead>
+
+
+
+
+        <tbody>
+
+
+            {% for appointment in confirmed_appointments %}
+
+
+            <tr>
+
+
+                <td>
+
+                    {{ appointment.patient.user.get_full_name }}
+
+                </td>
+
+
+
+                <td>
+
+                    {{ appointment.date }}
+
+                </td>
+
+
+
+            
+
+                   <td>
+    {{ appointment.time_period }}
+</td>
+
+
+
+
+                <td>
+
+                    {{ appointment.reason }}
+
+                </td>
+
+
+
+                <td>
+
+                    {{ appointment.status }}
+
+                </td>
+
+
+
+            </tr>
+
+
+
+            {% empty %}
+
+
+            <tr>
+
+                <td colspan="5">
+
+                    No confirmed appointments.
+
+                </td>
+
+            </tr>
+
+
+
+            {% endfor %}
+
+
+        </tbody>
+
+
+    </table>
+
+
+</div>
 
 
 
@@ -974,8 +1077,6 @@ BOOKING SCHEDULE
         document.getElementById(
             "selected_date"
         ).value = date;
-
-
 
 
 

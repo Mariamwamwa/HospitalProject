@@ -1,0 +1,141 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Doctor List
+{% endblock %}
+
+
+{% block sidebar %}
+{% include "receptionist/dashboard/sidebar.html" %}
+{% endblock %}
+
+
+
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/receptionist_doctor.css' %}">
+{% endblock %}
+
+
+<div class="doctors-page">
+
+
+    <!-- HEADER -->
+    <section class="page-header">
+
+        <div>
+
+            <span class="page-tag">
+                Receptionist
+            </span>
+
+            <h1>
+                Doctor Management
+            </h1>
+
+            <p>
+                View available doctors and their information.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- DOCTOR TABLE -->
+
+    <section class="doctor-card">
+
+
+        <div class="card-header">
+
+            <h2>
+                Doctor List
+            </h2>
+
+            <p>
+                Registered doctors in the system.
+            </p>
+
+        </div>
+
+
+
+        <div class="table-wrapper">
+
+            <table class="doctor-table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>Doctor</th>
+                        <th>Email</th>
+                        <th>Specialization</th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                {% for doctor in doctors %}
+
+                    <tr>
+
+                        <td>
+                            Dr. {{ doctor.user.get_full_name }}
+                        </td>
+
+
+                        <td>
+                            {{ doctor.user.email }}
+                        </td>
+
+
+                        <td>
+                            {{ doctor.specialization }}
+                        </td>
+
+
+                    </tr>
+
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="3" class="empty-row">
+
+                            No doctors registered.
+
+                        </td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+{% endblock %}

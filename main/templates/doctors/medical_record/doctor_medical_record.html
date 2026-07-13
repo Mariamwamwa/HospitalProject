@@ -1,0 +1,111 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Medical History
+{% endblock %}
+
+{% block sidebar %}
+{% include "doctors/dashboard/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/doctor_medical_record.css' %}">
+{% endblock %}
+
+<div class="medical-page">
+
+    <div class="header-card">
+
+        <div class="header-top">
+
+            <div>
+                <h2>Medical History</h2>
+                <p>View and manage your patients' medical records.</p>
+            </div>
+
+            <form method="GET" class="search-form">
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search patient, diagnosis..."
+                    value="{{ request.GET.search }}"
+                >
+                <button type="submit">Search</button>
+            </form>
+
+        </div>
+
+        <div class="summary-cards">
+
+            <div class="summary-card">
+
+                <h4>Total Medical Records</h4>
+
+                <span>{{ total_records }}</span>
+
+            </div>
+
+            <div class="summary-card">
+
+                <h4>Total Patients</h4>
+
+                <span>{{ total_patients }}</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <table class="medical-table">
+
+        <thead>
+
+            <tr>
+                <th>Date</th>
+                <th>Patient</th>
+                <th>Diagnosis</th>
+                <th>Prescription</th>
+                <th>Notes</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for record in records %}
+
+            <tr>
+
+                <td>{{ record.visit_date }}</td>
+
+                <td>{{ record.patient.user.get_full_name }}</td>
+
+                <td>{{ record.diagnosis }}</td>
+
+                <td>{{ record.prescription }}</td>
+
+                <td>{{ record.notes|default:"-" }}</td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="5" class="empty">
+                    No medical records found.
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

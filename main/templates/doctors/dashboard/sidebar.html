@@ -16,17 +16,15 @@
         </a>
     </li>
     <li>
-        <a href="#">
-            
-            Patient
-        </a>
+        <a href="{% url 'doctor_patient_list' %}">
+    My Patients
+</a>
     </li>
 
     <li>
-         <a href="#">
-            
-            Medical Records
-        </a>
+       <a href="{% url 'doctor_medical_record' %}">
+    Medical History
+</a>
     </li>
 <li>
          <a href="{% url 'doctor_schedule' %}"

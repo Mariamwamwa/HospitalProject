@@ -9,10 +9,10 @@ from .models import Patient
 from .forms import UserRegisterForm, PatientForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Patient, Appointment, MedicalRecord, Prescription
+from .models import Patient, Appointment, MedicalRecord 
 from datetime import datetime, timedelta
 from .models import Appointment
-from .models import Appointment, MedicalRecord, Prescription, Doctor
+from .models import Appointment, MedicalRecord, Doctor
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import MedicalRecord
@@ -32,10 +32,13 @@ import calendar
 from .models import DoctorSchedule, DoctorDateSchedule
 from ai_assistant.services import generate_health_summary
 from datetime import date
-
+from datetime import date
+from .models import Patient, Appointment, Doctor, DoctorSchedule
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import MedicalRecord
 from .models import (
     Doctor,
     Appointment,
@@ -46,7 +49,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Prefetch
 
 # ==========================================
 # HOME
@@ -239,11 +242,6 @@ def patient_dashboard(request):
     appointment_count = appointments.count()
 
 
-    prescription_count = Prescription.objects.filter(
-        appointment__patient=patient
-    ).count()
-
-
     medical_records = MedicalRecord.objects.filter(
         patient=patient
     )
@@ -285,7 +283,6 @@ def patient_dashboard(request):
 
         # dashboard cards
         "appointment_count": appointment_count,
-        "prescription_count": prescription_count,
         "medical_record_count": medical_record_count,
         "doctor_count": doctor_count,
 
@@ -351,7 +348,7 @@ def book_appointment(request):
                 "reason"
             )
 
-            appointment.status = "Pending"
+            appointment.status = "Waiting"
 
 
         else:
@@ -429,7 +426,7 @@ def patient_appointment_list(request):
         "appointments": appointments,
         "upcoming_count": Appointment.objects.filter(
             patient=patient,
-            status__in=["Pending", "Confirmed"]
+            status__in=["Pending", "Confirmed", "Waiting"]
         ).count(),
         "completed_count": Appointment.objects.filter(
             patient=patient,
@@ -576,6 +573,8 @@ def change_password(request):
             "form": form
         }
     )
+
+
 def doctor_list(request):
     return render(request, "patients/doctors/doctors_list.html")
 
@@ -600,6 +599,8 @@ def appointment_detail(request, id):
         "patients/appointment/appointment_details.html",
         context
     )
+
+
 @login_required
 def patient_medical_record(request):
     patient = request.user.patient_profile
@@ -658,7 +659,7 @@ def doctor_dashboard(request):
         doctor=doctor,
         date=today
     ).exclude(
-        status="Cancelled"
+         status__in=["Cancelled", "Waiting"]
     )
 
 
@@ -716,7 +717,7 @@ def doctor_dashboard(request):
         doctor=doctor,
         date__gte=today
     ).exclude(
-        status="Cancelled"
+         status__in=["Cancelled", "Waiting"]
     ).order_by(
         "date"
     ).first()
@@ -1370,6 +1371,19 @@ def doctor_schedule(request):
             "date": None,
             "status": ""
         })
+    confirmed_appointments = Appointment.objects.filter(
+    doctor=request.user.doctor_profile,
+    status="Confirmed"
+    ).order_by("date", "time_period")
+    confirmed_dates = Appointment.objects.filter(
+    doctor=request.user.doctor_profile,
+    status="Confirmed"
+    ).values_list("date", flat=True)
+    confirmed_schedules = Appointment.objects.filter(
+    doctor=request.user.doctor_profile,
+    status="Confirmed"
+)
+
     context = {
         "weekly_schedule": weekly_schedule,
         "extra_schedule": extra_schedule,
@@ -1381,7 +1395,11 @@ def doctor_schedule(request):
         "regular_afternoon_start": regular_afternoon_start,
         "regular_afternoon_end": regular_afternoon_end,
         "current_month": today.strftime("%B"),
-    "current_year": today.year,
+        "current_year": today.year,
+        "confirmed_appointments": confirmed_appointments,
+        "confirmed_dates": confirmed_dates,
+           "confirmed_schedules": confirmed_schedules,
+
     }
 
     return render(
@@ -1481,4 +1499,433 @@ Medical Records:
             "patient": patient,
             "summary": summary,
         }
+    )
+@login_required
+def doctor_medical_records(request):
+
+    doctor = request.user.doctor
+
+    records = (
+        MedicalRecord.objects
+        .filter(doctor=doctor)
+        .select_related(
+            "patient__user",
+            "appointment",
+            "appointment__prescription"
+        )
+        .order_by("-visit_date")
+    )
+
+    return render(request,
+                  "doctors/medical_record/doctor_medical_record.html",
+                  {"records": records})
+
+
+@login_required
+def doctor_medical_record(request):
+
+    doctor = request.user.doctor_profile
+    records = (
+        MedicalRecord.objects
+        .filter(doctor=doctor)
+        .select_related(
+            "patient__user"
+        )
+        .order_by("-visit_date")
+    )
+
+    search = request.GET.get("search")
+
+    if search:
+        records = records.filter(
+            Q(patient__user__first_name__icontains=search) |
+            Q(patient__user__last_name__icontains=search) |
+            Q(diagnosis__icontains=search) |
+            Q(prescription__icontains=search) |
+            Q(notes__icontains=search)
+        )
+
+    context = {
+    "records": records,
+    "total_records": records.count(),
+    "total_patients": records.values("patient").distinct().count(),
+}
+
+    return render(
+        request,
+        "doctors/medical_record/doctor_medical_record.html",
+        context,
+    )
+
+
+@login_required
+def doctor_create_medical(request, appointment_id):
+
+    doctor = request.user.doctor_profile
+
+    appointment = get_object_or_404(
+        Appointment,
+        id=appointment_id,
+        doctor=doctor
+    )
+
+    if hasattr(appointment, "medical_record"):
+
+        messages.warning(
+            request,
+            "A medical record already exists for this appointment."
+        )
+
+        return redirect("doctor_medical_record")
+
+    if request.method == "POST":
+
+        diagnosis = request.POST.get("diagnosis")
+        prescription = request.POST.get("prescription")
+        notes = request.POST.get("notes")
+
+        MedicalRecord.objects.create(
+
+            appointment=appointment,
+
+            patient=appointment.patient,
+
+            doctor=doctor,
+
+            diagnosis=diagnosis,
+
+            prescription=prescription,
+
+            notes=notes
+
+        )
+
+        appointment.status = "Completed"
+        appointment.save()
+
+        messages.success(
+            request,
+            "Medical record created successfully."
+        )
+
+        return redirect("doctor_medical_record")
+
+    return render(
+        request,
+        "doctors/medical_record/doctor_create_medical.html",
+        {
+            "appointment": appointment,
+        }
+    )
+
+@login_required
+def doctor_patient_list(request):
+
+    doctor = request.user.doctor_profile
+
+    patients = (
+        Patient.objects
+        .filter(
+            appointments__doctor=doctor,
+            appointments__status__in=["Confirmed", "Completed"]
+        )
+        .distinct()
+        .prefetch_related("medical_records")
+        .order_by("user__last_name", "user__first_name")
+    )
+
+    search = request.GET.get("search")
+
+    if search:
+        patients = patients.filter(
+            Q(user__first_name__icontains=search) |
+            Q(user__last_name__icontains=search)
+        ).distinct()
+
+    patient_data = []
+
+    for patient in patients:
+
+        latest_record = (
+            MedicalRecord.objects
+            .filter(
+                patient=patient,
+                doctor=doctor
+            )
+            .order_by("-visit_date")
+            .first()
+        )
+
+        latest_appointment = (
+            Appointment.objects
+            .filter(
+                patient=patient,
+                doctor=doctor,
+                status__in=["Confirmed", "Completed"]
+            )
+            .order_by("-date", "-time_period")
+            .first()
+        )
+
+        patient_data.append({
+            "patient": patient,
+            "diagnosis": latest_record.diagnosis if latest_record else "-",
+            "appointment_date": latest_appointment.date if latest_appointment else "-",
+        })
+
+    context = {
+        "patients": patient_data,
+        "total_patients": len(patient_data),
+    }
+
+    return render(
+        request,
+        "doctors/medical_record/doctor_patient_list.html",
+        context,
+    )
+
+@login_required
+def receptionist_dashboard(request):
+
+    total_patients = Patient.objects.count()
+
+    today_appointments = Appointment.objects.filter(
+        date=date.today()
+    ).count()
+
+    pending_requests = Appointment.objects.filter(
+        status="Pending"
+    ).count()
+
+    pending_doctor_approval = Appointment.objects.filter(
+        status="Waiting"
+    ).count()
+
+    upcoming_appointments = Appointment.objects.filter(
+        date__gte=date.today()
+    ).count()
+
+    completed_today = Appointment.objects.filter(
+        date=date.today(),
+        status="Completed"
+    ).count()
+
+    total_doctors = Doctor.objects.count()
+
+
+    # Get all doctors with their weekly schedules
+    doctor_schedules = DoctorSchedule.objects.select_related(
+        "doctor",
+        "doctor__user"
+    ).all()
+
+    today = date.today()
+
+    available_doctors_today = DoctorDateSchedule.objects.exclude(
+    status="OFF").filter(
+    date=today).count()
+    context = {
+
+        "total_patients": total_patients,
+
+        "today_appointments": today_appointments,
+
+        "pending_requests": pending_requests,
+
+        "pending_doctor_approval": pending_doctor_approval,
+
+        "upcoming_appointments": upcoming_appointments,
+
+        "completed_today": completed_today,
+
+        "total_doctors": total_doctors,
+
+        "doctor_schedules": doctor_schedules,
+        "available_doctors_today": available_doctors_today,
+
+    }
+
+
+    return render(
+        request,
+        "receptionist/dashboard/receptionist_dashboard.html",
+        context
+    )
+
+@login_required
+def receptionist_appointments(request):
+
+    today = date.today()
+
+    today_appointments = Appointment.objects.filter(
+        date=today
+    ).select_related(
+        "doctor__user",
+        "patient__user"
+    ).order_by("date", "time_period")
+
+    upcoming_appointments = Appointment.objects.filter(
+        status="Confirmed",
+        date__gt=today
+    ).select_related(
+        "doctor__user",
+        "patient__user"
+    ).order_by("-date", "-time_period")
+
+    pending_requests = Appointment.objects.filter(
+        status="Waiting"
+    ).select_related(
+        "doctor__user",
+        "patient__user"
+    ).order_by("-date", "-time_period")
+
+    pending_doctor_approval = Appointment.objects.filter(
+        status="Pending"
+    ).select_related(
+        "doctor__user",
+        "patient__user"
+    ).order_by("-date", "-time_period")
+
+    completed_appointments = Appointment.objects.filter(
+        status="Completed"
+    ).select_related(
+        "doctor__user",
+        "patient__user"
+    ).order_by("-date", "-time_period")
+    cancelled_appointments = Appointment.objects.filter(
+    status="Cancelled"
+).select_related(
+    "doctor__user",
+    "patient__user"
+).order_by("-date", "-time_period")
+
+    # ----------------------------------------
+    # Determine if Approve button should show
+    # ----------------------------------------
+
+    for appointment in pending_requests:
+
+        appointment.can_approve = False
+
+        # Check date-specific schedule first
+        date_schedule = DoctorDateSchedule.objects.filter(
+            doctor=appointment.doctor,
+            date=appointment.date
+        ).first()
+
+        if date_schedule:
+
+            if date_schedule.status == "AVAILABLE":
+                appointment.can_approve = True
+
+            elif (
+                date_schedule.status == "MORNING"
+                and appointment.time_period == "AM"
+            ):
+                appointment.can_approve = True
+
+            elif (
+                date_schedule.status == "AFTERNOON"
+                and appointment.time_period == "PM"
+            ):
+                appointment.can_approve = True
+
+        else:
+
+            weekday = appointment.date.strftime("%A")
+
+            weekly = DoctorSchedule.objects.filter(
+                doctor=appointment.doctor,
+                day_of_week=weekday
+            ).first()
+
+            if weekly:
+
+                if (
+                    appointment.time_period == "AM"
+                    and weekly.morning_available
+                ):
+                    appointment.can_approve = True
+
+                elif (
+                    appointment.time_period == "PM"
+                    and weekly.afternoon_available
+                ):
+                    appointment.can_approve = True
+
+
+    context = {
+
+        "today_appointments": today_appointments,
+        "upcoming_appointments": upcoming_appointments,
+        "pending_requests": pending_requests,
+        "pending_doctor_approval": pending_doctor_approval,
+        "completed_appointments": completed_appointments,
+         "cancelled_appointments": cancelled_appointments,
+    }
+
+    return render(
+        request,
+        "receptionist/appointment/receptionist_appointment.html",
+        context,
+    )
+@login_required
+def deny_appointment(request, appointment_id):
+
+    appointment = get_object_or_404(
+        Appointment,
+        id=appointment_id
+    )
+
+    appointment.status = "Cancelled"
+    appointment.save()
+
+    return redirect("receptionist_appointments")
+@login_required
+def receptionist_patients(request):
+
+    patients = Patient.objects.prefetch_related(
+        Prefetch(
+            "appointment_set",
+            queryset=Appointment.objects.filter(
+                status="Confirmed"
+            ).order_by("-date"),
+            to_attr="confirmed_appointments"
+        )
+    )
+
+    for patient in patients:
+        if patient.confirmed_appointments:
+            patient.last_appointment = patient.confirmed_appointments[0]
+        else:
+            patient.last_appointment = None
+
+
+    context = {
+        "patients": patients
+    }
+
+
+    return render(
+        request,
+        "receptionist_patient.html",
+        context
+    )
+@login_required
+def receptionist_doctors(request):
+
+    doctors = Doctor.objects.select_related(
+        "user"
+    ).all()
+
+
+    context = {
+        "doctors": doctors
+    }
+
+
+    return render(
+        request,
+        "receptionist/appointment/receptionist_doctor.html",
+        context
     )

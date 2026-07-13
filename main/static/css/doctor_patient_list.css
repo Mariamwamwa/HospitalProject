@@ -1,0 +1,315 @@
+/* ==========================================
+   PATIENT LIST PAGE
+========================================== */
+
+.patients-page{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:25px;
+
+}
+
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.header-card{
+
+    background:#fff;
+
+    border-radius:28px;
+
+    padding:35px;
+
+    border:1px solid #ece8ff;
+
+    margin-bottom:25px;
+
+}
+
+.header-card h2{
+
+    color:#4a148c;
+
+    font-size:32px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+.search-form{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.search-form input{
+
+    width:300px;
+
+    padding:12px 18px;
+
+    border-radius:12px;
+
+    border:1px solid #ddd;
+
+    outline:none;
+
+}
+
+.search-form input:focus{
+
+    border-color:#7c4dff;
+
+}
+
+.search-form button{
+
+    background:#7c4dff;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:12px 25px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.search-form button:hover{
+
+    background:#6b3df5;
+
+}
+
+
+
+/* ==========================================
+   TABLE CARD
+========================================== */
+
+.table-card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:25px;
+
+    border:1px solid #ece8ff;
+
+    overflow-x:auto;
+
+}
+
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.patients-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.patients-table thead{
+
+    background:#7b4dff;
+
+}
+
+.patients-table th{
+
+    padding:16px 18px;
+
+    text-align:center;
+
+    background:#7b4dff;
+
+    color:#ffffff;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+    border-bottom:2px solid #6940dd;
+
+}
+
+.patients-table th:first-child{
+
+    border-top-left-radius:12px;
+
+}
+
+.patients-table th:last-child{
+
+    border-top-right-radius:12px;
+
+}
+
+.patients-table td{
+
+    padding:18px;
+
+    border-top:1px solid #eee;
+
+    border-bottom:1px solid #f1edff;
+
+    color:#444;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+}
+
+.patients-table tbody tr{
+
+    transition:.25s;
+
+}
+
+.patients-table tbody tr:hover{
+
+    background:#faf8ff;
+
+}
+
+.patients-table tbody tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+
+
+/* ==========================================
+   PROFILE PICTURE
+========================================== */
+
+.profile-pic{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid #ede7ff;
+
+}
+
+
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+.view-btn{
+
+    background:#7c4dff;
+
+    color:white;
+
+    padding:8px 15px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    transition:.25s;
+
+}
+
+.view-btn:hover{
+
+    background:#6c3df2;
+
+}
+
+
+
+/* ==========================================
+   EMPTY
+========================================== */
+
+.empty{
+
+    text-align:center;
+
+    color:#888;
+
+    padding:40px;
+
+    font-size:16px;
+
+}
+
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:768px){
+
+    .header-card{
+
+        padding:25px;
+
+    }
+
+    .search-form{
+
+        flex-direction:column;
+
+    }
+
+    .search-form input,
+
+    .search-form button{
+
+        width:100%;
+
+    }
+
+    .profile-pic{
+
+        width:50px;
+
+        height:50px;
+
+    }
+
+}

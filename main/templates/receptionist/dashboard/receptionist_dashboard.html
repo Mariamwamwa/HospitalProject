@@ -1,0 +1,239 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Receptionist Dashboard
+{% endblock %}
+
+{% block sidebar %}
+{% include "receptionist/dashboard/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/receptionist_dashboard.css' %}">
+{% endblock %}
+
+<div class="receptionist-dashboard">
+
+    <!-- =================================
+    WELCOME SECTION
+    ================================= -->
+
+    <section class="welcome-section">
+
+        <div class="welcome-content">
+
+            <span class="welcome-tag">
+                Receptionist Dashboard
+            </span>
+
+            <h1>
+                Welcome back,
+                {{ request.user.first_name }}
+            </h1>
+
+            <p>
+                Manage appointments, patients, and doctor schedules efficiently.
+            </p>
+
+        </div>
+
+        <div class="welcome-image">
+
+            <img src="{% static 'images/CarenestLOGO.png' %}" alt="CareNest Logo">
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================
+    SUMMARY CARDS
+    ================================= -->
+
+   <!-- =================================
+DASHBOARD OVERVIEW
+================================= -->
+
+<section class="summary-section">
+
+    <div class="summary-header">
+
+        <h2>
+            Dashboard Overview
+        </h2>
+
+        <p>
+            Overview of today's hospital activities and appointment status.
+        </p>
+
+    </div>
+
+    <div class="summary-wrapper">
+
+        <div class="summary-cards">
+
+            <!-- Total Patients -->
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    👥
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Total Patients</span>
+
+                    <h2>{{ total_patients }}</h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Total Doctors -->
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    👨‍⚕️
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Total Doctors</span>
+
+                    <h2>{{ total_doctors }}</h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Doctors Available Today -->
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    🗓️
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Doctors Available Today</span>
+
+                    <h2>{{ available_doctors_today }}</h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Today's Appointments -->
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    📅
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Today's Appointments</span>
+
+                    <h2>{{ today_appointments }}</h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Upcoming Appointments -->
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    📌
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Upcoming Appointments</span>
+
+                    <h2>{{ upcoming_appointments }}</h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Pending Requests -->
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    ⏳
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Pending Requests</span>
+
+                    <h2>{{ pending_requests }}</h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Pending Doctor Approval -->
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    🩺
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Pending Doctor Approval</span>
+
+                    <h2>{{ pending_doctor_approval }}</h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Completed Today -->
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    ✅
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Completed Today</span>
+
+                    <h2>{{ completed_today }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+</div>
+
+{% endblock %}

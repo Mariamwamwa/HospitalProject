@@ -2,874 +2,386 @@
    DOCTOR SCHEDULE PAGE
 ================================================== */
 
-
 .schedule-page{
-
     max-width:1200px;
-
     margin:auto;
-
-    padding:25px;
-
-    font-family:'Plus Jakarta Sans', sans-serif;
-
+    padding:30px;
+    font-family:'Plus Jakarta Sans',sans-serif;
 }
 
 
 
-
-
 /* ==================================================
-   HEADER
+   PURPLE HERO HEADER
 ================================================== */
-
 
 .schedule-header{
 
-    margin-bottom:25px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    padding:50px 45px;
+    margin-bottom:30px;
+
+    border-radius:28px;
+
+    background:linear-gradient(
+        135deg,
+        #7c4dff,
+        #6d3df5,
+        #4a148c
+    );
+
+    color:#fff;
+
+    box-shadow:
+        0 20px 45px rgba(124,77,255,.28);
 
 }
-
 
 .schedule-header h1{
-text-align:center;
-    font-size:32px;
 
-    color:#4a148c;
+    margin:0;
 
-    margin-bottom:8px;
+    font-size:38px;
+
+    font-weight:800;
+
+    color:#fff;
+
+    letter-spacing:.5px;
 
 }
-
-
 
 .schedule-header p{
 
-    color:#777;
-text-align:center;
-    margin:0;
+    margin-top:12px;
+
+    color:rgba(255,255,255,.92);
+
+    font-size:16px;
+
+    line-height:1.7;
 
 }
-
-
-
-
-
-
 
 
 
 /* ==================================================
-   CARDS
+   MAIN LAYOUT
 ================================================== */
-.schedule-layout{
-    display:grid;
-    grid-template-columns:1.5fr 1fr;
-    gap:25px;
-    align-items:stretch;
-}
-.schedule-layout > .schedule-card:first-child{
-    display:flex;
-    flex-direction:column;
-}
-.calendar-days{
-    flex:1;
-}
-.calendar-day.empty{
-    visibility:hidden;
-    border:none;
-    background:transparent;
-    cursor:default;
-}
-.calendar-header{
-    text-align:center;
-    margin:15px 0;
-}
 
-.calendar-header h3{
-    margin:0;
-    font-size:50px;      /* Bigger text */
-    font-weight:700;
-    color:#4a148c;
-    letter-spacing:0.5px;
+.schedule-layout{
+
+    display:grid;
+
+    grid-template-columns:1.5fr 1fr;
+
+    gap:25px;
+
+    align-items:start;
+
 }
-.schedule-card .calendar-header h3{
-    font-size:36px !important;
-    font-weight:700;
-    color:#4a148c;
-    margin:0;
-    text-align:center;
-}
+/* ==================================================
+   SCHEDULE CARDS
+================================================== */
+
 .schedule-card{
 
-    background:white;
+    background:#ffffff;
 
-    padding:25px;
+    border:1px solid #ece8ff;
 
-    border-radius:25px;
+    border-radius:26px;
 
-    border:1px solid #eee;
+    padding:30px;
 
     box-shadow:
-    0 10px 25px rgba(0,0,0,.05);
+        0 15px 35px rgba(124,77,255,.10);
 
-    margin-bottom:25px;
+    margin-bottom:30px;
+
+    transition:.3s;
 
 }
 
+.schedule-card:hover{
 
+    box-shadow:
+        0 22px 45px rgba(124,77,255,.15);
+
+}
 
 .schedule-card h2{
 
+    margin:0;
+
     color:#4a148c;
 
-    margin-bottom:10px;
+    font-size:28px;
+
+    font-weight:700;
 
 }
-
-
 
 .schedule-card h3{
 
-    color:#4a148c;
+    margin:0 0 15px;
 
-    font-size:17px;
+    color:#5c36d6;
 
-    margin-top:25px;
+    font-size:18px;
+
+    font-weight:700;
 
 }
-
-
 
 .schedule-card p{
 
-    color:#777;
+    margin-top:8px;
+
+    color:#6b7280;
+
+    line-height:1.6;
 
 }
-
-
-
-
-
-
 
 
 
 /* ==================================================
-   REGULAR WORK SCHEDULE
+   SECTION DIVIDER
 ================================================== */
-
-
-.day-selector{
-
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:15px;
-
-margin-top:20px;
-
-
-}
-
-
-
-
-.day-selector label{
-
-
-background:#fafafa;
-
-border:1px solid #eee;
-
-padding:15px;
-
-border-radius:15px;
-
-cursor:pointer;
-
-transition:.2s;
-
-
-}
-
-
-
-
-.day-selector label:hover{
-
-
-background:#f3f0ff;
-
-border-color:#7c4dff;
-
-
-}
-
-
-
-
-.day-selector input{
-
-
-margin-right:8px;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ==================================================
-   TIME INPUTS
-================================================== */
-
-
-.time-inputs{
-
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
-margin-top:10px;
-
-
-}
-
-
-
-
-.time-inputs input{
-
-
-padding:12px;
-
-border-radius:12px;
-
-border:1px solid #ddd;
-
-font-size:15px;
-
-
-}
-
-
-
-.time-inputs span{
-
-
-color:#777;
-
-}
-
-
-
-
-
-
-
-
-
-/* ==================================================
-   BUTTON
-================================================== */
-
-.button-center{
-    text-align:center;
-}
-.save-btn{
-
-
-display:inline-block;
-
-margin-top:25px;
-
-background:#7c4dff;
-
-color:white;
-
-padding:12px 25px;
-
-border-radius:14px;
-
-border:none;
-
-cursor:pointer;
-
-text-decoration:none;
-
-font-size:15px;
-
-
-}
-
-
-
-.save-btn:hover{
-
-
-background:#4a148c;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ==================================================
-   CALENDAR + ADD SCHEDULE
-================================================== */
-
-
-.schedule-layout{
-
-
-display:grid;
-
-grid-template-columns:1.5fr 1fr;
-
-gap:25px;
-
-
-}
-
-
-
-
-
-.calendar-week,
-.calendar-days{
-
-
-display:grid;
-
-grid-template-columns:repeat(7,1fr);
-
-gap:10px;
-
-
-}
-
-
-
-
-.calendar-week{
-
-
-margin-top:20px;
-
-
-}
-
-
-
-
-.calendar-week span{
-
-
-text-align:center;
-
-font-weight:bold;
-
-color:#555;
-
-
-}
-
-
-
-
-
-
-
-.calendar-days{
-
-
-margin-top:15px;
-
-
-}
-
-
-
-
-.calendar-day{
-
-
-height:75px;
-
-padding:10px;
-
-border-radius:15px;
-
-background:#fafafa;
-
-cursor:pointer;
-
-transition:.2s;
-
-border:1px solid #eee;
-
-
-}
-
-
-
-.calendar-day:hover{
-
-
-transform:translateY(-3px);
-
-background:#f3f0ff;
-
-
-}
-
-
-
-.calendar-day span{
-
-
-font-weight:bold;
-
-
-}
-
-
-
-.calendar-day small{
-
-
-display:block;
-
-font-size:11px;
-
-margin-top:5px;
-
-
-}
-
-
-
-
-
-
-
-
-/* CALENDAR STATUS COLORS */
-
-
-.calendar-day.available{
-
-
-background:#c8e6c9;
-
-color:#2e7d32;
-
-
-}
-
-
-
-
-.calendar-day.morning-only{
-
-
-background:#ffe0b2;
-
-color:#ef6c00;
-
-
-}
-
-
-
-
-
-.calendar-day.afternoon-only{
-
-
-background:#bbdefb;
-
-color:#1565c0;
-
-
-}
-
-
-
-
-
-
-.calendar-day.day-off{
-
-
-background:#e0e0e0;
-
-color:#555;
-
-
-}
-
-
-
-
-
-
-.calendar-day.selected{
-
-
-background:#7c4dff;
-
-color:white;
-
-transform:scale(1.05);
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ==================================================
-   ADD SCHEDULE OPTIONS
-================================================== */
-
-
-.availability-options{
-
-
-margin-top:20px;
-
-
-}
-
-
-
-.availability-options label{
-
-
-display:block;
-
-padding:15px;
-
-margin-bottom:10px;
-
-background:#fafafa;
-
-border-radius:15px;
-
-border:1px solid #eee;
-
-cursor:pointer;
-
-
-}
-
-
-
-
-.availability-options label:hover{
-
-
-background:#f3f0ff;
-
-
-}
-
-
-
-.availability-options input{
-
-
-margin-right:10px;
-
-
-}
-
-
-
-
-
-
-
-textarea{
-
-
-width:100%;
-
-height:100px;
-
-padding:15px;
-
-border-radius:15px;
-
-border:1px solid #ddd;
-
-resize:none;
-
-font-family:inherit;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ==================================================
-   ADDITIONAL SCHEDULE TABLE
-================================================== */
-
-
-table{
-
-
-width:100%;
-
-border-collapse:collapse;
-
-margin-top:20px;
-
-
-}
-
-
-
-thead th{
-
-
-background:#f3f0ff;
-
-color:#4a148c;
-
-padding:15px;
-
-text-align:left;
-
-
-}
-
-
-
-tbody td{
-
-
-padding:15px;
-
-border-bottom:1px solid #eee;
-
-
-}
-
-
-
-
-
-tbody tr:hover{
-
-
-background:#fafafa;
-
-
-}
-
-
-
-
-
-
-
-
-
-
-/* ==================================================
-   BOOKING CARD
-================================================== */
-
-
-.booking-card{
-
-
-text-align:center;
-
-
-}
-
-
-
-
-
-
-
-
-/* ==================================================
-   RESPONSIVE
-================================================== */
-
-
-@media(max-width:1000px){
-
-
-.schedule-layout{
-
-
-grid-template-columns:1fr;
-
-
-}
-
-
-
-.day-selector{
-
-
-grid-template-columns:repeat(2,1fr);
-
-
-}
-
-
-
-}
-
-
-
-
-@media(max-width:600px){
-
-
-
-.schedule-page{
-
-
-padding:15px;
-
-
-}
-
-
-
-.day-selector{
-
-
-grid-template-columns:1fr;
-
-
-}
-
-
-
-.time-inputs{
-
-
-flex-direction:column;
-
-align-items:stretch;
-
-
-}
-
-
-
-.calendar-day{
-
-
-height:60px;
-
-font-size:13px;
-
-
-}
-
-
-
-}
-/* ==========================================
-   ADD SCHEDULE TIME INPUTS
-========================================== */
-
-.time-grid{
-    display:flex;
-    gap:40px;
-}
-
-.time-section{
-    flex:1;
-    margin-top:25px;
-      text-align:center;
-}
 
 .section-divider{
+
     display:flex;
+
     align-items:center;
-    margin:30px 0 20px;
+
+    margin:35px 0 30px;
+
 }
 
 .section-divider::before,
 .section-divider::after{
+
     content:"";
+
     flex:1;
+
     height:1px;
-    background:#e5e7eb;
+
+    background:#e5dcff;
+
 }
 
 .section-divider span{
-    padding:0 15px;
+
+    margin:0 18px;
+
+    padding:8px 18px;
+
+    border-radius:50px;
+
+    background:#f3efff;
+
+    color:#6d3df5;
+
     font-size:14px;
-    font-weight:600;
-    color:#7c4dff;
-    white-space:nowrap;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+    text-transform:uppercase;
+
 }
 
 
-.time-section h3{
+
+/* ==================================================
+   CALENDAR HEADER
+================================================== */
+
+.calendar-header{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.calendar-header h3{
+
+    margin:0;
+
+    font-size:34px;
+
+    font-weight:800;
 
     color:#4a148c;
 
-    margin-bottom:12px;
+}
+/* ==================================================
+   WORKING DAYS
+================================================== */
 
-    font-size:17px;
+.day-selector{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:18px;
+
+    margin-top:20px;
 
 }
 
+.day-selector label{
 
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:18px 20px;
+
+    background:#ffffff;
+
+    border:2px solid #ece8ff;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-weight:600;
+
+    color:#4a148c;
+
+}
+
+.day-selector label:hover{
+
+    border-color:#7c4dff;
+
+    background:#f8f5ff;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(124,77,255,.12);
+
+}
+
+.day-selector input[type="checkbox"]{
+
+    width:20px;
+
+    height:20px;
+
+    accent-color:#7c4dff;
+
+    cursor:pointer;
+
+}
+
+.day-selector input[type="checkbox"]:checked{
+
+    transform:scale(1.05);
+
+}
+
+.day-selector label:has(input:checked){
+
+    background:linear-gradient(
+        135deg,
+        #7c4dff,
+        #6d3df5
+    );
+
+    border-color:#7c4dff;
+
+    color:#ffffff;
+
+    box-shadow:
+        0 12px 28px rgba(124,77,255,.25);
+
+}
+
+.day-selector label:has(input:checked) input{
+
+    accent-color:#ffffff;
+
+}
+/* ==================================================
+   TIME SCHEDULE
+================================================== */
+
+.time-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:30px;
+
+    margin-top:25px;
+
+}
+
+.time-section{
+
+    background:#faf8ff;
+
+    border:1px solid #ece8ff;
+
+    border-radius:22px;
+
+    padding:28px;
+
+    text-align:center;
+
+    transition:.3s;
+
+}
+
+.time-section:hover{
+
+    border-color:#7c4dff;
+
+    box-shadow:
+        0 12px 30px rgba(124,77,255,.10);
+
+}
+
+.time-section h3{
+
+    margin-bottom:25px;
+
+    color:#4a148c;
+
+    font-size:20px;
+
+    font-weight:700;
+
+}
 
 .time-inputs{
 
     display:flex;
 
-    align-items:center;
     justify-content:center;
-    gap:15px;
+
+    align-items:flex-end;
+
+    gap:18px;
 
 }
-
-
 
 .time-inputs div{
 
@@ -877,39 +389,49 @@ font-size:13px;
 
     flex-direction:column;
 
-    gap:6px;
+    gap:8px;
+
+    flex:1;
 
 }
-
-
 
 .time-inputs label{
 
     font-size:13px;
 
-    color:#777;
+    font-weight:600;
+
+    color:#7b7b7b;
+
+    text-align:left;
 
 }
-
-
 
 .time-inputs input{
 
-    width:130px;
+    width:100%;
 
-    padding:12px;
+    padding:14px 16px;
 
-    border-radius:12px;
+    border:2px solid #ece8ff;
 
-    border:1px solid #ddd;
+    border-radius:14px;
 
-    font-size:14px;
+    background:#ffffff;
 
-    background:white;
+    font-size:15px;
+
+    font-family:inherit;
+
+    transition:.25s;
 
 }
 
+.time-inputs input:hover{
 
+    border-color:#cdbdff;
+
+}
 
 .time-inputs input:focus{
 
@@ -917,128 +439,625 @@ font-size:13px;
 
     border-color:#7c4dff;
 
-    box-shadow:0 0 0 3px rgba(124,77,255,.15);
+    box-shadow:
+        0 0 0 4px rgba(124,77,255,.12);
 
 }
-
-
 
 .time-inputs span{
 
-    margin-top:20px;
+    font-size:26px;
 
-    color:#777;
+    font-weight:700;
 
-    font-size:20px;
+    color:#7c4dff;
+
+    margin-bottom:14px;
 
 }
-
-
-
-
 
 
 
 /* ==========================================
-   SELECTED DATE DISPLAY
+   SELECTED DATE
 ========================================== */
-
 
 #selectedDateTitle{
 
+    margin-top:5px;
+
     color:#4a148c;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+#selectedDateText{
+
+    margin:10px 0 25px;
+
+    color:#777;
+
+    font-size:15px;
+
+}
+/* ==================================================
+   CALENDAR
+================================================== */
+
+.calendar-week{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:10px;
+
+    margin-top:25px;
+
+}
+
+
+.calendar-week span{
+
+    text-align:center;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    color:#6d3df5;
+
+    padding:10px;
+
+}
+
+
+
+/* ==================================================
+   CALENDAR DAYS
+================================================== */
+
+
+.calendar-days{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:12px;
+
+    margin-top:15px;
+
+}
+
+
+
+.calendar-day{
+
+    min-height:75px;
+
+    padding:12px;
+
+    border-radius:18px;
+
+    background:#fafafa;
+
+    border:1px solid #ece8ff;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#4a148c;
+
+}
+
+
+.calendar-day:hover{
+
+    transform:translateY(-4px);
+
+    background:#f3efff;
+
+    border-color:#7c4dff;
+
+    box-shadow:
+        0 10px 25px rgba(124,77,255,.15);
+
+}
+
+
+
+.calendar-day span{
+
+    font-size:20px;
+
+    font-weight:800;
+
+}
+
+
+
+.calendar-day small{
+
+    margin-top:8px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+}
+
+
+
+/* EMPTY DAYS */
+
+.calendar-day.empty{
+
+    visibility:hidden;
+
+    border:none;
+
+    background:transparent;
+
+}
+
+
+
+/* ==================================================
+   CALENDAR STATUS
+================================================== */
+
+
+.calendar-day.available{
+
+    background:#e8f8ef;
+
+    border-color:#b7e8c9;
+
+    color:#16834b;
+
+}
+
+
+.calendar-day.morning-only{
+
+    background:#fff3df;
+
+    border-color:#ffd79b;
+
+    color:#d97706;
+
+}
+
+
+.calendar-day.afternoon-only{
+
+    background:#e8f2ff;
+
+    border-color:#b8d6ff;
+
+    color:#2563eb;
+
+}
+
+
+.calendar-day.day-off{
+
+    background:#eeeeee;
+
+    border-color:#ddd;
+
+    color:#777;
+
+}
+
+
+
+/* SELECTED DATE */
+
+
+.calendar-day.selected{
+
+    background:linear-gradient(
+        135deg,
+        #7c4dff,
+        #4a148c
+    );
+
+    color:white;
+
+    border-color:#7c4dff;
+
+    transform:scale(1.08);
+
+    box-shadow:
+
+        0 12px 30px rgba(124,77,255,.35);
+
+}
+
+
+.calendar-day.selected small{
+
+    color:white;
+
+}
+/* ==================================================
+   AVAILABILITY OPTIONS
+================================================== */
+
+.availability-options{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+    margin-top:25px;
+
+}
+
+
+.availability-options label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:18px 20px;
+
+    background:#faf8ff;
+
+    border:2px solid #ece8ff;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    color:#4a148c;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+
+.availability-options label:hover{
+
+    background:#f3efff;
+
+    border-color:#7c4dff;
+
+    transform:translateX(4px);
+
+}
+
+
+.availability-options input[type="radio"]{
+
+    width:20px;
+
+    height:20px;
+
+    accent-color:#7c4dff;
+
+}
+
+
+
+/* ==================================================
+   TEXTAREA
+================================================== */
+
+
+textarea{
+
+    width:100%;
+
+    height:120px;
+
+    margin-top:10px;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    border:2px solid #ece8ff;
+
+    resize:none;
+
+    font-family:'Plus Jakarta Sans',sans-serif;
+
+    font-size:15px;
+
+    background:white;
+
+    transition:.25s;
+
+}
+
+
+textarea:focus{
+
+    outline:none;
+
+    border-color:#7c4dff;
+
+    box-shadow:
+
+        0 0 0 4px rgba(124,77,255,.12);
+
+}
+
+
+
+/* ==================================================
+   BUTTON
+================================================== */
+
+
+.button-center{
+
+    text-align:center;
+
+}
+
+
+.save-btn{
+
+    display:inline-block;
+
+    margin-top:30px;
+
+    padding:14px 32px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        135deg,
+        #7c4dff,
+        #4a148c
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    text-decoration:none;
+
+    box-shadow:
+
+        0 12px 30px rgba(124,77,255,.30);
+
+    transition:.3s;
+
+}
+
+
+.save-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+        0 18px 40px rgba(124,77,255,.40);
+
+}   
+/* ==================================================
+   COMPACT SCHEDULE LAYOUT
+================================================== */
+
+.schedule-layout{
+    grid-template-columns:1.2fr .8fr;
+    gap:20px;
+}
+
+
+/* ==================================================
+   SHRINK ALL SCHEDULE CARDS
+================================================== */
+
+.schedule-card{
+
+    padding:22px;
+    border-radius:22px;
+    margin-bottom:20px;
+
+}
+
+
+.schedule-card h2{
 
     font-size:22px;
 
+}
+
+
+.schedule-card h3{
+
+    font-size:16px;
+
+}
+
+
+/* ==================================================
+   SMALLER CALENDAR
+================================================== */
+
+
+.calendar-header{
+
+    margin-bottom:15px;
+
+}
+
+
+.calendar-header h3{
+
+    font-size:24px;
+
+}
+
+
+.calendar-week{
+
+    gap:6px;
+    margin-top:15px;
+
+}
+
+
+.calendar-week span{
+
+    font-size:12px;
+    padding:6px;
+
+}
+
+
+.calendar-days{
+
+    gap:8px;
     margin-top:10px;
 
 }
 
 
 
-#selectedDateText{
+.calendar-day{
 
-    color:#777;
+    min-height:55px;
 
-    margin-bottom:20px;
+    padding:8px;
+
+    border-radius:14px;
+
+}
+
+
+.calendar-day span{
+
+    font-size:16px;
+
+}
+
+
+.calendar-day small{
+
+    margin-top:4px;
+
+    font-size:9px;
 
 }
 
 
 
+/* ==================================================
+   SHRINK ADD SCHEDULE SECTION
+================================================== */
 
 
+.day-selector{
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:10px;
+
+    margin-top:15px;
+
+}
 
 
-/* ==========================================
-   ADDITIONAL SCHEDULE TABLE TIME
-========================================== */
+.day-selector label{
 
+    padding:12px 14px;
 
-table td{
+    border-radius:14px;
 
-
-vertical-align:middle;
-
+    font-size:14px;
 
 }
 
 
 
-table td:nth-child(2),
-table td:nth-child(3){
+.day-selector input[type="checkbox"]{
 
+    width:16px;
 
-font-weight:500;
-
-
-}
-
-
-
-
-
-/* ==========================================
-   STATUS COLORS FOR TABLE
-========================================== */
-
-
-table td:nth-child(4){
-
-
-font-weight:bold;
-
+    height:16px;
 
 }
 
 
 
+/* ==================================================
+   SMALLER TIME INPUT AREA
+================================================== */
+
+
+.time-grid{
+
+    gap:15px;
+
+    margin-top:15px;
+
+}
+
+
+.time-section{
+margin-top:15px;
+    padding:18px;
+
+    border-radius:16px;
+
+}
 
 
 
-/* ==========================================
-   MOBILE
-========================================== */
+.time-section h3{
 
+    margin-bottom:15px;
 
-@media(max-width:700px){
+    font-size:16px;
+
+}
+
 
 
 .time-inputs{
 
-
-    flex-direction:column;
-
-    align-items:flex-start;
-
+    gap:10px;
 
 }
 
 
+.time-inputs label{
 
-.time-inputs span{
-
-    display:none;
+    font-size:11px;
 
 }
 
@@ -1046,10 +1065,367 @@ font-weight:bold;
 
 .time-inputs input{
 
-    width:100%;
+    padding:10px 12px;
+
+    font-size:13px;
+
+    border-radius:12px;
 
 }
 
 
 
+.time-inputs span{
+
+    font-size:18px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+/* ==================================================
+   AVAILABILITY OPTIONS SMALLER
+================================================== */
+
+
+.availability-options{
+
+    gap:10px;
+
+    margin-top:15px;
+margin-bottom:15px;
+
+}
+
+
+
+.availability-options label{
+
+    padding:12px 14px;
+
+    border-radius:14px;
+
+    font-size:14px;
+
+}
+
+
+
+.availability-options input[type="radio"]{
+
+    width:16px;
+
+    height:16px;
+
+}
+
+
+
+/* ==================================================
+   NOTES TEXTAREA
+================================================== */
+
+
+textarea{
+
+    height:90px;
+
+    padding:12px;
+
+    font-size:13px;
+
+    border-radius:14px;
+
+}
+
+
+/* ==================================================
+   SAVE BUTTON
+================================================== */
+
+
+.save-btn{
+
+    margin-top:20px;
+
+    padding:12px 26px;
+
+    font-size:14px;
+
+}
+.time-inputs div{
+
+  
+
+    flex:0 1 120px;
+
+}
+
+
+.time-inputs input{
+
+    width:120px;
+
+}
+textarea{
+
+    width:70%;
+
+    margin-left:auto;
+    margin-right:auto;
+
+    display:block;
+
+}
+/* ==========================================
+   SIMPLE PURPLE ADDITIONAL SCHEDULE TABLE
+========================================== */
+
+
+.schedule-card table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+}
+
+
+/* HEADER */
+
+.schedule-card table th{
+
+    background:#7c4dff;
+
+    color:white;
+
+    padding:12px;
+
+    font-size:14px;
+
+    text-align:center;
+
+}
+
+
+
+/* BODY */
+
+.schedule-card table td{
+
+    padding:12px;
+
+    text-align:center;
+
+    font-size:14px;
+
+    color:#444;
+
+    border-bottom:1px solid #eee8ff;
+
+}
+
+
+
+/* ROW HOVER */
+
+.schedule-card table tbody tr:hover{
+
+    background:#f5f0ff;
+
+}
+
+
+
+/* EMPTY */
+
+.schedule-card table td[colspan="5"]{
+
+    padding:20px;
+
+    color:#888;
+
+}
+
+
+
+/* STATUS */
+
+.schedule-card table td:nth-child(4){
+
+    color:#6d3df5;
+
+    font-weight:600;
+
+}
+    /* ==========================================
+   COMPACT ADD SCHEDULE TO MATCH CALENDAR HEIGHT
+========================================== */
+
+
+/* Reduce Add Schedule card padding */
+
+.schedule-layout form.schedule-card{
+
+    padding:20px;
+
+}
+
+
+
+/* Title */
+
+.schedule-layout form.schedule-card h2{
+
+    font-size:22px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+/* Selected date */
+
+#selectedDateTitle{
+
+    font-size:20px;
+
+    margin-top:5px;
+
+}
+
+
+#selectedDateText{
+
+    font-size:13px;
+
+    margin:5px 0 15px;
+
+}
+
+
+
+/* Availability options */
+
+.availability-options{
+
+    gap:8px;
+
+    margin-top:10px;
+
+}
+
+
+.availability-options label{
+
+    padding:10px 12px;
+
+    font-size:13px;
+
+}
+
+
+
+/* Morning / Afternoon time cards */
+
+.schedule-layout .time-section{
+
+    padding:12px;
+
+    border-radius:16px;
+
+}
+
+
+.schedule-layout .time-section h3{
+
+    font-size:15px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+/* Time inputs */
+
+.schedule-layout .time-inputs{
+
+    gap:8px;
+
+}
+
+
+.schedule-layout .time-inputs input{
+
+    padding:8px;
+
+    font-size:12px;
+
+    height:36px;
+
+}
+
+
+.schedule-layout .time-inputs label{
+
+    font-size:11px;
+
+}
+
+
+
+/* Reason */
+
+.schedule-layout textarea{
+
+    height:60px;
+
+    font-size:12px;
+
+    padding:10px;
+
+}
+
+
+
+/* Button */
+
+.schedule-layout .save-btn{
+
+    margin-top:15px;
+
+    padding:10px 22px;
+
+    font-size:13px;
+
+}
+/* Confirmed AM appointment */
+.calendar-day.confirmed-am{
+    background:#d97706 !important; /* warm amber */
+    color:white;
+}
+
+
+/* Confirmed PM appointment */
+.calendar-day.confirmed-pm{
+    background:#2563eb !important; /* medical blue */
+    color:white;
+}
+
+
+/* Confirmed AM + PM */
+.calendar-day.confirmed-am.confirmed-pm{
+    background:linear-gradient(
+        135deg,
+        #d97706,
+        #2563eb
+    ) !important;
+
+    color:white;
 }

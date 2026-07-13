@@ -78,17 +78,17 @@
 
             <div class="card-icon">💊</div>
 
-            <h2>{{prescription_count}} </h2>
+            <h2>❤️</h2>
 
-            <h3>Prescriptions</h3>
+            <h3>Health Summary</h3>
 
             <p>
-                You currently have {{prescription_count}} active prescriptions available.
+                View your health summary (AI generated summary)
             </p>
 
-            <a href="{% url 'patient_medical_record' %}" class="card-link"
-                class="{% if request.resolver_match.url_name == 'patient_medical_record' %}active{% endif %}">
-                View Details →
+            <a href="{% url 'patient_health_summary' %}"class="card-link"
+            class="{% if request.resolver_match.url_name == 'patient_health_summary' %}active{% endif %}">
+             View Details →
             </a>
 
         </div>

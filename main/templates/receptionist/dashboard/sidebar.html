@@ -1,0 +1,39 @@
+{% block sidebar %}
+
+<ul>
+
+    <li>
+        <a href="{% url 'receptionist_dashboard' %}"
+            class="{% if request.resolver_match.url_name == 'receptionist_dashboard' %}active{% endif %}">
+             Dashboard
+        </a>
+    </li>
+
+    <li>
+         <a href="{% url 'receptionist_appointments' %}"
+            class="{% if request.resolver_match.url_name == 'receptionist_appointments' %}active{% endif %}">
+            Appointments
+        </a>
+    </li>
+    <li>
+       <a href="{% url 'receptionist_patients' %}">
+    Patients
+</a>
+    </li>
+ <li>
+    <a href="{% url 'receptionist_doctors' %}">
+    Doctors
+</a>
+    </li>
+
+
+    <li>
+    <a href="#" onclick="confirmLogout(event)">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </a>
+</li>
+
+</ul>
+
+{% endblock %}

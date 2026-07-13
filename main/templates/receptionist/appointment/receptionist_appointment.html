@@ -1,0 +1,722 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Receptionist Appointments
+{% endblock %}
+
+{% block sidebar %}
+{% include "receptionist/dashboard/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/receptionist_appointment.css' %}">
+{% endblock %}
+
+<div class="appointments-page">
+
+    <!-- ==========================================
+    PAGE HEADER
+    =========================================== -->
+
+    <section class="page-header">
+
+        <div>
+
+            <span class="page-tag">
+                Receptionist
+            </span>
+
+            <h1>
+                Appointment Management
+            </h1>
+
+            <p>
+                View and manage appointments based on their current status.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+    PENDING REQUESTS
+    =========================================== -->
+
+    <section class="appointment-card">
+
+        <div class="card-header">
+
+            <h2>
+                Pending Requests
+            </h2>
+
+            <p>
+                Appointments waiting for receptionist review.
+            </p>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="appointment-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Doctor</th>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for appointment in pending_requests %}
+
+                    <tr>
+
+                        <td>
+                            Dr. {{ appointment.doctor.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.patient.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.date }}
+                        </td>
+
+                        <td>
+                            {{ appointment.time_period }}
+                        </td>
+
+                        <td>
+                            {{ appointment.reason }}
+                        </td>
+
+                        <td>
+
+                            <span class="status waiting">
+
+                                {{ appointment.status }}
+
+                            </span>
+
+                        </td>
+
+                        <td class="action-buttons">
+
+                            {% if appointment.can_approve %}
+                            <a href="{% url 'approve_appointment' appointment.id %}" class="btn approve-btn">
+                                Approve
+                            </a>
+                            {% endif %}
+
+                            <a href="#" class="btn reschedule-btn">
+                                Reschedule
+                            </a>
+
+                           <a href="{% url 'deny_appointment' appointment.id %}" 
+   class="btn deny-btn"
+   onclick="return confirmCancel(event, this.href);">
+    Deny
+</a>
+                        </td>
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="7" class="empty-row">
+
+                            No pending requests.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+    <!-- ==========================================
+    PENDING DOCTOR APPROVAL
+    =========================================== -->
+
+    <section class="appointment-card">
+
+        <div class="card-header">
+
+            <h2>
+                Pending Doctor Approval
+            </h2>
+
+            <p>
+                Waiting for doctors to approve appointments.
+            </p>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="appointment-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Doctor</th>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for appointment in pending_doctor_approval %}
+
+                    <tr>
+
+                        <td>
+                            Dr. {{ appointment.doctor.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.patient.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.date }}
+                        </td>
+
+                        <td>
+                            {{ appointment.time_period }}
+                        </td>
+
+                        <td>
+                            {{ appointment.reason }}
+                        </td>
+
+                        <td>
+
+                            <span class="status pending">
+
+                                {{ appointment.status }}
+
+                            </span>
+
+                        </td>
+
+                        <td class="action-buttons">
+
+                            <a href="#" class="btn reschedule-btn">
+                                Reschedule
+                            </a>
+
+                            <a href="{% url 'deny_appointment' appointment.id %}" 
+   class="btn deny-btn"
+   onclick="return confirmCancel(event, this.href);">
+    Cancel
+</a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="7" class="empty-row">
+
+                            No appointments awaiting approval.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+
+    <!-- ==========================================
+    TODAY'S APPOINTMENTS
+    =========================================== -->
+
+    <section class="appointment-card">
+
+        <div class="card-header">
+
+            <h2>
+                Today's Appointments
+            </h2>
+
+            <p>
+                Appointments scheduled for today.
+            </p>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="appointment-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Doctor</th>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for appointment in today_appointments %}
+
+                    <tr>
+
+                        <td>
+                            Dr. {{ appointment.doctor.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.patient.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.date }}
+                        </td>
+
+                        <td>
+                            {{ appointment.time_period }}
+                        </td>
+
+                        <td>
+                            {{ appointment.reason }}
+                        </td>
+
+                        <td>
+
+                            <span class="status {{ appointment.status|lower }}">
+
+                                {{ appointment.status }}
+
+                            </span>
+
+                        </td>
+
+                        <td class="action-buttons">
+
+                            <a href="#" class="btn reschedule-btn">
+                                Reschedule
+                            </a>
+
+                            <a href="{% url 'deny_appointment' appointment.id %}" 
+   class="btn deny-btn"
+   onclick="return confirmCancel(event, this.href);">
+    Cancel
+</a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="7" class="empty-row">
+
+                            No appointments scheduled today.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+    <!-- ==========================================
+    UPCOMING APPOINTMENTS
+    =========================================== -->
+
+    <section class="appointment-card">
+
+        <div class="card-header">
+
+            <h2>
+                Upcoming Appointments
+            </h2>
+
+            <p>
+                Confirmed appointments scheduled in the future.
+            </p>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="appointment-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Doctor</th>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for appointment in upcoming_appointments %}
+
+                    <tr>
+
+                        <td>
+                            Dr. {{ appointment.doctor.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.patient.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.date }}
+                        </td>
+
+                        <td>
+                            {{ appointment.time_period }}
+                        </td>
+
+                        <td>
+                            {{ appointment.reason }}
+                        </td>
+
+                        <td>
+
+                            <span class="status confirmed">
+
+                                {{ appointment.status }}
+
+                            </span>
+
+                        </td>
+
+                        <td class="action-buttons">
+
+                            <a href="#" class="btn reschedule-btn">
+                                Reschedule
+                            </a>
+<a href="{% url 'deny_appointment' appointment.id %}" 
+   class="btn deny-btn"
+   onclick="return confirmCancel(event, this.href);">
+    Cancel
+</a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="7" class="empty-row">
+
+                            No upcoming appointments.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+
+    <!-- ==========================================
+    COMPLETED APPOINTMENTS
+    =========================================== -->
+
+    <section class="appointment-card">
+
+        <div class="card-header">
+
+            <h2>
+                Completed Appointments
+            </h2>
+
+            <p>
+                Successfully completed consultations.
+            </p>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="appointment-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Doctor</th>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for appointment in completed_appointments %}
+
+                    <tr>
+
+                        <td>
+                            Dr. {{ appointment.doctor.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.patient.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.date }}
+                        </td>
+
+                        <td>
+                            {{ appointment.time_period }}
+                        </td>
+
+                        <td>
+                            {{ appointment.reason }}
+                        </td>
+
+                        <td>
+
+                            <span class="status completed">
+
+                                {{ appointment.status }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="6" class="empty-row">
+
+                            No completed appointments.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+    <!-- ==========================================
+CANCELLED APPOINTMENTS
+=========================================== -->
+
+    <section class="appointment-card">
+
+        <div class="card-header">
+
+            <h2>
+                Cancelled Appointments
+            </h2>
+
+            <p>
+                Appointments that have been cancelled.
+            </p>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="appointment-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Doctor</th>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for appointment in cancelled_appointments %}
+
+                    <tr>
+
+                        <td>
+                            Dr. {{ appointment.doctor.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.patient.user.get_full_name }}
+                        </td>
+
+                        <td>
+                            {{ appointment.date }}
+                        </td>
+
+                        <td>
+                            {{ appointment.time_period }}
+                        </td>
+
+                        <td>
+                            {{ appointment.reason }}
+                        </td>
+
+                        <td>
+
+                            <span class="status cancelled">
+                                {{ appointment.status }}
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="6" class="empty-row">
+
+                            No cancelled appointments.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+function confirmCancel(event, url){
+
+    event.preventDefault();
+
+    Swal.fire({
+        title: "Cancel Appointment?",
+        text: "Are you sure you want to cancel this appointment?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Cancel",
+        cancelButtonText: "Keep Appointment",
+        confirmButtonColor: "#d32f2f",
+        cancelButtonColor: "#7c4dff"
+    }).then((result)=>{
+
+        if(result.isConfirmed){
+            window.location.href = url;
+        }
+
+    });
+
+    return false;
+}
+
+</script>
+
+{% endblock %}

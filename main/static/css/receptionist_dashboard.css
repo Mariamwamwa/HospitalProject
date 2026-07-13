@@ -1,0 +1,417 @@
+/* ==================================================
+   RECEPTIONIST DASHBOARD
+================================================== */
+
+.receptionist-dashboard{
+
+    max-width:1280px;
+    margin:auto;
+    padding:32px;
+    font-family:'Plus Jakarta Sans',sans-serif;
+
+}
+
+
+
+/* ==================================================
+   WELCOME SECTION
+================================================== */
+
+.welcome-section{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:40px;
+
+    padding:42px;
+
+    background:linear-gradient(
+        135deg,
+        rgba(124,77,255,.16),
+        rgba(99,102,241,.12)
+    );
+
+    border:1px solid rgba(124,77,255,.15);
+
+    border-radius:26px;
+
+    backdrop-filter:blur(16px);
+
+    margin-bottom:35px;
+
+}
+
+
+
+.welcome-content{
+
+    flex:1;
+    min-width:0;
+
+}
+
+
+
+.welcome-tag{
+
+    display:inline-flex;
+    align-items:center;
+
+    padding:8px 18px;
+
+    background:#f3f0ff;
+    color:#7c4dff;
+
+    border-radius:50px;
+
+    font-size:14px;
+    font-weight:700;
+
+    margin-bottom:16px;
+
+}
+
+
+
+.welcome-content h1{
+
+    margin:0 0 12px;
+
+    font-size:34px;
+    font-weight:700;
+
+    color:#2d3436;
+
+}
+
+
+
+.welcome-content p{
+
+    margin:0;
+
+    color:#636e72;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+}
+
+
+
+.welcome-image{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+
+
+.welcome-image img{
+
+    width:140px;
+    height:140px;
+
+    object-fit:contain;
+
+}
+
+
+
+/* ==================================================
+   DASHBOARD OVERVIEW
+================================================== */
+
+.summary-section{
+
+    margin-top:35px;
+
+}
+
+
+
+.summary-header{
+
+    margin-bottom:20px;
+
+}
+
+
+
+.summary-header h2{
+
+    margin:0;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#4a148c;
+
+}
+
+
+
+.summary-header p{
+
+    margin-top:8px;
+
+    color:#636e72;
+
+    font-size:15px;
+
+}
+
+
+
+/* ==================================================
+   SUMMARY WRAPPER
+================================================== */
+
+.summary-wrapper{
+
+    background:#fff;
+
+    border:1px solid rgba(124,77,255,.12);
+
+    border-radius:24px;
+
+    padding:30px;
+
+    box-shadow:0 10px 30px rgba(124,77,255,.08);
+
+}
+
+
+
+/* ==================================================
+   SUMMARY CARDS
+================================================== */
+
+.summary-cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+    gap:20px;
+
+}
+
+
+
+.summary-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    min-height:110px;
+
+    min-width:0;
+
+    padding:22px;
+
+    background:#faf9ff;
+
+    border:1px solid rgba(124,77,255,.08);
+
+    border-radius:18px;
+
+    transition:all .3s ease;
+
+}
+
+
+
+.summary-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 12px 25px rgba(124,77,255,.12);
+
+}
+
+
+
+.summary-icon{
+
+    width:60px;
+
+    height:60px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    background:#f3f0ff;
+
+    border-radius:16px;
+
+    font-size:28px;
+
+}
+
+
+
+.summary-info{
+
+    flex:1;
+
+    min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+.summary-info span{
+
+    color:#636e72;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    margin-bottom:6px;
+
+}
+
+
+
+.summary-info h2{
+
+    margin:0;
+
+    color:#4a148c;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    line-height:1.1;
+
+    word-break:break-word;
+
+}
+
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width:992px){
+
+    .receptionist-dashboard{
+
+        padding:24px;
+
+    }
+
+    .welcome-section{
+
+        gap:25px;
+
+        padding:30px;
+
+    }
+
+}
+
+
+
+@media (max-width:768px){
+
+    .receptionist-dashboard{
+
+        padding:18px;
+
+    }
+
+    .welcome-section{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        padding:28px;
+
+    }
+
+    .welcome-image img{
+
+        width:110px;
+        height:110px;
+
+    }
+
+    .summary-wrapper{
+
+        padding:20px;
+
+    }
+
+    .summary-card{
+
+        padding:18px;
+
+    }
+
+    .summary-info h2{
+
+        font-size:26px;
+
+    }
+
+}
+
+
+
+@media (max-width:480px){
+
+    .summary-wrapper{
+
+        padding:16px;
+
+    }
+
+    .summary-card{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        gap:12px;
+
+    }
+
+    .summary-icon{
+
+        width:55px;
+
+        height:55px;
+
+        font-size:24px;
+
+    }
+
+    .summary-info h2{
+
+        font-size:24px;
+
+    }
+
+}

@@ -1,0 +1,125 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}Patients{% endblock %}
+
+{% block sidebar %}
+{% include "doctors/dashboard/sidebar.html" %}
+{% endblock %}
+
+
+
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/doctor_patient_list.css' %}">
+{% endblock %}
+<div class="patients-page">
+
+    <div class="header-card">
+
+        <h2>My Patients</h2>
+
+        <form method="GET" class="search-form">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search patient..."
+                value="{{ request.GET.search }}"
+            >
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+    </div>
+
+   <div class="table-card">
+
+    <table class="patients-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Profile</th>
+
+                <th>Patient Name</th>
+
+                <th>Age</th>
+
+                <th>Latest Diagnosis</th>
+
+                <th>Appointment Date</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for item in patients %}
+
+            <tr>
+
+                <td>
+
+                    <img
+                        src="{{ item.patient.profile_picture.url }}"
+                        class="profile-pic"
+                        alt="{{ item.patient.user.get_full_name }}"
+                    >
+
+                </td>
+
+                <td>
+
+                    {{ item.patient.user.get_full_name }}
+
+                </td>
+
+                <td>
+
+                    {{ item.patient.age }}
+
+                </td>
+
+                <td>
+
+                    {{ item.diagnosis }}
+
+                </td>
+
+                <td>
+
+                    {{ item.appointment_date }}
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="5" class="empty">
+
+                    No patients found.
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</div>
+
+{% endblock %}

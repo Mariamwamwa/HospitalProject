@@ -10,7 +10,7 @@ from .models import (
     Receptionist,
     Appointment,
     MedicalRecord,
-    Prescription,
+
 )
 
 
@@ -84,12 +84,3 @@ class MedicalRecordForm(forms.ModelForm):
 # ===========================
 # PRESCRIPTION
 # ===========================
-
-class PrescriptionForm(forms.ModelForm):
-    class Meta:
-        model = Prescription
-        fields = "__all__"
-
-        widgets = {
-            "instructions": forms.Textarea(attrs={"rows": 4}),
-        }

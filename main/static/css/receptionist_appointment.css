@@ -1,0 +1,822 @@
+/* ==================================================
+   RECEPTIONIST APPOINTMENTS PAGE
+================================================== */
+
+.appointments-page{
+    max-width:1400px;
+    margin:auto;
+    padding:30px;
+    font-family:'Plus Jakarta Sans',sans-serif;
+    color:#2d3748;
+}
+
+
+
+/* ==================================================
+   PAGE HEADER
+================================================== */
+
+.page-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:35px;
+
+    padding:35px 40px;
+
+    background:linear-gradient(135deg,#7c4dff,#5b2be0);
+
+    color:#fff;
+
+    border-radius:22px;
+
+    box-shadow:0 18px 40px rgba(124,77,255,.18);
+
+}
+
+.page-tag{
+
+    display:inline-block;
+
+    padding:7px 16px;
+
+    border-radius:50px;
+
+    background:rgba(255,255,255,.15);
+
+    font-size:.82rem;
+
+    font-weight:700;
+
+    letter-spacing:.8px;
+
+    margin-bottom:12px;
+
+}
+
+.page-header h1{
+
+    margin:0;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+}
+
+.page-header p{
+
+    margin-top:10px;
+
+    font-size:.96rem;
+
+    color:rgba(255,255,255,.9);
+
+}
+
+
+
+/* ==================================================
+   APPOINTMENT CARD
+================================================== */
+
+.appointment-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    margin-bottom:30px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+    overflow:hidden;
+
+    transition:.25s;
+
+}
+
+.appointment-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 18px 36px rgba(0,0,0,.12);
+
+}
+
+
+
+/* ==================================================
+   CARD HEADER
+================================================== */
+
+.card-header{
+background:linear-gradient(135deg,#7c4dff,#5b2be0);
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:24px 30px;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+.card-header h2{
+
+    margin:0;
+
+    font-size:1.35rem;
+
+    font-weight:700;
+
+    color:#fff;
+  
+
+}
+.status.cancelled{
+
+    background:#ffe5e5;
+
+    color:#c62828;
+
+}
+.card-header p{
+
+    margin-top:5px;
+
+    font-size:.92rem;
+
+    color:#9aa0b0;
+
+}
+
+
+
+/* ==================================================
+   TABLE WRAPPER
+================================================== */
+
+.table-wrapper{
+
+    width:100%;
+
+    overflow-x:auto;
+
+}
+/* ==================================================
+   APPOINTMENT TABLE
+================================================== */
+
+.appointment-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:1100px;
+
+}
+
+.appointment-table thead{
+
+    background:#f6f3ff;
+
+}
+
+.appointment-table thead th{
+
+    padding:16px 18px;
+
+    text-align:left;
+
+    font-size:.92rem;
+
+    font-weight:700;
+
+    color:#5b2be0;
+
+    border-bottom:1px solid #e8e8e8;
+
+    white-space:nowrap;
+
+}
+
+.appointment-table tbody td{
+
+    padding:18px;
+
+    font-size:.94rem;
+
+    color:#444;
+
+    border-bottom:1px solid #f1f1f1;
+
+    vertical-align:middle;
+
+}
+
+.appointment-table tbody tr{
+
+    transition:.2s;
+
+}
+
+.appointment-table tbody tr:hover{
+
+    background:#faf9ff;
+
+}
+
+
+
+/* ==================================================
+   STATUS BADGES
+================================================== */
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:110px;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    font-size:.82rem;
+
+    font-weight:700;
+
+    text-transform:capitalize;
+
+}
+
+
+
+/* Waiting */
+
+.status.waiting{
+
+    background:#fff4d6;
+
+    color:#b7791f;
+
+}
+
+
+
+/* Pending */
+
+.status.pending{
+
+    background:#e8edff;
+
+    color:#4c51bf;
+
+}
+
+
+
+/* Confirmed */
+
+.status.confirmed{
+
+    background:#e7f8ef;
+
+    color:#15803d;
+
+}
+
+
+
+/* Completed */
+
+.status.completed{
+
+    background:#dff7e8;
+
+    color:#166534;
+
+}
+
+
+
+/* Cancelled */
+
+.status.cancelled{
+
+    background:#ffe4e6;
+
+    color:#b91c1c;
+
+}
+
+
+
+/* Generic fallback */
+
+.status.available{
+
+    background:#e9f7ef;
+
+    color:#0f8b4c;
+
+}
+
+.status.unavailable{
+
+    background:#ffe5e5;
+
+    color:#c62828;
+
+}
+
+
+
+/* ==================================================
+   EMPTY TABLE
+================================================== */
+
+.empty-row{
+
+    text-align:center;
+
+    color:#8b8b8b;
+
+    padding:35px;
+
+    font-style:italic;
+
+}
+
+
+
+/* ==================================================
+   TABLE SCROLLBAR
+================================================== */
+
+.table-wrapper::-webkit-scrollbar{
+
+    height:8px;
+
+}
+
+.table-wrapper::-webkit-scrollbar-track{
+
+    background:#f1f1f1;
+
+    border-radius:10px;
+
+}
+
+.table-wrapper::-webkit-scrollbar-thumb{
+
+    background:#bca8ff;
+
+    border-radius:10px;
+
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover{
+
+    background:#7c4dff;
+
+}
+/* ==================================================
+   ACTION BUTTONS
+================================================== */
+
+.action-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+}
+
+.btn{
+
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-decoration:none;
+
+    padding:8px 15px;
+
+    border-radius:8px;
+
+    font-size:.82rem;
+
+    font-weight:600;
+
+    color:#fff;
+
+    transition:all .25s ease;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+}
+
+
+
+/* ===========================
+   APPROVE
+=========================== */
+
+.approve-btn{
+
+    background:#22c55e;
+
+}
+
+.approve-btn:hover{
+
+    background:#16a34a;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 6px 14px rgba(34,197,94,.35);
+
+}
+
+
+
+/* ===========================
+   RESCHEDULE
+=========================== */
+
+.reschedule-btn{
+
+    background:#7c4dff;
+
+}
+
+.reschedule-btn:hover{
+
+    background:#673de6;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 6px 14px rgba(124,77,255,.35);
+
+}
+
+
+
+/* ===========================
+   DENY
+=========================== */
+
+.deny-btn{
+
+    background:#ef4444;
+
+}
+
+.deny-btn:hover{
+
+    background:#dc2626;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 6px 14px rgba(239,68,68,.35);
+
+}
+
+
+
+/* ==================================================
+   LINKS INSIDE TABLE
+================================================== */
+
+.appointment-table a{
+
+    text-decoration:none;
+
+}
+
+
+
+/* ==================================================
+   CARD SPACING
+================================================== */
+
+.appointment-card + .appointment-card{
+
+    margin-top:28px;
+
+}
+
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width:1200px){
+
+    .appointments-page{
+
+        padding:20px;
+
+    }
+
+    .appointment-table{
+
+        min-width:1000px;
+
+    }
+
+}
+
+
+
+@media (max-width:992px){
+
+    .page-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+
+        padding:28px;
+
+    }
+
+    .page-header h1{
+
+        font-size:1.7rem;
+
+    }
+
+    .card-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:8px;
+
+    }
+
+}
+
+
+
+@media (max-width:768px){
+
+    .appointments-page{
+
+        padding:15px;
+
+    }
+
+    .appointment-card{
+
+        border-radius:14px;
+
+    }
+
+    .appointment-table{
+
+        min-width:900px;
+
+    }
+
+    .appointment-table th,
+
+    .appointment-table td{
+
+        padding:14px;
+
+    }
+
+    .btn{
+
+        padding:7px 12px;
+
+        font-size:.78rem;
+
+    }
+
+}
+
+
+
+@media (max-width:576px){
+
+    .page-header{
+
+        padding:22px;
+
+    }
+
+    .page-header h1{
+
+        font-size:1.5rem;
+
+    }
+
+    .page-header p{
+
+        font-size:.85rem;
+
+    }
+
+    .card-header{
+
+        padding:18px;
+
+    }
+
+    .card-header h2{
+
+        font-size:1.15rem;
+
+    }
+
+    .appointment-table{
+
+        min-width:850px;
+
+    }
+
+    .status{
+
+        min-width:90px;
+
+        font-size:.75rem;
+
+        padding:7px 12px;
+
+    }
+
+}
+
+
+
+/* ==================================================
+   SMOOTH ANIMATIONS
+================================================== */
+
+.page-header,
+
+.appointment-card,
+
+.btn,
+
+.status{
+
+    transition:all .25s ease;
+
+}
+.appointment-table thead th{
+
+    padding:16px 18px;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    font-size:.92rem;
+
+    font-weight:700;
+
+    color:#5b2be0;
+
+    background:#f6f3ff;
+
+    border-bottom:1px solid #e8e8e8;
+
+    white-space:nowrap;
+
+}
+.appointment-table tbody td{
+    text-align:center;
+    vertical-align:middle;
+}
+.cancel-modal{
+
+    display:none;
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,0.35);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
+
+}
+
+
+.cancel-box{
+
+    background:white;
+
+    width:380px;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    font-family:'Plus Jakarta Sans',sans-serif;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+}
+
+
+.cancel-box h3{
+
+    color:#4a148c;
+
+    margin-bottom:10px;
+
+}
+
+
+.cancel-box p{
+
+    color:#555;
+
+    line-height:1.5;
+
+}
+
+
+.cancel-actions{
+
+    margin-top:25px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+}
+
+
+.keep-btn,
+.confirm-cancel-btn{
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    border:none;
+
+    cursor:pointer;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+}
+
+
+.keep-btn{
+
+    background:#eee;
+
+    color:#333;
+
+}
+
+
+.confirm-cancel-btn{
+
+    background:#d32f2f;
+
+    color:white;
+
+}

@@ -10,7 +10,7 @@ from .models import (
     DoctorSchedule,
     Appointment,
     MedicalRecord,
-    Prescription
+   
 )
 
 
@@ -301,17 +301,4 @@ class MedicalRecordAdmin(admin.ModelAdmin):
         "patient",
         "doctor",
         "visit_date",
-    )
-
-
-
-
-
-@admin.register(Prescription)
-class PrescriptionAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "appointment",
-        "medication_name",
-        "issued_date",
     )

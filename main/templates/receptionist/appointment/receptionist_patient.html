@@ -1,0 +1,149 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Patient List
+{% endblock %}
+
+
+{% block sidebar %}
+{% include "receptionist/dashboard/sidebar.html" %}
+{% endblock %}
+
+
+
+
+
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/receptionist_patient.css' %}">
+{% endblock %}
+<div class="patients-page">
+
+    <!-- HEADER -->
+    <section class="page-header">
+
+        <div>
+
+            <span class="page-tag">
+                Receptionist
+            </span>
+
+            <h1>
+                Patient Management
+            </h1>
+
+            <p>
+                View registered patients and their appointment information.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- PATIENT TABLE -->
+    <section class="patient-card">
+
+        <div class="card-header">
+
+            <h2>
+                Patient List
+            </h2>
+
+            <p>
+                Registered patients in the system.
+            </p>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table class="patient-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Patient</th>
+                        <th>Gmail</th>
+                        <th>Sex</th>
+                        <th>Age</th>
+                        <th>Last Appointment</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for patient in patients %}
+
+                    <tr>
+
+                        <td>
+                            {{ patient.user.get_full_name }}
+                        </td>
+
+
+                        <td>
+                            {{ patient.user.email }}
+                        </td>
+
+
+                        <td>
+                            {{ patient.sex }}
+                        </td>
+
+
+                        <td>
+                            {{ patient.age }}
+                        </td>
+
+
+                       <td>
+
+    {% if patient.last_appointment %}
+
+        {{ patient.last_appointment.date }}
+
+    {% else %}
+
+        No appointment
+
+    {% endif %}
+
+</td>
+
+                    </tr>
+
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="5" class="empty-row">
+
+                            No patients registered.
+
+                        </td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+{% endblock %}

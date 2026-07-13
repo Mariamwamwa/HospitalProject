@@ -211,7 +211,7 @@ Appointment Details
 
         {% if has_medical_record %}
 
-            <a href="#" class="record-btn">
+            <a href="{% url 'doctor_create_medical' appointment.id %}"record-btn">
                 View Medical Record
             </a>
 
@@ -221,7 +221,7 @@ Appointment Details
 
         {% else %}
 
-            <a href="#" class="record-btn">
+            <a href="{% url 'doctor_create_medical' appointment.id %}" class="record-btn">
                 Create Medical Record
             </a>
 
@@ -235,7 +235,7 @@ Appointment Details
 
         {% if has_medical_record %}
 
-            <a href="#" class="record-btn">
+            <a href="{% url 'doctor_create_medical' appointment.id %}" class="record-btn">
                 View Medical Record
             </a>
 
