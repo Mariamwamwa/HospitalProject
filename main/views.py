@@ -374,7 +374,7 @@ def book_appointment(request):
                 "reason"
             )
 
-            appointment.status = "Pending"
+            appointment.status = "Waiting"
 
 
         appointment.save()
@@ -764,7 +764,9 @@ def doctor_appointments(request):
     # Only this doctor's appointments
     appointments = Appointment.objects.filter(
         doctor=doctor
-    ).order_by("-date")
+    ).exclude(
+    status="Waiting"
+).order_by("-date")
 
 
 
@@ -1043,7 +1045,7 @@ def reschedule_appointment(request, appointment_id):
             "doctor_appointment_detail",
             appointment_id=appointment.id
         )
-
+    
     context = {
 
         "appointment": appointment,
@@ -1694,11 +1696,11 @@ def receptionist_dashboard(request):
     ).count()
 
     pending_requests = Appointment.objects.filter(
-        status="Pending"
+        status="Waiting"
     ).count()
 
     pending_doctor_approval = Appointment.objects.filter(
-        status="Waiting"
+        status="Pending"
     ).count()
 
     upcoming_appointments = Appointment.objects.filter(
@@ -1884,21 +1886,13 @@ def deny_appointment(request, appointment_id):
 @login_required
 def receptionist_patients(request):
 
-    patients = Patient.objects.prefetch_related(
-        Prefetch(
-            "appointment_set",
-            queryset=Appointment.objects.filter(
-                status="Confirmed"
-            ).order_by("-date"),
-            to_attr="confirmed_appointments"
-        )
-    )
+    patients = Patient.objects.all()
 
     for patient in patients:
-        if patient.confirmed_appointments:
-            patient.last_appointment = patient.confirmed_appointments[0]
-        else:
-            patient.last_appointment = None
+
+        patient.last_appointment = patient.appointments.filter(
+            status="Confirmed"
+        ).order_by("-date").first()
 
 
     context = {
@@ -1908,7 +1902,7 @@ def receptionist_patients(request):
 
     return render(
         request,
-        "receptionist_patient.html",
+        "receptionist/appointment/receptionist_patient.html",
         context
     )
 @login_required
