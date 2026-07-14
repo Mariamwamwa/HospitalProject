@@ -106,9 +106,14 @@ body{
 
 /* ================= MAIN ================= */
 .dashboard-content{
+    flex:1;
     padding:30px;
+
     transition:margin-left .3s ease;
+
     background:#eee9ff;
+
+    min-height:calc(100vh - var(--header-height) - var(--footer-height));
 }
 /* ================= FOOTER ================= */
 .dashboard-content.shift{
@@ -116,6 +121,7 @@ body{
 }
 .dashboard-footer{
     height:70px;
+
     background:var(--deep-purple);
     color:white;
 
@@ -124,8 +130,6 @@ body{
     align-items:center;
 
     flex-shrink:0;
-     z-index:1000;
-
 }
 /* ================= SIDEBAR ================= */
 

@@ -536,9 +536,6 @@ def change_password(request):
     )
 
 
-def doctor_list(request):
-    return render(request, "patients/doctors/doctors_list.html")
-
 @login_required
 def appointment_detail(request, id):
 
@@ -2086,4 +2083,20 @@ def patient_account_edit(request):
         request,
         "patients/patient_details/patient_account_edit.html",
         context
+    )
+
+@login_required
+def doctor_list(request):
+
+    doctors = Doctor.objects.prefetch_related(
+        "weekly_schedule"
+    ).all()
+
+
+    return render(
+        request,
+        "patients/doctors/doctors_list.html",
+        {
+            "doctors": doctors
+        }
     )

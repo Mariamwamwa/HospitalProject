@@ -1,0 +1,141 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}Doctors{% endblock %}
+
+{% block sidebar %}
+{% include "patients/dashboard/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/patient_doctor_list.css' %}">
+{% endblock %}
+
+<div class="doctor-page">
+
+    <!-- Header -->
+    <div class="doctor-header">
+        <h1>Our Doctors</h1>
+        <p>Find and view available doctors in CareNest Hospital.</p>
+    </div>
+
+    <div class="doctor-list">
+
+        {% for doctor in doctors %}
+
+        <div class="doctor-card">
+
+            <!-- TOP -->
+            <div class="doctor-top">
+
+                <div class="doctor-image">
+                    {% if doctor.profile_picture %}
+                        <img src="{{ doctor.profile_picture.url }}" alt="Doctor">
+                    {% else %}
+                        <img src="{% static 'images/default.jpg' %}" alt="Doctor">
+                    {% endif %}
+                </div>
+
+                <div class="doctor-info">
+
+                    <h2>Dr. {{ doctor.first_name }} {{ doctor.last_name }}</h2>
+
+                    <span class="specialization">
+                        {{ doctor.specialization }}
+                    </span>
+
+                    <div class="doctor-details">
+
+                        <div class="detail-row">
+                            <p><strong>Sex:</strong> {{ doctor.sex }}</p>
+                            <p><strong>Age:</strong> {{ doctor.age }}</p>
+                        </div>
+
+                        <div class="detail-row">
+                            <p><strong>License:</strong> {{ doctor.license_number }}</p>
+                            <p><strong>Contact:</strong> {{ doctor.contact_number }}</p>
+                        </div>
+
+                        <div class="detail-row">
+                            <p><strong>Email:</strong> {{ doctor.email }}</p>
+                            <p><strong>Address:</strong> {{ doctor.address }}</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- WEEKLY SCHEDULE -->
+
+           <div class="schedule-box">
+
+    <h3>Weekly Schedule</h3>
+
+    <table class="schedule-table">
+
+        <thead>
+            <tr>
+                <th>Weekday</th>
+                <th>Morning</th>
+                <th>Afternoon</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for schedule in doctor.weekly_schedule.all %}
+
+            <tr>
+
+                <td>{{ schedule.day_of_week }}</td>
+
+                <td>
+                    {% if schedule.morning_available %}
+                        {{ schedule.morning_start }} - {{ schedule.morning_end }}
+                    {% else %}
+                        <span class="off">OFF</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if schedule.afternoon_available %}
+                        {{ schedule.afternoon_start }} - {{ schedule.afternoon_end }}
+                    {% else %}
+                        <span class="off">OFF</span>
+                    {% endif %}
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+                <td colspan="3">No schedule available.</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+        </div>
+
+        {% empty %}
+
+        <div class="empty">
+            No doctors available.
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

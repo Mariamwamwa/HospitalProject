@@ -7,12 +7,7 @@ from .models import (
     Doctor,
     Patient,
     Receptionist,
-    DoctorSchedule,
-    Appointment,
-    MedicalRecord,
-   
 )
-
 
 
 # ==========================================
@@ -23,8 +18,8 @@ class DoctorCreationForm(forms.ModelForm):
 
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
-
     email = forms.EmailField()
+
 
     class Meta:
         model = Doctor
@@ -39,13 +34,13 @@ class DoctorCreationForm(forms.ModelForm):
             "specialization",
             "sex",
             "license_number",
+            "profile_picture",
         ]
 
 
     def save(self, commit=True):
 
         doctor = super().save(commit=False)
-
 
         user = User.objects.create(
             username=self.cleaned_data["username"],
@@ -57,18 +52,12 @@ class DoctorCreationForm(forms.ModelForm):
             )
         )
 
-
         doctor.user = user
-
 
         if commit:
             doctor.save()
 
-
         return doctor
-
-
-
 
 
 
@@ -80,12 +69,10 @@ class PatientCreationForm(forms.ModelForm):
 
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
-
     email = forms.EmailField()
 
 
     class Meta:
-
         model = Patient
 
         fields = [
@@ -96,13 +83,13 @@ class PatientCreationForm(forms.ModelForm):
             "last_name",
             "email",
             "sex",
+            "profile_picture",
         ]
 
 
     def save(self, commit=True):
 
         patient = super().save(commit=False)
-
 
         user = User.objects.create(
             username=self.cleaned_data["username"],
@@ -114,18 +101,12 @@ class PatientCreationForm(forms.ModelForm):
             )
         )
 
-
         patient.user = user
-
 
         if commit:
             patient.save()
 
-
         return patient
-
-
-
 
 
 
@@ -137,12 +118,10 @@ class ReceptionistCreationForm(forms.ModelForm):
 
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
-
     email = forms.EmailField()
 
 
     class Meta:
-
         model = Receptionist
 
         fields = [
@@ -154,14 +133,13 @@ class ReceptionistCreationForm(forms.ModelForm):
             "email",
             "sex",
             "employee_id",
+            "profile_picture",
         ]
-
 
 
     def save(self, commit=True):
 
         receptionist = super().save(commit=False)
-
 
         user = User.objects.create(
             username=self.cleaned_data["username"],
@@ -173,24 +151,17 @@ class ReceptionistCreationForm(forms.ModelForm):
             )
         )
 
-
         receptionist.user = user
-
 
         if commit:
             receptionist.save()
-
 
         return receptionist
 
 
 
-
-
-
-
 # ==========================================
-# ADMIN
+# ADMIN REGISTRATION
 # ==========================================
 
 
@@ -199,18 +170,15 @@ class DoctorAdmin(admin.ModelAdmin):
 
     form = DoctorCreationForm
 
-
     list_display = (
         "user",
         "first_name",
         "last_name",
+        "profile_picture",
         "specialization",
         "license_number",
         "sex",
     )
-
-
-
 
 
 
@@ -219,16 +187,13 @@ class PatientAdmin(admin.ModelAdmin):
 
     form = PatientCreationForm
 
-
     list_display = (
         "user",
         "first_name",
         "last_name",
+        "profile_picture",
         "sex",
     )
-
-
-
 
 
 
@@ -237,68 +202,11 @@ class ReceptionistAdmin(admin.ModelAdmin):
 
     form = ReceptionistCreationForm
 
-
     list_display = (
         "user",
         "first_name",
         "last_name",
+        "profile_picture",
         "employee_id",
         "sex",
-    )
-
-
-
-
-
-@admin.register(DoctorSchedule)
-class DoctorScheduleAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "doctor",
-        "day_of_week",
-        "morning_schedule",
-        "afternoon_schedule",
-    )
-
-
-    def morning_schedule(self, obj):
-
-        if obj.morning_available:
-            return f"{obj.morning_start} - {obj.morning_end}"
-
-        return "OFF"
-
-
-    def afternoon_schedule(self, obj):
-
-        if obj.afternoon_available:
-            return f"{obj.afternoon_start} - {obj.afternoon_end}"
-
-        return "OFF"
-
-
-
-
-@admin.register(Appointment)
-class AppointmentAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "patient",
-        "doctor",
-        "date",
-        "time_period",
-        "status",
-    )
-
-
-
-
-
-@admin.register(MedicalRecord)
-class MedicalRecordAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "patient",
-        "doctor",
-        "visit_date",
     )

@@ -40,11 +40,15 @@ Doctor Dashboard
 
         </div>
 
-        <div class="welcome-image">
+   <div class="welcome-image">
 
-            <img src="{% static 'images/CarenestLOGO.png' %}" alt="CareNest Logo">
+    {% if doctor.profile_picture %}
+        <img src="{{ doctor.profile_picture.url }}" alt="Doctor Profile Picture">
+    {% else %}
+        <img src="{% static 'images/default_profile.png' %}" alt="Default Profile">
+    {% endif %}
 
-        </div>
+</div>
 
     </section>
 

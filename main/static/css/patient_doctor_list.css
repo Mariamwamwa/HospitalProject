@@ -1,0 +1,222 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Segoe UI",sans-serif;
+    background:#f5f7fb;
+}
+
+.doctor-page{
+    padding:35px;
+}
+
+/* Header */
+
+.doctor-header{
+    background:linear-gradient(135deg,#6f4ef2,#8c6dff);
+    color:#fff;
+    padding:35px;
+    border-radius:18px;
+    margin-bottom:30px;
+}
+
+.doctor-header h1{
+    font-size:36px;
+    margin-bottom:8px;
+}
+
+.doctor-header p{
+    font-size:17px;
+}
+
+/* Cards */
+
+.doctor-list{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
+
+.doctor-card{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+/* Top */
+
+.doctor-top{
+    display:flex;
+    gap:30px;
+    align-items:flex-start;
+}
+
+/* Image */
+
+.doctor-image{
+    width:190px;
+    min-width:190px;
+    height:190px;
+}
+
+.doctor-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:18px;
+    border:5px solid #ece9ff;
+}
+
+/* Info */
+
+.doctor-info{
+    flex:1;
+}
+
+.doctor-info h2{
+    font-size:32px;
+    color:#2d3748;
+}
+
+.specialization{
+    display:inline-block;
+    margin-top:10px;
+    margin-bottom:25px;
+    padding:8px 18px;
+    background:#6f4ef2;
+    color:#fff;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:600;
+}
+
+/* Details */
+
+.doctor-details{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.detail-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+}
+
+.detail-row p{
+    padding:10px 0;
+    border-bottom:1px solid #ececec;
+    color:#444;
+    font-size:16px;
+}
+
+.detail-row strong{
+    color:#6f4ef2;
+}
+
+/* Schedule */
+/* ==========================
+   SCHEDULE
+========================== */
+
+.schedule-box{
+    margin-top:35px;
+}
+
+.schedule-box h3{
+    font-size:24px;
+    color:#6f4ef2;
+    margin-bottom:18px;
+}
+
+.schedule-table{
+    width:100%;
+    border-collapse:collapse;
+    border-radius:12px;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+}
+
+.schedule-table thead{
+    background:#6f4ef2;
+    color:#fff;
+}
+
+.schedule-table th{
+    padding:14px;
+    text-align:center;
+    font-size:15px;
+    font-weight:600;
+}
+
+.schedule-table td{
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #ececec;
+    font-size:15px;
+    color:#444;
+}
+
+.schedule-table tbody tr:nth-child(even){
+    background:#fafbff;
+}
+
+.schedule-table tbody tr:hover{
+    background:#f3efff;
+}
+
+.schedule-table td:first-child{
+    font-weight:600;
+    color:#6f4ef2;
+}
+
+.off{
+    color:#d32f2f;
+    font-weight:600;
+}
+/* Responsive */
+
+@media(max-width:900px){
+
+    .doctor-top{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .doctor-image{
+        width:170px;
+        min-width:170px;
+        height:170px;
+    }
+
+    .doctor-info{
+        width:100%;
+    }
+
+    .doctor-info h2{
+        text-align:center;
+    }
+
+    .specialization{
+        display:block;
+        width:fit-content;
+        margin:15px auto 25px;
+    }
+
+    .detail-row{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+
+    .schedule-item{
+        grid-template-columns:1fr;
+        gap:8px;
+    }
+
+}
