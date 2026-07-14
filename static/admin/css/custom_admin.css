@@ -1,0 +1,43 @@
+/* CareNest Admin Theme */
+
+#header {
+    background: #4a148c;
+    color: white;
+}
+
+#branding h1 {
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+#user-tools {
+    color: white;
+}
+
+#user-tools a {
+    color: #f3f0ff;
+}
+
+.module h2,
+.module caption {
+    background: #7c4dff;
+}
+
+a:link,
+a:visited {
+    color: #4a148c;
+}
+
+.button,
+input[type="submit"],
+input[type="button"] {
+    background: #7c4dff;
+    border-radius: 8px;
+    border: none;
+}
+
+.button:hover,
+input[type="submit"]:hover {
+    background: #4a148c;
+}

@@ -1,0 +1,254 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+CareNest Login
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* LOGIN PAGE */
+
+/* ==========================================
+   CARENEST ADMIN LOGIN
+   DARK NAVY BLUE THEME
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#eef4fb;
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+}
+
+/* ==========================
+   LOGIN PAGE
+========================== */
+
+.login-container{
+    min-height:75vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+/* ==========================
+   LOGIN CARD
+========================== */
+
+.login-card{
+    width:420px;
+    background:#ffffff;
+    border-radius:24px;
+    padding:45px;
+    box-shadow:
+        0 20px 45px rgba(0,18,51,.18),
+        0 8px 20px rgba(0,31,84,.08);
+}
+
+/* ==========================
+   LOGO
+========================== */
+
+.login-card h1{
+    text-align:center;
+    color:#001F54;
+    font-size:38px;
+    font-weight:800;
+    letter-spacing:.5px;
+    margin-bottom:10px;
+}
+
+.login-subtitle{
+    text-align:center;
+    color:#64748b;
+    font-size:15px;
+    margin-bottom:35px;
+}
+
+/* ==========================
+   FORM
+========================== */
+
+.form-row{
+    margin-bottom:22px;
+}
+
+.form-row label{
+    display:block;
+    margin-bottom:8px;
+    color:#001F54;
+    font-size:14px;
+    font-weight:700;
+}
+
+.form-row input{
+    width:100%;
+    padding:14px 16px;
+    border:1px solid #d1d5db;
+    border-radius:12px;
+    font-size:15px;
+    background:#ffffff;
+    transition:.25s ease;
+    outline:none;
+}
+
+.form-row input::placeholder{
+    color:#94a3b8;
+}
+
+.form-row input:focus{
+    border-color:#003F88;
+    box-shadow:0 0 0 4px rgba(0,63,136,.15);
+}
+
+/* ==========================
+   LOGIN BUTTON
+========================== */
+
+.login-btn{
+    width:100%;
+    padding:15px;
+    margin-top:8px;
+    border:none;
+    border-radius:12px;
+    background:#001F54;
+    color:#ffffff;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.login-btn:hover{
+    background:#003F88;
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(0,31,84,.25);
+}
+
+.login-btn:active{
+    transform:scale(.98);
+}
+
+/* ==========================
+   ERROR MESSAGE
+========================== */
+
+.errornote{
+    background:#fee2e2;
+    color:#b91c1c;
+    border-left:5px solid #dc2626;
+    border-radius:10px;
+    padding:12px 15px;
+    margin-bottom:22px;
+    font-size:14px;
+}
+
+/* ==========================
+   LINKS
+========================== */
+
+a{
+    color:#003F88;
+    text-decoration:none;
+    transition:.2s;
+}
+
+a:hover{
+    color:#001233;
+}
+
+/* ==========================
+   DJANGO INPUT OVERRIDES
+========================== */
+
+input[type="text"],
+input[type="password"],
+input[type="email"]{
+    width:100%;
+    padding:14px 16px;
+    border-radius:12px;
+    border:1px solid #d1d5db;
+    outline:none;
+    font-size:15px;
+    background:#ffffff;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus{
+    border-color:#003F88;
+    box-shadow:0 0 0 4px rgba(0,63,136,.15);
+}
+.login-divider{
+    width:100%;
+    height:1px;
+    background:#dbe4f0;
+    margin:0 auto 30px;
+}
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width:500px){
+
+    .login-card{
+        width:100%;
+        padding:35px 28px;
+    }
+
+    .login-card h1{
+        font-size:32px;
+    }
+
+}
+
+</style>
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <h1>CareNest</h1>
+
+        <p class="login-subtitle">
+            Administrator Login       </p>
+<div class="login-divider"></div>
+        {% if form.errors %}
+        <div class="errornote">
+            Invalid username or password.
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-row">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+
+            <div class="form-row">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <button class="login-btn" type="submit">
+                Login
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,359 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="doctor-admin-container">
+
+    <!-- HEADER -->
+
+    <section class="doctor-header">
+
+        <div class="header-text">
+
+            <h1>Doctors Management</h1>
+
+            <p>
+                Manage and organize registered doctors in CareNest
+            </p>
+
+        </div>
+
+      <div class="header-buttons">
+
+
+    <a href="{% url 'admin:index' %}"
+       class="add-doctor-btn">
+
+        ← Dashboard
+
+    </a>
+
+
+
+    <a href="{% url 'admin:main_doctor_add' %}"
+       class="add-doctor-btn">
+
+        + Add Doctor
+
+    </a>
+
+
+</div>
+
+    </section>
+
+
+    <!-- TABLE -->
+
+    <section class="doctor-table">
+
+        <table id="result_list">
+
+            <thead>
+
+                <tr>
+
+                    <th>Doctor Name</th>
+                    <th>Specialization</th>
+                    <th>License Number</th>
+                    <th style="text-align:center;">Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for doctor in cl.result_list %}
+
+                <tr>
+
+                    <td>
+                        Dr. {{ doctor.first_name }} {{ doctor.last_name }}
+                    </td>
+
+                    <td>
+                        {{ doctor.specialization }}
+                    </td>
+
+                    <td>
+                        {{ doctor.license_number }}
+                    </td>
+
+                    <td class="actions-cell">
+
+                        <a href="{% url 'admin:main_doctor_change' doctor.pk %}"
+                           class="edit-link">
+
+                            Edit
+
+                        </a>
+
+                        |
+
+                        <a href="{% url 'admin:main_doctor_delete' doctor.pk %}"
+                           class="delete-link">
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="4" class="empty-row">
+
+                        No doctors found.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</div>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    background:#eef4fb !important;
+    font-family:"Segoe UI",sans-serif;
+}
+
+/* ==========================
+   DJANGO CONTENT
+========================== */
+
+#content{
+    padding-top:20px !important;
+    padding-bottom:30px !important;
+    background:#eef4fb !important;
+}
+
+#content-main{
+    width:100%;
+}
+
+/* ==========================
+   MAIN CONTAINER
+========================== */
+
+.doctor-admin-container{
+    width:90%;
+    margin:35px auto;
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+.doctor-header{
+    background:linear-gradient(135deg,#001F54,#003F88);
+    padding:30px 40px;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    box-shadow:0 12px 28px rgba(0,31,84,.18);
+}
+
+.header-text h1{
+    margin:0;
+    color:#ffffff;
+    font-size:32px;
+    font-weight:800;
+}
+
+.header-text p{
+    margin-top:8px;
+    color:#dbeafe;
+    font-size:15px;
+}
+
+/* ==========================
+   ADD BUTTON
+========================== */
+
+.add-doctor-btn{
+    background:#ffffff;
+    color:#001F54 !important;
+    padding:13px 24px;
+    border-radius:8px;
+    font-weight:700;
+    text-decoration:none !important;
+    transition:.25s;
+}
+
+.add-doctor-btn:hover{
+    background:#dbeafe;
+    transform:translateY(-2px);
+}
+
+/* ==========================
+   TABLE CARD
+========================== */
+
+.doctor-table{
+    background:#ffffff;
+    border-radius:12px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,31,84,.08);
+}
+
+/* ==========================
+   TABLE
+========================== */
+
+#result_list{
+    width:100%;
+    border-collapse:collapse;
+}
+
+#result_list thead th{
+    background:linear-gradient(135deg,#001F54,#003F88);
+    color:#ffffff;
+    padding:16px;
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    text-align:left;
+}
+
+#result_list thead th:last-child{
+    text-align:center;
+}
+
+#result_list tbody td{
+    padding:16px 18px;
+    color:#334155;
+    font-size:15px;
+    border-bottom:1px solid #e2e8f0;
+}
+
+#result_list tbody tr:nth-child(even){
+    background:#f8fbff;
+}
+
+#result_list tbody tr:hover{
+    background:#eef6ff;
+}
+
+/* ==========================
+   ACTION LINKS
+========================== */
+
+.actions-cell{
+    text-align:center;
+    white-space:nowrap;
+}
+
+.edit-link{
+    color:#003F88;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.edit-link:hover{
+    color:#001F54;
+    text-decoration:underline;
+}
+
+.delete-link{
+    color:#dc2626;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.delete-link:hover{
+    color:#b91c1c;
+    text-decoration:underline;
+}
+
+/* ==========================
+   EMPTY
+========================== */
+
+.empty-row{
+    text-align:center;
+    padding:30px !important;
+    color:#64748b;
+}
+
+/* ==========================
+   BREADCRUMBS
+========================== */
+
+.breadcrumbs{
+    background:#ffffff !important;
+    padding:14px 20px !important;
+    border-radius:8px;
+    margin-bottom:20px;
+    box-shadow:0 4px 10px rgba(0,31,84,.05);
+}
+
+.breadcrumbs a{
+    color:#003F88 !important;
+    text-decoration:none;
+    font-weight:600;
+}
+
+/* Hide default admin tools */
+
+.actions,
+.object-tools,
+.paginator,
+.action-checkbox-column{
+    display:none !important;
+}
+.header-buttons{
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:center;
+
+}
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:900px){
+
+    .doctor-admin-container{
+        width:95%;
+    }
+
+    .doctor-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+    .doctor-table{
+        overflow-x:auto;
+        padding:20px;
+    }
+
+}
+
+</style>
+
+{% endblock %}

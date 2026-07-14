@@ -1,0 +1,479 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="receptionist-admin-container">
+
+
+    <!-- HEADER -->
+
+    <section class="receptionist-header">
+
+
+        <div class="header-text">
+
+            <h1>
+                Receptionists Management
+            </h1>
+
+            <p>
+                Manage and organize registered receptionists in CareNest
+            </p>
+
+        </div>
+
+
+
+        <div class="header-buttons">
+
+
+            <a href="{% url 'admin:index' %}"
+               class="receptionist-btn">
+
+                ← Dashboard
+
+            </a>
+
+
+
+            <a href="{% url 'admin:main_receptionist_add' %}"
+               class="receptionist-btn">
+
+                + Add Receptionist
+
+            </a>
+
+
+        </div>
+
+
+    </section>
+
+
+
+
+
+    <!-- TABLE -->
+
+    <section class="receptionist-table">
+
+
+        <table id="result_list">
+
+
+            <thead>
+
+                <tr>
+
+                    <th>Receptionist Name</th>
+
+                    <th>Email</th>
+
+                    <th>Employee ID</th>
+
+                    <th>Sex</th>
+
+
+                    <th style="text-align:center;">
+                        Actions
+                    </th>
+
+
+                </tr>
+
+
+            </thead>
+
+
+
+
+            <tbody>
+
+
+            {% for receptionist in cl.result_list %}
+
+
+                <tr>
+
+
+                    <td>
+
+                        {{ receptionist.first_name }}
+                        {{ receptionist.last_name }}
+
+                    </td>
+
+
+
+
+                    <td>
+
+                        {{ receptionist.user.email }}
+
+                    </td>
+
+
+
+
+                    <td>
+
+                        {{ receptionist.employee_id }}
+
+                    </td>
+
+
+
+
+                    <td>
+
+                        {{ receptionist.sex }}
+
+                    </td>
+
+
+
+
+                    <td class="actions-cell">
+
+
+                        <a href="{% url 'admin:main_receptionist_change' receptionist.pk %}"
+                           class="edit-link">
+
+                            Edit
+
+                        </a>
+
+
+                        |
+
+
+                        <a href="{% url 'admin:main_receptionist_delete' receptionist.pk %}"
+                           class="delete-link">
+
+                            Delete
+
+                        </a>
+
+
+                    </td>
+
+
+                </tr>
+
+
+            {% empty %}
+
+
+                <tr>
+
+                    <td colspan="5" class="empty-row">
+
+                        No receptionists found.
+
+                    </td>
+
+                </tr>
+
+
+            {% endfor %}
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </section>
+
+
+</div>
+
+
+
+
+
+<style>
+
+
+body{
+
+    background:#eef4fb!important;
+
+    font-family:"Segoe UI",sans-serif;
+
+}
+
+
+
+#content{
+
+    background:#eef4fb!important;
+
+    padding:20px!important;
+
+}
+
+
+
+
+.receptionist-admin-container{
+
+    width:90%;
+
+    margin:35px auto;
+
+}
+
+
+
+
+.receptionist-header{
+
+    background:linear-gradient(
+        135deg,
+        #001F54,
+        #003F88
+    );
+
+    padding:30px 40px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+
+.header-text h1{
+
+    margin:0;
+
+    color:white;
+
+    font-size:32px;
+
+    font-weight:800;
+
+}
+
+
+
+
+.header-text p{
+
+    color:#dbeafe;
+
+    margin-top:8px;
+
+}
+
+
+
+
+.header-buttons{
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+
+
+
+.receptionist-btn{
+
+    background:white;
+
+    color:#001F54!important;
+
+    padding:13px 24px;
+
+    border-radius:8px;
+
+    font-weight:700;
+
+    text-decoration:none!important;
+
+    transition:.25s;
+
+}
+
+
+
+
+.receptionist-btn:hover{
+
+    background:#dbeafe;
+
+    transform:translateY(-2px);
+
+}
+
+
+
+
+
+.receptionist-table{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:
+
+    0 10px 25px rgba(0,31,84,.08);
+
+}
+
+
+
+
+#result_list{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+
+
+#result_list thead th{
+
+    background:linear-gradient(
+        135deg,
+        #001F54,
+        #003F88
+    );
+
+    color:white;
+
+    padding:16px;
+
+    font-size:13px;
+
+    text-transform:uppercase;
+
+}
+
+
+
+
+#result_list tbody td{
+
+    padding:16px;
+
+    border-bottom:1px solid #e2e8f0;
+
+    color:#334155;
+
+}
+
+
+
+
+#result_list tbody tr:hover{
+
+    background:#eef6ff;
+
+}
+
+
+
+
+.actions-cell{
+
+    text-align:center;
+
+}
+
+
+
+
+.edit-link{
+
+    color:#003F88;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+
+
+
+.delete-link{
+
+    color:#dc2626;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+
+
+
+.empty-row{
+
+    text-align:center;
+
+    padding:30px;
+
+}
+
+
+
+
+.object-tools,
+.actions,
+.paginator,
+.action-checkbox-column{
+
+    display:none!important;
+
+}
+
+
+
+
+@media(max-width:900px){
+
+
+    .receptionist-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+
+}
+
+
+</style>
+
+
+{% endblock %}

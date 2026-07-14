@@ -1,0 +1,366 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="delete-container">
+
+
+    <div class="delete-header">
+
+        <h1>
+            Delete Confirmation
+        </h1>
+
+        <p>
+            CareNest Administration
+        </p>
+
+    </div>
+
+
+
+    <div class="delete-card">
+
+
+        <div class="warning-icon">
+            ⚠
+        </div>
+
+
+        <h2>
+            Are you sure you want to delete this?
+        </h2>
+
+
+
+        <div class="object-box">
+
+              {{ object.user.username }}
+
+        </div>
+
+
+
+        <p class="warning-text">
+
+            This action cannot be undone.
+
+        </p>
+
+
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+
+            {% if perms.main.delete_doctor %}
+
+            <div class="button-area">
+
+
+              <a href="{% url 'admin:main_doctor_changelist' %}" class="cancel-btn">
+        Cancel
+    </a>
+
+                <input 
+                    type="submit"
+                    value="Yes, I'm sure"
+                    class="delete-btn"
+                >
+
+
+            </div>
+
+            {% endif %}
+
+
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<style>
+
+
+body{
+
+    background:#eef4fb!important;
+
+    font-family:"Segoe UI",sans-serif;
+
+}
+
+
+
+#content{
+
+    background:#eef4fb!important;
+
+    padding:30px!important;
+
+}
+
+
+
+
+
+.delete-container{
+
+    width:90%;
+
+    max-width:750px;
+
+    margin:40px auto;
+
+}
+
+
+
+
+
+.delete-header{
+
+
+    background:linear-gradient(
+        135deg,
+        #001F54,
+        #003F88
+    );
+
+
+    color:white;
+
+    padding:30px;
+
+    border-radius:16px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.delete-header h1{
+
+    margin:0;
+
+    font-size:30px;
+
+}
+
+
+
+.delete-header p{
+
+    margin-top:8px;
+
+    color:#dbeafe;
+
+}
+
+
+
+
+
+.delete-card{
+
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:16px;
+
+    text-align:center;
+
+
+    box-shadow:
+
+    0 10px 30px rgba(0,31,84,.12);
+
+}
+
+
+
+
+
+.warning-icon{
+
+
+    width:80px;
+
+    height:80px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:auto;
+
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+
+    border-radius:50%;
+
+
+    font-size:40px;
+
+}
+
+
+
+
+
+.delete-card h2{
+
+
+    color:#001F54;
+
+    margin:25px 0 15px;
+
+}
+
+
+
+
+
+.object-box{
+
+
+    background:#eef4fb;
+
+    padding:18px;
+
+    border-radius:12px;
+
+
+    color:#003F88;
+
+    font-size:18px;
+
+    font-weight:700;
+
+
+    margin:20px 0;
+
+}
+
+
+
+
+
+.warning-text{
+
+
+    color:#dc2626;
+
+    font-weight:600;
+
+}
+
+
+
+
+
+.button-area{
+
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-top:30px;
+
+}
+
+
+
+
+
+.cancel-btn{
+
+
+    background:#e2e8f0;
+
+    color:#334155;
+
+    padding:12px 35px;
+
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+}
+
+
+
+
+
+.cancel-btn:hover{
+
+    background:#cbd5e1;
+
+}
+
+
+
+
+
+.delete-btn{
+
+
+    background:#dc2626;
+
+    color:white;
+
+
+    border:none;
+
+    padding:12px 35px;
+
+
+    border-radius:12px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+.delete-btn:hover{
+
+    background:#991b1b;
+
+}
+
+
+
+</style>
+
+
+{% endblock %}

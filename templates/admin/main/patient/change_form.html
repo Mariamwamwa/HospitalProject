@@ -1,0 +1,707 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+
+{% block field_sets %}
+
+<div class="doctor-form-container">
+
+
+    <div class="doctor-header">
+
+        <h1>
+            {% if original %}
+                Edit Patient
+            {% else %}
+                Add Patient
+            {% endif %}
+        </h1>
+
+        <p>
+            Manage patient account information for CareNest.
+        </p>
+
+    </div>
+
+
+
+    <div class="doctor-card">
+
+
+        {% if adminform.form.non_field_errors %}
+
+            <div class="error-box">
+                {{ adminform.form.non_field_errors }}
+            </div>
+
+        {% endif %}
+
+
+
+        <!-- ACCOUNT -->
+
+        <div class="section-title">
+            Account Information
+        </div>
+
+
+        <div class="form-grid">
+
+
+            <div class="form-group">
+
+                <label>Username</label>
+
+                {{ adminform.form.username }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                {{ adminform.form.password }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                {{ adminform.form.email }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Confirm Password</label>
+
+                {{ adminform.form.confirm_password }}
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="divider"></div>
+
+
+
+
+        <!-- PERSONAL -->
+
+        <div class="section-title">
+
+            Patient Information
+
+        </div>
+
+
+
+        <div class="form-grid">
+
+
+
+            <div class="form-group">
+
+                <label>First Name</label>
+
+                {{ adminform.form.first_name }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Middle Name</label>
+
+                {{ adminform.form.middle_name }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Last Name</label>
+
+                {{ adminform.form.last_name }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Date of Birth</label>
+
+                {{ adminform.form.date_of_birth }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Sex</label>
+
+                {{ adminform.form.sex }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Blood Type</label>
+
+                {{ adminform.form.blood_type }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Height (cm)</label>
+
+                {{ adminform.form.height }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Weight (kg)</label>
+
+                {{ adminform.form.weight }}
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Contact Number</label>
+
+                {{ adminform.form.contact_number }}
+
+            </div>
+
+
+
+            <div class="form-group full">
+
+                <label>Address</label>
+
+                {{ adminform.form.address }}
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+        <div class="divider"></div>
+
+
+
+
+
+        <!-- PROFILE -->
+
+
+        <div class="section-title">
+
+            Profile Picture
+
+        </div>
+
+
+
+        <div class="form-group profile-upload">
+
+            {{ adminform.form.profile_picture }}
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<style>
+
+
+body{
+
+    background:#eef4fb!important;
+
+    font-family:"Segoe UI",sans-serif;
+
+}
+
+
+
+#content{
+
+    background:#eef4fb!important;
+
+    padding:25px!important;
+
+}
+
+
+
+.doctor-form-container{
+
+    width:90%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+}
+
+
+
+.doctor-header{
+
+    background:linear-gradient(
+        135deg,
+        #001F54,
+        #003F88
+    );
+
+    color:white;
+
+    padding:30px 35px;
+
+    border-radius:14px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.doctor-header h1{
+
+    margin:0;
+
+    font-size:30px;
+
+}
+
+
+
+.doctor-header p{
+
+    color:#dbeafe;
+
+}
+
+
+
+
+
+.doctor-card{
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:14px;
+
+    box-shadow:
+    0 10px 25px rgba(0,31,84,.10);
+
+}
+
+
+
+
+
+.section-title{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#001F54;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+.divider{
+
+    height:1px;
+
+    background:#dbeafe;
+
+    margin:30px 0;
+
+}
+
+
+
+
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px;
+
+}
+
+
+
+
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+
+
+.form-group.full{
+
+    grid-column:1/-1;
+
+}
+
+
+
+
+
+.form-group label{
+
+    font-weight:600;
+
+    color:#334155;
+
+    margin-bottom:7px;
+
+}
+
+
+
+
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+
+
+    width:100%;
+
+    padding:12px 14px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+}
+
+
+
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+
+    border-color:#003F88;
+
+    outline:none;
+
+}
+
+
+
+
+
+/* PROFILE */
+
+.profile-upload{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+.profile-upload .file-upload > div:first-child{
+
+    display:none!important;
+
+}
+
+
+
+.profile-upload .file-upload br{
+
+    display:none!important;
+
+}
+
+
+
+.profile-upload .clearable-file-input{
+
+    display:none!important;
+
+}
+
+
+
+.profile-upload label[for="profile_picture-clear_id"]{
+
+    display:none!important;
+
+}
+
+
+
+#profile_picture-clear_id{
+
+    display:none!important;
+
+}
+
+
+
+.profile-upload .file-upload a{
+
+    display:block!important;
+
+    color:#003F88!important;
+
+    font-weight:600;
+
+    margin-bottom:12px;
+
+}
+
+
+
+
+
+.profile-upload input[type="file"]{
+
+    width:100%;
+
+    padding:12px;
+
+    background:#f8fafc;
+
+    border:2px dashed #003F88;
+
+    border-radius:12px;
+
+}
+
+
+
+
+
+.profile-upload input[type="file"]::file-selector-button{
+
+
+    background:#003F88;
+
+    color:white;
+
+    border:none;
+
+    padding:10px 20px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+}
+
+
+
+
+
+.error-box{
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+    padding:12px;
+
+    border-radius:8px;
+
+}
+
+
+
+
+
+.object-tools{
+
+    display:none!important;
+
+}
+
+
+
+
+
+.submit-row input[name="_continue"],
+.submit-row input[name="_addanother"],
+.submit-row .deletelink{
+
+    display:none!important;
+
+}
+
+
+
+
+
+@media(max-width:768px){
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+</style>
+
+
+{% endblock %}
+
+
+
+{% block submit_buttons_bottom %}
+
+
+<div class="submit-row custom-submit-row">
+
+
+<input 
+    type="submit"
+    name="_save"
+    value="Save"
+    class="save-btn"
+>
+
+
+
+<a href="{% url 'admin:main_patient_changelist' %}"
+   class="cancel-btn">
+
+    Cancel
+
+</a>
+
+
+</div>
+
+
+
+<style>
+
+.custom-submit-row{
+
+    display:flex!important;
+
+    justify-content:center!important;
+
+    gap:15px;
+
+    background:transparent!important;
+
+    border:none!important;
+
+}
+
+
+
+.save-btn{
+
+    background:#003F88!important;
+
+    color:white!important;
+
+    border:none!important;
+
+    padding:13px 40px!important;
+
+    border-radius:12px!important;
+
+    font-weight:700;
+
+}
+
+
+
+.cancel-btn{
+
+    background:#e2e8f0;
+
+    color:#334155;
+
+    padding:13px 40px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+}
+
+</style>
+
+
+
+{% endblock %}

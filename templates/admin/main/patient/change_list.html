@@ -1,0 +1,489 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="patient-admin-container">
+
+
+    <!-- HEADER -->
+
+    <section class="patient-header">
+
+
+        <div class="header-text">
+
+            <h1>
+                Patients Management
+            </h1>
+
+            <p>
+                Manage and organize registered patients in CareNest
+            </p>
+
+        </div>
+
+
+
+        <div class="header-buttons">
+
+
+            <a href="{% url 'admin:index' %}"
+               class="patient-btn">
+
+                ← Dashboard
+
+            </a>
+
+
+
+            <a href="{% url 'admin:main_patient_add' %}"
+               class="patient-btn">
+
+                + Add Patient
+
+            </a>
+
+
+        </div>
+
+
+    </section>
+
+
+
+
+
+    <!-- TABLE -->
+
+
+    <section class="patient-table">
+
+
+        <table id="result_list">
+
+
+            <thead>
+
+                <tr>
+
+                    <th>Patient Name</th>
+
+                    <th>Email</th>
+
+                    <th>Contact Number</th>
+
+                    <th>Sex</th>
+
+                    <th style="text-align:center;">
+                        Actions
+                    </th>
+
+
+                </tr>
+
+
+            </thead>
+
+
+
+
+            <tbody>
+
+
+            {% for patient in cl.result_list %}
+
+
+                <tr>
+
+
+                    <td>
+
+                        {{ patient.first_name }}
+                        {{ patient.last_name }}
+
+                    </td>
+
+
+
+                    <td>
+
+                        {{ patient.user.email }}
+
+                    </td>
+
+
+
+                    <td>
+
+                        {{ patient.contact_number }}
+
+                    </td>
+
+
+
+                    <td>
+
+                        {{ patient.sex }}
+
+                    </td>
+
+
+
+
+                    <td class="actions-cell">
+
+
+                        <a href="{% url 'admin:main_patient_change' patient.pk %}"
+                           class="edit-link">
+
+                            Edit
+
+                        </a>
+
+
+                        |
+
+
+                        <a href="{% url 'admin:main_patient_delete' patient.pk %}"
+                           class="delete-link">
+
+                            Delete
+
+                        </a>
+
+
+                    </td>
+
+
+                </tr>
+
+
+            {% empty %}
+
+
+                <tr>
+
+                    <td colspan="5" class="empty-row">
+
+                        No patients found.
+
+                    </td>
+
+                </tr>
+
+
+            {% endfor %}
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </section>
+
+
+</div>
+
+
+
+
+
+<style>
+
+
+body{
+
+    background:#eef4fb!important;
+
+    font-family:"Segoe UI",sans-serif;
+
+}
+
+
+
+
+#content{
+
+    background:#eef4fb!important;
+
+    padding:20px!important;
+
+}
+
+
+
+
+
+.patient-admin-container{
+
+    width:90%;
+
+    margin:35px auto;
+
+}
+
+
+
+
+
+.patient-header{
+
+    background:linear-gradient(
+        135deg,
+        #001F54,
+        #003F88
+    );
+
+    padding:30px 40px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+
+.header-text h1{
+
+    margin:0;
+
+    color:white;
+
+    font-size:32px;
+
+    font-weight:800;
+
+}
+
+
+
+
+.header-text p{
+
+    color:#dbeafe;
+
+    margin-top:8px;
+
+}
+
+
+
+
+
+.header-buttons{
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+
+
+
+
+.patient-btn{
+
+    background:white;
+
+    color:#001F54!important;
+
+    padding:13px 24px;
+
+    border-radius:8px;
+
+    font-weight:700;
+
+    text-decoration:none!important;
+
+    transition:.25s;
+
+}
+
+
+
+.patient-btn:hover{
+
+    background:#dbeafe;
+
+    transform:translateY(-2px);
+
+}
+
+
+
+
+
+.patient-table{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:
+
+    0 10px 25px rgba(0,31,84,.08);
+
+}
+
+
+
+
+
+#result_list{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+
+
+#result_list thead th{
+
+    background:linear-gradient(
+        135deg,
+        #001F54,
+        #003F88
+    );
+
+    color:white;
+
+    padding:16px;
+
+    font-size:13px;
+
+    text-transform:uppercase;
+
+}
+
+
+
+
+
+#result_list tbody td{
+
+    padding:16px;
+
+    border-bottom:1px solid #e2e8f0;
+
+    color:#334155;
+
+}
+
+
+
+
+
+#result_list tbody tr:hover{
+
+    background:#eef6ff;
+
+}
+
+
+
+
+
+.actions-cell{
+
+    text-align:center;
+
+}
+
+
+
+
+
+.edit-link{
+
+    color:#003F88;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+
+
+
+
+.delete-link{
+
+    color:#dc2626;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+
+
+
+
+.empty-row{
+
+    text-align:center;
+
+    padding:30px;
+
+}
+
+
+
+
+
+.object-tools,
+.actions,
+.paginator,
+.action-checkbox-column{
+
+    display:none!important;
+
+}
+
+
+
+
+
+@media(max-width:900px){
+
+
+    .patient-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+
+}
+
+
+</style>
+
+
+{% endblock %}  

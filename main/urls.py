@@ -2,11 +2,13 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib import admin
+from django.urls import path, include
 urlpatterns = [
     # ==========================================
     # HOME
     # ==========================================
+    path("admin/", admin.site.urls),
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path("login/", views.login_view, name="login"),
@@ -18,7 +20,7 @@ urlpatterns = [
          
     # path("doctor/dashboard/", views.doctor_dashboard, name="doctor_dashboard",
     # path("receptionist/dashboard/", views.receptionist_dashboard, name="receptionist_dashboard",
-     path("patient/appointment_list/", views.patient_appointment_list, name="patient_appointment_list"),
+    path("patient/appointment_list/", views.patient_appointment_list, name="patient_appointment_list"),
     path( "patient/appointment/appointment_booking",views.book_appointment,name="appointment_booking"),
     path( "patient/medical_records",views.patient_medical_record,name="patient_medical_record"),
     path( "patient/health_summary",views.patient_health_summary,name="patient_health_summary"),

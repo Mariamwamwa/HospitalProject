@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>
+        {% block title %}
+        CareNest Administration
+        {% endblock %}
+    </title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        /* ==========================================
+           CARENEST ADMIN BASE
+           DARK NAVY BLUE THEME
+        ========================================== */
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html,
+        body{
+            height:100%;
+        }
+
+        body{
+            background:#eef4fb;
+            font-family:"Segoe UI",sans-serif;
+            color:#1e293b;
+            overflow:hidden;
+        }
+
+        /* ==========================
+           HEADER
+        ========================== */
+
+        #header{
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            height:75px;
+            background:linear-gradient(135deg,#001F54,#003F88);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 35px;
+            box-shadow:0 8px 25px rgba(0,31,84,.20);
+            z-index:1000;
+        }
+
+        /* ==========================
+           BRANDING
+        ========================== */
+
+        #branding h1{
+            color:#ffffff;
+            font-size:28px;
+            font-weight:800;
+            letter-spacing:.5px;
+        }
+
+        /* ==========================
+           USER TOOLS
+        ========================== */
+
+        #user-tools{
+            color:#ffffff;
+            font-size:15px;
+        }
+
+        #user-tools strong{
+            color:#ffffff;
+        }
+
+        #user-tools a{
+            color:#dbeafe;
+            text-decoration:none;
+        }
+
+        #user-tools a:hover{
+            color:#ffffff;
+        }
+
+        #user-tools button{
+            background:none;
+            border:none;
+            color:#dbeafe;
+            cursor:pointer;
+            font:inherit;
+            padding:0;
+        }
+
+        #user-tools button:hover{
+            color:#ffffff;
+        }
+
+        /* ==========================
+           MAIN
+        ========================== */
+
+        #main{
+            position:fixed;
+            top:75px;
+            bottom:58px;
+            left:0;
+            right:0;
+            overflow-y:auto;
+            padding:35px;
+        }
+
+        /* ==========================
+           CONTENT
+        ========================== */
+
+        #content{
+            background:#ffffff;
+            border-radius:20px;
+            padding:35px;
+            min-height:100%;
+            box-shadow:
+                0 12px 30px rgba(0,31,84,.08),
+                0 4px 12px rgba(0,18,51,.05);
+        }
+
+        /* ==========================
+           FOOTER
+        ========================== */
+
+        #footer{
+            position:fixed;
+            left:0;
+            right:0;
+            bottom:0;
+            height:58px;
+            background:linear-gradient(135deg,#001F54,#003F88);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#ffffff;
+            font-size:14px;
+            font-weight:500;
+            letter-spacing:.5px;
+            box-shadow:0 -5px 15px rgba(0,31,84,.15);
+            z-index:1000;
+        }
+
+        .footer-container{
+            text-align:center;
+        }
+
+        /* ==========================
+           SCROLLBAR
+        ========================== */
+
+        #main::-webkit-scrollbar{
+            width:10px;
+        }
+
+        #main::-webkit-scrollbar-track{
+            background:#dbeafe;
+        }
+
+        #main::-webkit-scrollbar-thumb{
+            background:#003F88;
+            border-radius:10px;
+        }
+
+        #main::-webkit-scrollbar-thumb:hover{
+            background:#001F54;
+        }
+
+        /* ==========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width:768px){
+
+            #header{
+                flex-direction:column;
+                justify-content:center;
+                gap:10px;
+                height:90px;
+                padding:15px 20px;
+                text-align:center;
+            }
+
+            #branding h1{
+                font-size:24px;
+            }
+
+            #main{
+                top:90px;
+                bottom:58px;
+                padding:20px;
+            }
+
+            #content{
+                padding:25px;
+            }
+
+        }
+
+    </style>
+
+    {% block extrahead %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+<header id="header">
+
+    <div id="branding">
+
+        {% block branding %}
+        <h1>CareNest Administration</h1>
+        {% endblock %}
+
+    </div>
+
+    <div id="user-tools">
+
+        {% block usertools %}
+
+        {% if user.is_authenticated %}
+
+            Hello,
+            <strong>{{ user.username }}</strong>
+
+            |
+
+            <form action="{% url 'admin:logout' %}"
+                  method="post"
+                  style="display:inline;">
+
+                {% csrf_token %}
+
+                <button type="submit">
+                    Logout
+                </button>
+
+            </form>
+
+        {% endif %}
+
+        {% endblock %}
+
+    </div>
+
+</header>
+
+<div id="main">
+
+    <div id="content">
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</div>
+
+<footer id="footer">
+
+    <div class="footer-container">
+        CareNest Administrator {% now "Y" %}
+    </div>
+
+</footer>
+
+</body>
+
+</html>
