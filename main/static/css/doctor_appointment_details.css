@@ -1,100 +1,117 @@
-/* ==========================================
-   APPOINTMENT DETAILS PAGE
-========================================== */
+/* =====================================
+   PAGE
+===================================== */
 
 .appointment-details-page{
 
     max-width:1100px;
-
     margin:auto;
-
     padding:25px;
 
 }
 
 
 
-/* ==========================================
-   PAGE HEADER
-========================================== */
+/* =====================================
+   MAIN CARD
+===================================== */
 
-.page-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:25px;
-
-}
-
-.page-header h1{
-
-    margin:0;
-
-    color:#4a148c;
-
-    font-size:34px;
-
-    font-weight:800;
-
-}
-
-.back-btn{
-
-    text-decoration:none;
-
-    color:#7c4dff;
-
-    font-weight:700;
-
-    transition:.25s;
-
-}
-
-.back-btn:hover{
-
-    color:#5f32e5;
-
-}
-
-
-
-/* ==========================================
-   DETAILS CARD
-========================================== */
 
 .details-card{
 
-    background:#fff;
+    background:white;
 
-    border:1px solid #ece8ff;
-
-    border-radius:24px;
+    border-radius:28px;
 
     padding:35px;
 
-    box-shadow:0 10px 30px rgba(124,77,255,.08);
+    border:1px solid #ece8ff;
 
-}
-
-.details-card hr{
-
-    border:none;
-
-    border-top:1px solid #ece8ff;
-
-    margin:35px 0;
+    box-shadow:
+    0 20px 45px rgba(124,77,255,.15);
 
 }
 
 
 
-/* ==========================================
+
+/* =====================================
+   HEADER
+===================================== */
+
+
+.appointment-header{
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c4dff,
+        #4a148c
+    );
+
+
+    border-radius:25px;
+
+    padding:35px;
+
+    color:white;
+
+    margin-bottom:35px;
+
+    box-shadow:
+    0 20px 45px rgba(124,77,255,.30);
+
+}
+
+
+
+.appointment-header h1{
+
+    margin:15px 0 10px;
+
+    font-size:34px;
+
+    color:white;
+
+}
+
+
+.appointment-header p{
+
+    color:rgba(255,255,255,.85);
+
+}
+
+
+
+.back-btn{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    font-size:15px;
+
+}
+
+
+
+.back-btn:hover{
+
+    opacity:.8;
+
+}
+
+
+
+
+
+/* =====================================
    SECTION TITLE
-========================================== */
+===================================== */
+
 
 .section-title{
 
@@ -102,33 +119,53 @@
 
     align-items:center;
 
-    gap:10px;
+    gap:12px;
 
     margin-bottom:25px;
 
 }
 
+
+
 .section-title span{
 
-    font-size:22px;
+    font-size:25px;
 
 }
+
+
 
 .section-title h2{
 
     margin:0;
 
-    font-size:24px;
-
     color:#4a148c;
+
+    font-size:24px;
 
 }
 
 
 
-/* ==========================================
-   PATIENT SECTION
-========================================== */
+
+hr{
+
+    border:none;
+
+    border-top:1px solid #eee8ff;
+
+    margin:35px 0;
+
+}
+
+
+
+
+
+/* =====================================
+   PATIENT
+===================================== */
+
 
 .patient-section{
 
@@ -140,19 +177,24 @@
 
 }
 
+
+
 .patient-photo img{
 
-    width:110px;
 
-    height:110px;
+    width:120px;
+
+    height:120px;
 
     border-radius:50%;
 
     object-fit:cover;
 
-    border:4px solid #ece8ff;
+    border:5px solid #f0eaff;
 
 }
+
+
 
 .patient-info{
 
@@ -160,51 +202,48 @@
 
 }
 
+
+
 .info-row{
+
 
     display:flex;
 
     justify-content:space-between;
 
-    align-items:center;
+    padding:15px 0;
 
-    padding:16px 0;
-
-    border-bottom:1px solid #f4f0ff;
+    border-bottom:1px solid #f3efff;
 
 }
 
-.info-row:last-child{
 
-    border-bottom:none;
-
-}
 
 .info-row span{
 
     color:#777;
 
-    font-size:15px;
-
 }
+
+
 
 .info-row strong{
 
     color:#2d3436;
 
-    font-size:16px;
-
-    font-weight:700;
-
 }
 
 
 
-/* ==========================================
-   APPOINTMENT INFO
-========================================== */
+
+
+/* =====================================
+   APPOINTMENT GRID
+===================================== */
+
 
 .appointment-grid{
+
 
     display:grid;
 
@@ -214,9 +253,12 @@
 
 }
 
+
+
 .info-box{
 
-    background:#faf9ff;
+
+    background:#faf8ff;
 
     border:1px solid #ece8ff;
 
@@ -226,7 +268,10 @@
 
 }
 
+
+
 .info-box span{
+
 
     display:block;
 
@@ -236,79 +281,79 @@
 
     margin-bottom:8px;
 
-    text-transform:uppercase;
-
-    letter-spacing:.5px;
-
 }
+
+
 
 .info-box strong{
 
     color:#4a148c;
 
-    font-size:17px;
-
 }
 
 
 
-/* ==========================================
-   STATUS BADGES
-========================================== */
+
+
+/* =====================================
+ STATUS
+===================================== */
+
 
 .status{
-
-    display:inline-block;
 
     padding:8px 16px;
 
     border-radius:30px;
 
-    font-size:13px;
-
-    font-weight:700;
-
-    text-align:center;
+    display:inline-block;
 
 }
+
+
 
 .pending{
 
-    background:#fff4d6;
+background:#fff3cd;
 
-    color:#d48806;
+color:#856404;
 
 }
+
 
 .confirmed{
 
-    background:#e8f7ec;
+background:#d1f7df;
 
-    color:#2e7d32;
+color:#198754;
 
 }
+
 
 .completed{
 
-    background:#e7f1ff;
+background:#dbeafe;
 
-    color:#1971c2;
+color:#2563eb;
 
 }
+
 
 .cancelled{
 
-    background:#ffe3e3;
+background:#ffd6d6;
 
-    color:#c92a2a;
+color:#dc2626;
 
 }
 
 
 
-/* ==========================================
-   ACTION BUTTONS
-========================================== */
+
+/* =====================================
+ BUTTONS
+===================================== */
+
 
 .action-buttons{
 
@@ -322,194 +367,126 @@
 
 }
 
+
+
 .action-buttons a,
 .action-buttons button{
 
-    padding:12px 24px;
 
-    border:none;
+    padding:12px 25px;
 
     border-radius:12px;
 
-    font-size:14px;
-
-    font-weight:700;
+    border:none;
 
     text-decoration:none;
 
+    font-weight:700;
+
     cursor:pointer;
 
-    transition:.25s;
-
 }
+
+
+
 
 .confirm-btn{
 
-    background:#7c4dff;
+background:#7c4dff;
+color:white;
 
-    color:#fff;
+}
+
+
+
+.reschedule-btn{
+
+background:#f59e0b;
+color:white;
 
 }
 
-.confirm-btn:hover{
 
-    background:#6938e6;
+
+.record-btn{
+
+background:#2563eb;
+color:white;
 
 }
+
+
 
 .complete-btn{
 
-    background:#16a34a;
-
-    color:#fff;
-
-}
-
-.complete-btn:hover{
-
-    background:#15803d;
+background:#16a34a;
+color:white;
 
 }
+
+
 
 .cancel-btn{
 
-    background:#ef4444;
-
-    color:#fff;
-
-}
-
-.cancel-btn:hover{
-
-    background:#dc2626;
+background:#ef4444;
+color:white;
 
 }
+
+
 
 .completed-btn,
 .cancelled-btn{
 
-    background:#ddd;
+background:#ddd;
 
-    color:#666;
-
-    cursor:not-allowed;
+color:#666;
 
 }
 
 
 
-/* ==========================================
-   RESPONSIVE
-========================================== */
+
+
+/* =====================================
+ RESPONSIVE
+===================================== */
+
 
 @media(max-width:768px){
 
-    .page-header{
 
-        flex-direction:column;
+.patient-section{
 
-        align-items:flex-start;
+flex-direction:column;
 
-        gap:15px;
-
-    }
-
-    .patient-section{
-
-        flex-direction:column;
-
-        text-align:center;
-
-    }
-
-    .info-row{
-
-        flex-direction:column;
-
-        gap:8px;
-
-        text-align:center;
-
-    }
-
-    .appointment-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .action-buttons{
-
-        justify-content:center;
-
-    }
-
-}
-.record-btn{
-
-    background:#2563eb;
-
-    color:#fff;
+text-align:center;
 
 }
 
-.record-btn:hover{
 
-    background:#1d4ed8;
+.appointment-grid{
 
-}
-
-.confirm-btn{
-
-    background:#7c4dff;
-
-    color:#fff;
+grid-template-columns:1fr;
 
 }
 
-.confirm-btn:hover{
 
-    background:#6938e6;
+.info-row{
 
-}
+flex-direction:column;
 
-.complete-btn{
-
-    background:#16a34a;
-
-    color:#fff;
+gap:8px;
 
 }
 
-.complete-btn:hover{
 
-    background:#15803d;
+.action-buttons{
 
-}
-
-.cancel-btn{
-
-    background:#ef4444;
-
-    color:#fff;
+justify-content:center;
 
 }
 
-.cancel-btn:hover{
 
-    background:#dc2626;
-
-}
-.reschedule-btn{
-
-    background:#f59e0b;
-
-    color:#fff;
-
-}
-
-.reschedule-btn:hover{
-
-    background:#d97706;
 
 }

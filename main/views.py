@@ -1,55 +1,36 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.models import User
-from django.contrib.auth import login
-from django.contrib import messages
-from .models import Patient
-from .forms import UserRegisterForm, PatientForm
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
-from .models import Patient, Appointment, MedicalRecord 
-from datetime import datetime, timedelta
-from .models import Appointment
-from .models import Appointment, MedicalRecord, Doctor
-from django.utils import timezone
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import MedicalRecord
-from django.db.models import Q
-from google import genai
-from django.conf import settings
-from django.http import HttpResponse
-from google import genai
-from django.conf import settings
-from django.http import JsonResponse
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from .models import Appointment
+from datetime import datetime, timedelta, date
 import calendar
-from .models import DoctorSchedule, DoctorDateSchedule
-from ai_assistant.services import generate_health_summary
-from datetime import date
-from datetime import date
-from .models import Patient, Appointment, Doctor, DoctorSchedule
-from django.shortcuts import render, redirect
+from django.db.models import Case, When, Value, IntegerField
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, JsonResponse
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .models import MedicalRecord
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
+from django.db.models import Q, Prefetch
+from django.utils import timezone
+from django.conf import settings
+from ai_assistant.services import generate_health_summary, generate_health_recommendation
+
+from google import genai
+
 from .models import (
+    Patient,
     Doctor,
     Appointment,
     MedicalRecord,
-    Patient,
+    DoctorSchedule,
+    DoctorDateSchedule,
 )
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.db.models import Prefetch
+
+from .forms import (
+    UserRegisterForm,
+    PatientForm,
+)
+
+from ai_assistant.services import generate_health_summary
 
 # ==========================================
 # HOME
@@ -90,10 +71,8 @@ def login_view(request):
 
     return render(request, "authentication/login.html")
 
-
 def patient_register(request):
     return render(request, "authentication/register_patient.html")
-
 
 def forgot_password(request):
     return render(request, "authentication/forgot_password.html")
@@ -276,7 +255,6 @@ def patient_dashboard(request):
     )
 
 
-
     context = {
 
         "patient": patient,
@@ -304,6 +282,7 @@ def patient_dashboard(request):
         "patients/dashboard/patient_dashboard.html",
         context
     ) 
+
 def logout(request):
     return render(request, "authentication/logout.html")
 def forgot_password(request):
@@ -311,101 +290,85 @@ def forgot_password(request):
 
 @login_required
 def book_appointment(request):
-
     patient = request.user.patient_profile
-
     appointment = None
+    doctors = Doctor.objects.all()
 
-    doctors = Doctor.objects.all() 
-    # Check if this is a reschedule request
     reschedule_id = request.GET.get("reschedule")
 
-
     if reschedule_id:
-
         appointment = get_object_or_404(
             Appointment,
             id=reschedule_id,
             patient=patient
         )
 
-
     if request.method == "POST":
 
-
         if appointment:
-            # Update existing appointment
-
             appointment.doctor_id = request.POST.get("doctor")
-
             appointment.date = request.POST.get("date")
-
-            appointment.time_period = request.POST.get(
-                "time_period"
-            )
-
-            appointment.reason = request.POST.get(
-                "reason"
-            )
-
+            appointment.time_period = request.POST.get("time_period")
+            appointment.reason = request.POST.get("reason")
             appointment.status = "Waiting"
 
+            appointment.save()
+
+            messages.success(
+                request,
+                "Your appointment has been successfully rescheduled."
+            )
 
         else:
-            # Create new appointment
-
-            appointment = Appointment()
-
-            appointment.patient = patient
-
-            appointment.doctor_id = request.POST.get(
-                "doctor"
+            appointment = Appointment.objects.create(
+                patient=patient,
+                doctor_id=request.POST.get("doctor"),
+                date=request.POST.get("date"),
+                time_period=request.POST.get("time_period"),
+                reason=request.POST.get("reason"),
+                status="Waiting",
             )
 
-            appointment.date = request.POST.get(
-                "date"
+            messages.success(
+                request,
+                "Your appointment has been booked successfully."
             )
 
-            appointment.time_period = request.POST.get(
-                "time_period"
-            )
-
-            appointment.reason = request.POST.get(
-                "reason"
-            )
-
-            appointment.status = "Waiting"
-
-
-        appointment.save()
-
-
-        return redirect(
-            "patient_appointment_list"
-        )
-
-
-    context = {
-
-        "appointment": appointment,
-        "doctors": doctors,
-    }
-
+        # Return to the appointment list after success
+        return redirect("patient_appointment_list")
 
     return render(
         request,
         "patients/appointment/appointment_booking.html",
-        context
+        {
+            "appointment": appointment,
+            "doctors": doctors,
+        }
     )
 
 @login_required
 def patient_appointment_list(request):
 
     patient = request.user.patient_profile
-
-    appointments = Appointment.objects.filter(
+    
+    appointments = (
+    Appointment.objects.filter(
         patient=patient
-    ).select_related("doctor")
+    )
+    .select_related("doctor")
+    .annotate(
+        status_order=Case(
+            When(status="Waiting", then=Value(1)),
+            When(status="Pending", then=Value(2)),
+            When(status="Confirmed", then=Value(3)),
+            When(status="Cancelled", then=Value(4)),
+            When(status="Completed", then=Value(5)),
+            default=Value(99),
+            output_field=IntegerField(),
+        )
+    )
+    .order_by("status_order", "date")
+)
 
     search = request.GET.get("search")
     status = request.GET.get("status")
@@ -418,9 +381,7 @@ def patient_appointment_list(request):
         )
 
     if status:
-        appointments = appointments.filter(status=status)
-
-    appointments = appointments.order_by("date")
+        appointments = appointments.filter(status=status) 
 
     context = {
         "appointments": appointments,
@@ -1409,52 +1370,113 @@ def doctor_schedule(request):
         "doctors/schedule/doctor_schedule.html",
         context
     )
+def generate_health_recommendation(patient_data):
 
+    print("===== DATA SENT TO GEMINI =====")
+    print(patient_data)
+
+    response = client.models.generate_content(
+        model="gemini-flash-latest",
+        contents=f"""
+You are a healthcare recommendation assistant.
+
+Analyze this patient's health information:
+
+{patient_data}
+
+
+Generate personalized recommendations based on:
+- Diagnosis
+- Medical records
+- Prescriptions
+- Patient information
+
+
+Include:
+
+Recommended Actions:
+
+✓ Action 1
+✓ Action 2
+
+
+Lifestyle Advice:
+
+✓ Advice 1
+
+
+Follow-up:
+
+✓ Advice
+
+
+Important:
+- Do not create new diagnoses.
+- Do not replace a doctor's advice.
+- If there is no diagnosis, provide general wellness recommendations.
+"""
+    )
+
+    print("===== GEMINI RESPONSE =====")
+    print(response.text)
+
+    return response.text
 @login_required
 def health_summary(request):
 
     patient = request.user.patient_profile
 
+    appointments = Appointment.objects.filter(
+        patient=patient
+    ).order_by("-date")
 
-    appointments = patient.appointments.all().order_by("-date")
-
-
-    records = patient.medical_records.all().order_by("-visit_date")
+    records = MedicalRecord.objects.filter(
+        patient=patient
+    ).order_by("-visit_date")
 
 
     appointment_data = ""
 
     for appointment in appointments[:5]:
 
-        appointment_data += f"""
-        Date: {appointment.date}
-        Doctor: Dr. {appointment.doctor.last_name}
-        Reason: {appointment.reason}
-        Status: {appointment.status}
+        doctor_name = (
+            appointment.doctor.user.get_full_name()
+            if appointment.doctor
+            else "Unknown Doctor"
+        )
 
-        """
+        appointment_data += f"""
+Date: {appointment.date}
+Doctor: Dr. {doctor_name}
+Reason: {appointment.reason}
+Status: {appointment.status}
+"""
 
 
     medical_data = ""
 
     for record in records[:5]:
 
+        doctor_name = (
+            record.doctor.user.get_full_name()
+            if record.doctor
+            else "Unknown Doctor"
+        )
+
         medical_data += f"""
-        Visit Date: {record.visit_date}
-        Diagnosis: {record.diagnosis}
-        Prescription: {record.prescription}
-        Notes: {record.notes}
-
-        """
-
+Visit Date: {record.visit_date}
+Doctor: Dr. {doctor_name}
+Diagnosis: {record.diagnosis}
+Prescription: {record.prescription}
+Notes: {record.notes or "None"}
+"""
 
 
     patient_data = f"""
-
-Patient Information:
+Patient Information
 
 Name:
-{patient.first_name} {patient.last_name}
+{patient.user.get_full_name()}
 
 Age:
 {patient.age}
@@ -1472,36 +1494,54 @@ Weight:
 {patient.weight} kg
 
 
-Appointment History:
-
-{appointment_data}
-
-
 Medical Records:
 
 {medical_data}
 
-"""
 
+Appointments:
+
+{appointment_data}
+"""
+    print("========== PATIENT DATA SENT TO AI ==========")
+    print(patient_data)
 
     if not appointments.exists() and not records.exists():
 
-        summary = "You have no records yet."
+        summary = "You have no medical history yet."
+
+        recommendations = (
+            "Start by scheduling your first consultation "
+            "to establish your health baseline."
+        )
+
 
     else:
 
         summary = generate_health_summary(patient_data)
 
+        recommendations = generate_health_recommendation(patient_data)
+
+
+    print("AI RECOMMENDATIONS:")
+    print(recommendations)
+
+
+    context = {
+        "patient": patient,
+        "summary": summary,
+        "recommendations": recommendations,
+        "appointments": appointments[:5],
+        "records": records[:5],
+    }
 
 
     return render(
         request,
         "patients/medical_records/health_summary_ai.html",
-        {
-            "patient": patient,
-            "summary": summary,
-        }
+        context
     )
+
 @login_required
 def doctor_medical_records(request):
 
@@ -1871,6 +1911,29 @@ def receptionist_appointments(request):
         "receptionist/appointment/receptionist_appointment.html",
         context,
     )
+
+@login_required
+def approve_appointment(request, id):
+
+    appointment = get_object_or_404(
+        Appointment,
+        id=id
+    )
+
+    appointment.status = "Pending"
+    appointment.save()
+
+
+    messages.success(
+        request,
+        "Appointment scheduled for Doctor's approval"
+    )
+
+
+    return redirect(
+        "receptionist_appointments"
+    )
+
 @login_required
 def deny_appointment(request, appointment_id):
 
@@ -1883,6 +1946,17 @@ def deny_appointment(request, appointment_id):
     appointment.save()
 
     return redirect("receptionist_appointments")
+@login_required
+def cancel_appointment(request, appointment_id):
+    appointment = get_object_or_404(
+        Appointment,
+        id=appointment_id
+    )
+
+    appointment.status = "Cancelled"
+    appointment.save()
+
+    return redirect("patient_appointment_list")
 @login_required
 def receptionist_patients(request):
 
@@ -1921,5 +1995,95 @@ def receptionist_doctors(request):
     return render(
         request,
         "receptionist/appointment/receptionist_doctor.html",
+        context
+    )
+@login_required
+def patient_account_edit(request):
+
+    patient = request.user.patient_profile
+
+
+    if request.method == "POST":
+
+
+        # ==========================
+        # PERSONAL INFORMATION
+        # ==========================
+
+        patient.first_name = request.POST.get("first_name")
+        patient.middle_name = request.POST.get("middle_name")
+        patient.last_name = request.POST.get("last_name")
+
+        patient.date_of_birth = request.POST.get("date_of_birth")
+        patient.sex = request.POST.get("sex")
+
+        patient.address = request.POST.get("address")
+        patient.contact_number = request.POST.get("contact_number")
+
+
+
+        # ==========================
+        # MEDICAL INFORMATION
+        # ==========================
+
+        patient.blood_type = request.POST.get("blood_type")
+
+
+        height = request.POST.get("height")
+        weight = request.POST.get("weight")
+
+
+        patient.height = height if height else None
+        patient.weight = weight if weight else None
+
+
+
+
+
+        # ==========================
+        # PROFILE PICTURE
+        # ==========================
+
+        if request.FILES.get("profile_picture"):
+
+            patient.profile_picture = request.FILES["profile_picture"]
+
+
+
+
+
+        # ==========================
+        # SAVE
+        # ==========================
+
+        patient.save()
+
+
+        messages.success(
+            request,
+            "Your account has been updated successfully."
+        )
+
+
+        return redirect("patient_account")
+
+
+
+
+    context = {
+
+        "patient": patient,
+
+        "sex_choices": Patient.SEX_CHOICES,
+
+        "blood_types": Patient.BLOOD_TYPE_CHOICES,
+
+    }
+
+
+
+    return render(
+        request,
+        "patients/patient_details/patient_account_edit.html",
         context
     )

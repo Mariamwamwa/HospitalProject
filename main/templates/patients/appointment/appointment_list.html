@@ -118,10 +118,11 @@
         <option value="">All Status</option>
 
         <option value="Pending">Pending</option>
+        <option value="Waiting">Waiting</option>
         <option value="Confirmed">Confirmed</option>
         <option value="Completed">Completed</option>
         <option value="Cancelled">Cancelled</option>
-
+        
     </select>
 
     <button type="submit"class="search-btn">Search</button>
@@ -239,55 +240,49 @@
 
 
 
-            <div class="appointment-actions">
+           <div class="appointment-actions">
 
+    <a href="{% url 'appointment_detail' appointment.id %}"
+       class="btn secondary-btn">
+        View Details
+    </a>
 
+    {% if appointment.status == "Waiting" %}
 
-                <a 
-                href="{% url 'appointment_detail' appointment.id %}"
-                class="btn secondary-btn">
+        <a href="{% url 'appointment_booking' %}?reschedule={{ appointment.id }}"
+           class="btn primary-btn">
+            Reschedule
+        </a>
 
-                    View Details
+     <a href="{% url 'cancel_appointment' appointment.id %}"
+   class="btn danger-btn"
+   onclick="return confirmCancel(event, this.href);">
+    Cancel
+</a>
+    {% elif appointment.status == "Pending" %}
 
-                </a>
+        <a href="{% url 'appointment_booking' %}?reschedule={{ appointment.id }}"
+           class="btn primary-btn">
+            Reschedule
+        </a>
 
+      <a href="{% url 'cancel_appointment' appointment.id %}"
+   class="btn danger-btn"
+   onclick="return confirmCancel(event, this.href);">
+    Cancel
+</a>
 
+    {% elif appointment.status == "Confirmed" %}
 
+      <a href="{% url 'cancel_appointment' appointment.id %}"
+   class="btn danger-btn"
+   onclick="return confirmCancel(event, this.href);">
+    Cancel
+</a>
 
+    {% endif %}
 
-                {% if appointment.status == "Pending" %}
-
-
-                <a 
-                href="{% url 'appointment_booking' %}?reschedule={{ appointment.id }}"
-                class="btn primary-btn">
-
-                    Reschedule
-
-                </a>
-
-
-
-                {% elif appointment.status == "Confirmed" %}
-
-
-                <a 
-                href="#"
-                class="btn danger-btn">
-
-                    Cancel
-
-                </a>
-
-
-
-                {% endif %}
-
-
-
-
-            </div>
-
+</div>
 
 
 
@@ -328,6 +323,34 @@
 
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+
+function confirmCancel(event, url){
+
+    event.preventDefault();
+
+    Swal.fire({
+        title: "Cancel Appointment?",
+        text: "Are you sure you want to cancel this appointment?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Cancel",
+        cancelButtonText: "Keep Appointment",
+        confirmButtonColor: "#d32f2f",
+        cancelButtonColor: "#7c4dff"
+    }).then((result)=>{
+
+        if(result.isConfirmed){
+            window.location.href = url;
+        }
+
+    });
+
+    return false;
+}
+
+</script>
 
 {% endblock %}

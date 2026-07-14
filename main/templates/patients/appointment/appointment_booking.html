@@ -136,16 +136,13 @@ Book Appointment
             <!-- Buttons -->
             <div class="button-group">
 
-                <button type="submit" class="book-btn">
-
-                    {% if appointment %}
-                        🔄 Update Appointment
-                    {% else %}
-                        📅 Book Appointment
-                    {% endif %}
-
-                </button>
-
+             <button type="button" class="book-btn" onclick="confirmBooking()">
+    {% if appointment %}
+        Update Appointment
+    {% else %}
+        Book Appointment
+    {% endif %}
+</button>
                 <div class="cancel-wrapper">
 
                     <a href="{% url 'patient_appointment_list' %}" class="cancel-btn">
@@ -159,6 +156,24 @@ Book Appointment
         </form>
 
     </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+function confirmBooking() {
+    Swal.fire({
+        title: "Confirm Appointment",
+        text: "Do you want to continue?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#7c4dff",
+        confirmButtonText: "Yes",
+        cancelButtonText: "Cancel"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.querySelector("form").submit();
+        }
+    });
+}
+</script>
 
 {% endblock %}

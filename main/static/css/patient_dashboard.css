@@ -3,109 +3,38 @@
 ========================== */
 
 .welcome-section{
-
     display:flex;
     justify-content:space-between;
     align-items:center;
 
     padding:40px 45px;
-
     margin-bottom:35px;
 
     border-radius:24px;
 
-   background:#fff;
-    border:1px solid #ece8ff;
-box-shadow: 0 20px 45px rgba(124, 77, 255, 0.22);
+    background:linear-gradient(135deg, #7c4dff, #5b21b6);
+    color:#fff;
 
+    border:none;
+    box-shadow:0 20px 45px rgba(124,77,255,.30);
+}
+.welcome-left h1,
+.welcome-right h2{
+    color:#fff;
 }
 
-.welcome-left{
-
-    flex:1;
-
-}
-
-
-
-.welcome-left h1{
-
-    margin:0;
-
-    font-size:2.2rem;
-
-    color:var(--deep-purple);
-
-}
-
-.welcome-left p{
-
-    margin-top:14px;
-
-    max-width:620px;
-
-    color:var(--text-muted);
-
-    line-height:1.8;
-
-    font-size:15px;
-
-}
-
-.welcome-right{
-
-    min-width:220px;
-
-    text-align:right;
-
+.welcome-left p,
+.welcome-right p{
+    color:rgba(255,255,255,.85);
 }
 
 .today-label{
-
-    display:block;
-
-    color:var(--primary-purple);
-
-    font-size:13px;
-
-    font-weight:600;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-
-}
-
-.welcome-right h2{
-
-    margin:10px 0 5px;
-
-    font-size:1.9rem;
-
-    color:var(--deep-purple);
-
-}
-
-.welcome-right p{
-
-    margin:0;
-
-    color:var(--text-muted);
-
-    font-size:15px;
-
+    color:#e9ddff;
 }
 .welcome-divider{
     width:1px;
     align-self:stretch;
- background: linear-gradient(
-    to bottom,
-    transparent,
-    #bca7ff 20%,
-    #8b5cf6 50%,
-    #bca7ff 80%,
-    transparent
-);
+    background:rgba(255,255,255,.35);
     margin:0 25px;
 }
 
@@ -673,7 +602,7 @@ box-shadow: 0 20px 45px rgba(124, 77, 255, 0.22);
 
 .history-container{
 
-    max-height:250px;
+    max-height:350px;
 
     overflow-y:auto;
 

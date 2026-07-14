@@ -9,12 +9,12 @@ Health Summary
     {% include "patients/dashboard/sidebar.html" %}
 {% endblock %}
 
-
-
 {% block content %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/patient_health_summary.css' %}">
 {% endblock %}
+
 <div class="health-page">
 
     <!-- ===================================== -->
@@ -44,78 +44,93 @@ Health Summary
 
     </div>
 
+    <!-- ===================================== -->
+    <!-- AI HEALTH SUMMARY -->
+    <!-- ===================================== -->
+
     <div class="summary-card">
 
-        <h2>
-            📅 This Year's Health Summary
-        </h2>
+        <h2>📅 This Year's Health Summary</h2>
 
-        <p>
-
-           {{ summary|linebreaks }}
-        </p>
+        {{ summary|linebreaks }}
 
     </div>
 
     <!-- ===================================== -->
-    <!-- OVERALL -->
+    <!-- PATIENT INFORMATION -->
     <!-- ===================================== -->
+<div class="summary-card">
 
- <div class="summary-card">
+    <h2>👤 Patient Information</h2>
 
-    <h2>
-        📊 Patient Information
-    </h2>
+    <p><strong>Name:</strong> {{ patient.first_name }} {{ patient.last_name }}</p>
 
-    <p>
-        <strong>Name:</strong>
-        {{ patient.first_name }} {{ patient.last_name }}
-    </p>
+    <p><strong>Age:</strong> {{ patient.age }} years old</p>
 
-    <p>
-        <strong>Age:</strong>
-        {{ patient.age }} years old
-    </p>
+    <p><strong>Sex:</strong> {{ patient.sex }}</p>
 
-    <p>
-        <strong>Sex:</strong>
-        {{ patient.sex }}
-    </p>
+    <p><strong>Blood Type:</strong> {{ patient.blood_type }}</p>
 
-    <p>
-        <strong>Blood Type:</strong>
-        {{ patient.blood_type }}
-    </p>
+    <p><strong>Height:</strong> {{ patient.height }} cm</p>
 
-    <p>
-        <strong>Height:</strong>
-        {{ patient.height }} cm
-    </p>
-
-    <p>
-        <strong>Weight:</strong>
-        {{ patient.weight }} kg
-    </p>
+    <p><strong>Weight:</strong> {{ patient.weight }} kg</p>
 
 </div>
 
     <!-- ===================================== -->
-    <!-- RECOMMENDATIONS -->
+    <!-- RECENT MEDICAL RECORDS -->
     <!-- ===================================== -->
 
-   <div class="summary-card">
+    <div class="summary-card">
 
-    <h2>
-        💡 AI Recommendations
-    </h2>
+    <h2>🩺 Recent Medical Records</h2>
 
+    {% if records %}
 
-    <p>
-        {{ summary|linebreaks }}
-    </p>
+        {% for record in records %}
 
+            <p><strong>Visit Date:</strong> {{ record.visit_date }}</p>
+
+            <p>
+                <strong>Doctor:</strong>
+                {% if record.doctor %}
+                    Dr. {{ record.doctor.first_name }} {{ record.doctor.last_name }}
+                {% else %}
+                    Unknown Doctor
+                {% endif %}
+            </p>
+
+            <p><strong>Diagnosis:</strong> {{ record.diagnosis }}</p>
+
+            <p><strong>Prescription:</strong> {{ record.prescription }}</p>
+
+            <p><strong>Notes:</strong> {{ record.notes|default:"None" }}</p>
+
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No medical records available.</p>
+
+    {% endif %}
 
 </div>
+
+    <!-- ===================================== -->
+    <!-- RECENT APPOINTMENTS -->
+    <!-- ===================================== -->
+<div class="summary-card recommendation-card">
+
+    <h2>🤖 AI Health Recommendations</h2>
+
+    {{ recommendations|linebreaks }}
+
+</div>
+
     <!-- ===================================== -->
     <!-- QUOTE -->
     <!-- ===================================== -->

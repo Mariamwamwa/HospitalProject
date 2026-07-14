@@ -22,127 +22,61 @@ My Account
 <link rel="stylesheet" href="{% static 'css/patient_account.css' %}">
 {% endblock %}
 
+
+
+
 <div class="account-page">
-
-
-<form method="POST" enctype="multipart/form-data">
-
-{% csrf_token %}
 
 
 
 <!-- ================= HERO ================= -->
 
+
 <div class="account-hero">
+
+
+<div class="hero-content">
+
+
+<div class="hero-text">
+
+
 <h2 class="account-title">
-    <i class="fas fa-user-circle"></i>
-    Patient Account
+
+<i class="fas fa-user-circle"></i>
+
+Patient Account
+
 </h2>
 
-    <!-- PROFILE AREA -->
-    <div class="hero-profile">
-
-
-        <div class="profile-picture">
-
-
-            {% if patient.profile_picture %}
-
-            <img src="{{ patient.profile_picture.url }}"
-            alt="Profile Picture">
-
-            {% else %}
-
-            <img src="{% static 'images/default.jpg' %}">
-
-            {% endif %}
 
 
 
-            <label class="edit-photo-btn">
-
-                <i class="fas fa-pen"></i>
-                Edit Photo
-
-
-                <input 
-                type="file"
-                name="profile_picture"
-                accept="image/*"
-                hidden
-                onchange="this.form.submit()">
+<h1>
+Hello, {{ patient.first_name }}
+</h1>
 
 
-            </label>
 
-
-        </div>
+<p>
+Manage your personal details and keep your health information updated.
+</p>
 
 
 
 
 
-        <!-- NAME + EMAIL -->
+<div class="hero-actions">
 
-        <div class="hero-info">
+<a href="{% url 'patient_account_edit' %}" class="primary-btn">
 
+<i class="fas fa-pen"></i>
 
-            <h1>
-                {{ patient.first_name }}
-                {{ patient.last_name }}
-            </h1>
+Edit Profile
 
+</a>
 
-          
- <p class="hero-id">
-
-            Patient ID:
-            #{{ patient.user_id }}
-
-        </p>
-        </div>
-
-
-
-    </div>
-
-
-
-
-
-
-
-    <!-- ACCOUNT INFO -->
-
-
-    <div class="hero-actions">
-
-
-        <button
-        type="button"
-        class="primary-btn"
-        onclick="enableEdit()">
-            Edit Profile
-
-        </button>
-
-
-
-
-
-        <a href="{% url 'change_password' %}"
-        class="secondary-btn">
-
-
-            <i class="fas fa-key"></i>
-
-            Change Password
-
-
-        </a>
-
-
-    </div>
+</div>
 
 
 
@@ -153,8 +87,54 @@ My Account
 
 
 
-<!-- ================= CONTENT ================= -->
 
+<!-- PROFILE IMAGE -->
+
+
+<div class="hero-profile">
+
+
+<div class="profile-picture">
+
+
+{% if patient.profile_picture %}
+
+<img 
+src="{{ patient.profile_picture.url }}"
+alt="Profile Picture">
+
+
+{% else %}
+
+<img 
+src="{% static 'images/default.jpg' %}"
+alt="Default Profile">
+
+
+{% endif %}
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ================= CONTENT ================= -->
 
 
 <div class="account-grid">
@@ -185,20 +165,15 @@ Personal Information
 
 
 
-
 <div class="info-item">
 
-<span>
+<label>
 First Name
-</span>
+</label>
 
-
-<input
-type="text"
-name="first_name"
-value="{{ patient.first_name }}"
-disabled>
-
+<p>
+{{ patient.first_name }}
+</p>
 
 </div>
 
@@ -206,21 +181,15 @@ disabled>
 
 
 
-
-
 <div class="info-item">
 
-<span>
+<label>
 Middle Name
-</span>
+</label>
 
-
-<input
-type="text"
-name="middle_name"
-value="{{ patient.middle_name|default:'' }}"
-disabled>
-
+<p>
+{{ patient.middle_name|default:"N/A" }}
+</p>
 
 </div>
 
@@ -228,21 +197,15 @@ disabled>
 
 
 
-
-
 <div class="info-item">
 
-<span>
+<label>
 Last Name
-</span>
+</label>
 
-
-<input
-type="text"
-name="last_name"
-value="{{ patient.last_name }}"
-disabled>
-
+<p>
+{{ patient.last_name }}
+</p>
 
 </div>
 
@@ -251,20 +214,15 @@ disabled>
 
 
 
-
 <div class="info-item">
 
-<span>
+<label>
 Date of Birth
-</span>
+</label>
 
-
-<input
-type="date"
-name="date_of_birth"
-value="{{ patient.date_of_birth|date:'Y-m-d' }}"
-disabled>
-
+<p>
+{{ patient.date_of_birth|date:"F d, Y" }}
+</p>
 
 </div>
 
@@ -276,37 +234,13 @@ disabled>
 
 <div class="info-item">
 
-<span>
+<label>
 Sex
-</span>
+</label>
 
-
-<select 
-name="sex"
-disabled>
-
-
-{% for value,label in sex_choices %}
-
-
-<option value="{{ value }}"
-
-{% if patient.sex == value %}
-selected
-{% endif %}
-
->
-
-{{ label }}
-
-</option>
-
-
-{% endfor %}
-
-
-</select>
-
+<p>
+{{ patient.sex }}
+</p>
 
 </div>
 
@@ -319,17 +253,13 @@ selected
 
 <div class="info-item">
 
-<span>
+<label>
 Contact Number
-</span>
+</label>
 
-
-<input
-type="text"
-name="contact_number"
-value="{{ patient.contact_number }}"
-disabled>
-
+<p>
+{{ patient.contact_number }}
+</p>
 
 </div>
 
@@ -341,19 +271,17 @@ disabled>
 
 <div class="info-item">
 
-<span>
+<label>
 Email
-</span>
+</label>
 
-
-<strong>
-
+<p>
 {{ patient.email }}
-
-</strong>
-
+</p>
 
 </div>
+
+
 
 
 
@@ -379,14 +307,17 @@ Address
 
 
 
+<p class="text-display">
 
-<textarea
-name="address"
-disabled>{{ patient.address }}</textarea>
+{{ patient.address }}
+
+</p>
 
 
 
 </div>
+
+
 
 
 
@@ -428,43 +359,13 @@ Health Information
 
 <div class="info-item">
 
-<span>
-
+<label>
 Blood Type
+</label>
 
-</span>
-
-
-
-
-<select
-name="blood_type"
-disabled>
-
-
-{% for value,label in blood_types %}
-
-
-<option value="{{ value }}"
-
-
-{% if patient.blood_type == value %}
-selected
-{% endif %}
-
->
-
-{{ label }}
-
-</option>
-
-
-{% endfor %}
-
-
-</select>
-
-
+<p>
+{{ patient.blood_type }}
+</p>
 
 </div>
 
@@ -477,24 +378,15 @@ selected
 
 <div class="info-item">
 
-<span>
-
+<label>
 Height
+</label>
 
-</span>
-
-
-
-<input
-type="number"
-step="0.01"
-name="height"
-value="{{ patient.height|default:'' }}"
-disabled>
-
+<p>
+{{ patient.height|default:"N/A" }} cm
+</p>
 
 </div>
-
 
 
 
@@ -504,23 +396,17 @@ disabled>
 
 <div class="info-item">
 
-<span>
-
+<label>
 Weight
+</label>
 
-</span>
-
-
-
-<input
-type="number"
-step="0.01"
-name="weight"
-value="{{ patient.weight|default:'' }}"
-disabled>
-
+<p>
+{{ patient.weight|default:"N/A" }} kg
+</p>
 
 </div>
+
+
 
 
 
@@ -549,22 +435,22 @@ Security
 
 
 
+
 <div class="info-item">
 
-
-<span>
+<label>
 Password
-</span>
+</label>
 
 
-<strong>
-
+<p>
 ••••••••••••
-
-</strong>
+</p>
 
 
 </div>
+
+
 
 
 
@@ -573,68 +459,19 @@ Password
 
 <div class="info-item">
 
-
-<span>
+<label>
 Last Login
-</span>
+</label>
 
 
-<strong>
+<p>
 
-{{ request.user.last_login }}
+{{ request.user.last_login|date:"F d, Y h:i A" }}
 
-</strong>
-
-
-</div>
-
-
+</p>
 
 
 </div>
-
-
-
-
-
-
-
-
-<div class="save-section">
-
-
-<button
-type="submit"
-class="save-btn">
-
-
-<i class="fas fa-floppy-disk"></i>
-
-Save Changes
-
-
-</button>
-
-
-
-
-
-<a href="{% url 'patient_account' %}"
-class="cancel-btn">
-
-
-<i class="fas fa-xmark"></i>
-
-Cancel
-
-
-</a>
-
-
-
-
-</div>
-
 
 
 
@@ -654,8 +491,6 @@ Cancel
 
 
 
-</form>
-
 
 </div>
 
@@ -663,35 +498,7 @@ Cancel
 
 
 
-{% block extra_js %}
-
-<script>
-
-
-function enableEdit(){
-
-
-let fields = document.querySelectorAll(
-"input, textarea, select"
-);
-
-
-
-fields.forEach(function(field){
-
-    field.disabled = false;
-
-});
-
-
-}
-
-
-</script>
-
-
-{% endblock %}
-
+</div>
 
 
 

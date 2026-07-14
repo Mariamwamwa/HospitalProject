@@ -39,12 +39,21 @@ Receptionist Dashboard
             </p>
 
         </div>
+<div class="welcome-image">
 
-        <div class="welcome-image">
+{% if request.user.receptionist_profile.profile_picture %}
 
-            <img src="{% static 'images/CarenestLOGO.png' %}" alt="CareNest Logo">
+<img src="{{ request.user.receptionist_profile.profile_picture.url }}"
+alt="Profile Picture">
 
-        </div>
+{% else %}
+
+<img src="{% static 'images/default.jpg' %}"
+alt="Default Profile">
+
+{% endif %}
+
+</div>
 
     </section>
 
@@ -60,18 +69,7 @@ DASHBOARD OVERVIEW
 
 <section class="summary-section">
 
-    <div class="summary-header">
-
-        <h2>
-            Dashboard Overview
-        </h2>
-
-        <p>
-            Overview of today's hospital activities and appointment status.
-        </p>
-
-    </div>
-
+  
     <div class="summary-wrapper">
 
         <div class="summary-cards">

@@ -51,10 +51,15 @@
 
 .card-header{
 
-    margin-bottom:35px;
+    margin:-45px -45px 35px;
+
+    padding:35px 45px;
+
+    background:linear-gradient(135deg,#7c4dff,#5e35b1);
+
+    border-radius:24px 24px 0 0;
 
 }
-
 
 .card-header h2{
 
@@ -62,19 +67,17 @@
 
     font-size:32px;
 
-    color:#5e35b1;
+    color:#fff;
 
 }
-
 
 .card-header p{
 
     margin-top:10px;
 
-    color:#666;
+    color:rgba(255,255,255,.90);
 
 }
-
 
 /* ==========================
    FORM

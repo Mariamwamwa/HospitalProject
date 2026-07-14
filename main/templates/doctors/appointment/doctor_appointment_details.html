@@ -5,9 +5,12 @@
 Appointment Details
 {% endblock %}
 
+
 {% block sidebar %}
 {% include "doctors/dashboard/sidebar.html" %}
 {% endblock %}
+
+
 
 {% block content %}
 
@@ -15,247 +18,389 @@ Appointment Details
 <link rel="stylesheet" href="{% static 'css/doctor_appointment_details.css' %}">
 {% endblock %}
 
+
+
 <div class="appointment-details-page">
 
-    <!-- ==============================
-         PAGE HEADER
-    =============================== -->
 
-    <section class="page-header">
+<section class="details-card">
 
-        <a href="{% url 'doctor_appointments' %}" class="back-btn">
-            ← Back to Appointments
-        </a>
 
-        <h1>Appointment Details</h1>
 
-    </section>
+<!-- ================= HEADER ================= -->
 
-    <!-- ==============================
-         DETAILS CARD
-    =============================== -->
+<div class="appointment-header">
 
-    <section class="details-card">
 
-        <!-- ==============================
-             PATIENT INFORMATION
-        =============================== -->
+<div>
 
-        <div class="section-title">
+<a href="{% url 'doctor_appointments' %}" class="back-btn">
+    ← Back to Appointments
+</a>
 
-            <span>👤</span>
 
-            <h2>Patient Information</h2>
+<h1>
+    Appointment Details
+</h1>
 
-        </div>
 
-        <div class="patient-section">
+<p>
+Review patient information and manage appointment actions.
+</p>
 
-            <div class="patient-photo">
 
-                {% if appointment.patient.profile_picture %}
+</div>
 
-                <img src="{{ appointment.patient.profile_picture.url }}" alt="Patient">
 
-                {% else %}
+</div>
 
-                <img src="{% static 'images/CarenestLOGO.png' %}" alt="Patient">
 
-                {% endif %}
 
-            </div>
 
-            <div class="patient-info">
 
-                <div class="info-row">
 
-                    <span>Full Name</span>
+<!-- ================= PATIENT INFORMATION ================= -->
 
-                    <strong>
 
-                        {{ appointment.patient.first_name }}
-                        {{ appointment.patient.last_name }}
+<div class="section-title">
 
-                    </strong>
+<span>👤</span>
 
-                </div>
+<h2>
+Patient Information
+</h2>
 
-                <div class="info-row">
+</div>
 
-                    <span>Contact Number</span>
 
-                    <strong>
 
-                        {{ appointment.patient.contact_number }}
+<div class="patient-section">
 
-                    </strong>
 
-                </div>
 
-                <div class="info-row">
+<div class="patient-photo">
 
-                    <span>Email Address</span>
 
-                    <strong>
+{% if appointment.patient.profile_picture %}
 
-                        {{ appointment.patient.email }}
+<img src="{{ appointment.patient.profile_picture.url }}">
 
-                    </strong>
+{% else %}
 
-                </div>
+<img src="{% static 'images/default.jpg' %}">
 
-            </div>
+{% endif %}
 
-        </div>
 
-        <hr>
+</div>
 
-        <!-- ==============================
-             APPOINTMENT INFORMATION
-        =============================== -->
 
-        <div class="section-title">
 
-            <span>📅</span>
 
-            <h2>Appointment Information</h2>
 
-        </div>
+<div class="patient-info">
 
-        <div class="appointment-grid">
 
-            <div class="info-box">
+<div class="info-row">
 
-                <span>Date</span>
+<span>
+Full Name
+</span>
 
-                <strong>
+<strong>
+{{ appointment.patient.first_name }}
+{{ appointment.patient.last_name }}
+</strong>
 
-                    {{ appointment.date|date:"F d, Y" }}
+</div>
 
-                </strong>
 
-            </div>
 
-            <div class="info-box">
 
-                <span>Time</span>
+<div class="info-row">
 
-                <strong>
+<span>
+Contact Number
+</span>
 
-                    {{ appointment.time_period }}
+<strong>
+{{ appointment.patient.contact_number }}
+</strong>
 
-                </strong>
+</div>
 
-            </div>
 
-            <div class="info-box">
 
-                <span>Reason</span>
 
-                <strong>
 
-                    {{ appointment.reason }}
+<div class="info-row">
 
-                </strong>
+<span>
+Email Address
+</span>
 
-            </div>
+<strong>
+{{ appointment.patient.email }}
+</strong>
 
-            <div class="info-box">
+</div>
 
-                <span>Status</span>
 
-                <span class="status {{ appointment.status|lower }}">
 
-                    {{ appointment.status }}
+</div>
 
-                </span>
 
-            </div>
 
-        </div>
+</div>
 
-        <hr>
 
-        <!-- ==============================
-             ACTIONS
-        =============================== -->
 
-        <div class="section-title">
 
-            <span>⚙️</span>
 
-            <h2>Actions</h2>
 
-        </div>
+<hr>
+
+
+
+
+
+
+<!-- ================= APPOINTMENT INFORMATION ================= -->
+
+
+
+<div class="section-title">
+
+<span>📅</span>
+
+<h2>
+Appointment Information
+</h2>
+
+</div>
+
+
+
+
+<div class="appointment-grid">
+
+
+
+<div class="info-box">
+
+<span>Date</span>
+
+<strong>
+{{ appointment.date|date:"F d, Y" }}
+</strong>
+
+</div>
+
+
+
+
+<div class="info-box">
+
+<span>Time</span>
+
+<strong>
+{{ appointment.time_period }}
+</strong>
+
+</div>
+
+
+
+
+<div class="info-box">
+
+<span>Reason</span>
+
+<strong>
+{{ appointment.reason }}
+</strong>
+
+</div>
+
+
+
+
+<div class="info-box">
+
+<span>Status</span>
+
+<strong class="status {{ appointment.status|lower }}">
+{{ appointment.status }}
+</strong>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<hr>
+
+
+
+
+
+
+<!-- ================= ACTIONS ================= -->
+
+
+
+<div class="section-title">
+
+
+
+</div>
+
+
+
 <div class="action-buttons">
 
-    {% if appointment.status == "Pending" %}
 
-        <a href="{% url 'confirm_appointment' appointment.id %}" class="confirm-btn">
-            Confirm Appointment
-        </a>
 
-        <a href="{% url 'reschedule_appointment' appointment.id %}" class="reschedule-btn">
-            Reschedule
-        </a>
+{% if appointment.status == "Pending" %}
 
-        <a href="{% url 'cancel_appointment' appointment.id %}" class="cancel-btn">
-            Cancel Appointment
-        </a>
 
-    {% elif appointment.status == "Confirmed" %}
+<a href="{% url 'confirm_appointment' appointment.id %}"
+class="confirm-btn">
 
-        <a href="{% url 'reschedule_appointment' appointment.id %}" class="reschedule-btn">
-            Reschedule
-        </a>
+Confirm Appointment
 
-        {% if has_medical_record %}
+</a>
 
-            <a href="{% url 'doctor_create_medical' appointment.id %}"record-btn">
-                View Medical Record
-            </a>
 
-            <a href="{% url 'complete_appointment' appointment.id %}" class="complete-btn">
-                Complete Appointment
-            </a>
 
-        {% else %}
+<a href="{% url 'reschedule_appointment' appointment.id %}"
+class="reschedule-btn">
 
-            <a href="{% url 'doctor_create_medical' appointment.id %}" class="record-btn">
-                Create Medical Record
-            </a>
+Reschedule
 
-        {% endif %}
+</a>
 
-        <a href="{% url 'cancel_appointment' appointment.id %}" class="cancel-btn">
-            Cancel Appointment
-        </a>
 
-    {% elif appointment.status == "Completed" %}
 
-        {% if has_medical_record %}
+<a href="{% url 'cancel_appointment' appointment.id %}"
+class="cancel-btn">
 
-            <a href="{% url 'doctor_create_medical' appointment.id %}" class="record-btn">
-                View Medical Record
-            </a>
+Cancel Appointment
 
-        {% endif %}
+</a>
 
-        <button class="completed-btn" disabled>
-            Appointment Completed
-        </button>
 
-    {% elif appointment.status == "Cancelled" %}
 
-        <button class="cancelled-btn" disabled>
-            Appointment Cancelled
-        </button>
+{% elif appointment.status == "Confirmed" %}
 
-    {% endif %}
+
+
+<a href="{% url 'reschedule_appointment' appointment.id %}"
+class="reschedule-btn">
+
+Reschedule
+
+</a>
+
+
+
+{% if has_medical_record %}
+
+
+<a href="{% url 'doctor_create_medical' appointment.id %}"
+class="record-btn">
+
+View Medical Record
+
+</a>
+
+
+
+<a href="{% url 'complete_appointment' appointment.id %}"
+class="complete-btn">
+
+Complete Appointment
+
+</a>
+
+
+
+{% else %}
+
+
+
+<a href="{% url 'doctor_create_medical' appointment.id %}"
+class="record-btn">
+
+Create Medical Record
+
+</a>
+
+
+
+{% endif %}
+
+
+
+<a href="{% url 'cancel_appointment' appointment.id %}"
+class="cancel-btn">
+
+Cancel Appointment
+
+</a>
+
+
+
+
+{% elif appointment.status == "Completed" %}
+
+
+
+{% if has_medical_record %}
+
+<a href="{% url 'doctor_create_medical' appointment.id %}"
+class="record-btn">
+
+View Medical Record
+
+</a>
+
+{% endif %}
+
+
+
+<button disabled class="completed-btn">
+Appointment Completed
+</button>
+
+
+
+
+{% elif appointment.status == "Cancelled" %}
+
+
+<button disabled class="cancelled-btn">
+Appointment Cancelled
+</button>
+
+
+{% endif %}
+
+
 
 </div>
-    </section>
+
+
+
+</section>
+
 
 </div>
+
 
 {% endblock %}

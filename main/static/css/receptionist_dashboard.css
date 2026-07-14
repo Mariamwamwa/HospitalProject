@@ -16,6 +16,9 @@
 /* ==================================================
    WELCOME SECTION
 ================================================== */
+/* ==================================================
+   WELCOME SECTION PURPLE HEADER
+================================================== */
 
 .welcome-section{
 
@@ -26,17 +29,26 @@
 
     padding:42px;
 
-    background:linear-gradient(
+
+    background:
+    linear-gradient(
         135deg,
-        rgba(124,77,255,.16),
-        rgba(99,102,241,.12)
+        #7c4dff,
+        #4a148c
     );
 
-    border:1px solid rgba(124,77,255,.15);
+
+    border:none;
 
     border-radius:26px;
 
-    backdrop-filter:blur(16px);
+
+    color:white;
+
+
+    box-shadow:
+    0 20px 45px rgba(124,77,255,.30);
+
 
     margin-bottom:35px;
 
@@ -44,10 +56,11 @@
 
 
 
+/* LEFT CONTENT */
+
 .welcome-content{
 
     flex:1;
-    min-width:0;
 
 }
 
@@ -56,48 +69,75 @@
 .welcome-tag{
 
     display:inline-flex;
+
     align-items:center;
+
 
     padding:8px 18px;
 
-    background:#f3f0ff;
-    color:#7c4dff;
+
+    background:rgba(255,255,255,.18);
+
+
+    color:white;
+
 
     border-radius:50px;
 
+
     font-size:14px;
+
     font-weight:700;
+
 
     margin-bottom:16px;
 
+
+    backdrop-filter:blur(10px);
+
 }
+
 
 
 
 .welcome-content h1{
 
+
     margin:0 0 12px;
 
+
     font-size:34px;
+
     font-weight:700;
 
-    color:#2d3436;
+
+    color:white;
+
 
 }
+
+
 
 
 
 .welcome-content p{
 
+
     margin:0;
 
-    color:#636e72;
+
+    color:rgba(255,255,255,.85);
+
 
     font-size:15px;
 
+
     line-height:1.7;
 
+
 }
+
+
 
 
 
@@ -113,13 +153,24 @@
 
 .welcome-image img{
 
-    width:140px;
-    height:140px;
+    width:150px;
+    height:150px;
 
-    object-fit:contain;
+    object-fit:cover;
+
+    border-radius:50%;
+
+    background:white;
+
+    padding:6px;
+
+    border:5px solid rgba(255,255,255,.7);
+
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,.25);
 
 }
-
 
 
 /* ==================================================

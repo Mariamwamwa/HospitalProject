@@ -38,11 +38,7 @@ urlpatterns = [
     path( "doctor/medical-record/",views.doctor_medical_record,name="doctor_medical_record"),
     path( "doctor/create-medical/<int:appointment_id>/",views.doctor_create_medical,name="doctor_create_medical",),
     path("doctor/patients/",views.doctor_patient_list,name="doctor_patient_list"),
-    path(
-    "receptionist/dashboard/",
-    views.receptionist_dashboard,
-    name="receptionist_dashboard"
-),
+    path("receptionist/dashboard/",views.receptionist_dashboard,name="receptionist_dashboard"),
 path(
     "receptionist/appointments/",
     views.receptionist_appointments,
@@ -60,6 +56,26 @@ path(
     "receptionist/doctors/",
     views.receptionist_doctors,
     name="receptionist_doctors"
+),
+path(
+    "patient/appointment/<int:appointment_id>/cancel/",
+    views.cancel_appointment,
+    name="cancel_appointment",
+),
+path(
+    "health-summary/",
+    views.health_summary,
+    name="health_summary"
+),
+path(
+    "account/edit/",
+    views.patient_account_edit,
+    name="patient_account_edit"
+),
+path(
+    "receptionist/appointments/approve/<int:id>/",
+    views.approve_appointment,
+    name="approve_appointment"
 ),
 ]
 

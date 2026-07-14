@@ -1,828 +1,558 @@
-    /* ==========================================
-    ACCOUNT PAGE
-    ========================================== */
-
-    .account-page{
-
-        max-width:1200px;
-        margin:auto;
-        padding:25px;
-
-    }
+/* ==========================================
+   PATIENT ACCOUNT PAGE
+   CareNest Dashboard Style
+========================================== */
 
 
-    /* ==========================================
-    HERO SECTION
-    ========================================== */
+.account-page {
 
-    .account-hero{
+    width:100%;
 
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        gap:40px;
+    padding:25px;
 
-        background:linear-gradient(
-            135deg,
-            #ffffff,
-            #faf7ff
-        );
+    font-family:"Plus Jakarta Sans", sans-serif;
 
-        border:1px solid #ece5ff;
+    color:#2d3436;
 
-        border-radius:30px;
-
-        padding:35px 45px;
-
-        margin-bottom:35px;
-
-        box-shadow:
-            0 20px 50px rgba(124,77,255,.15);
-
-    }
+}
 
 
-    .hero-profile{
-   display:flex;
 
-    flex-direction:column;
+/* ==========================================
+   HERO HEADER (KEEP DESIGN)
+========================================== */
 
-    align-items:flex-start;
+
+.account-hero {
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c4dff,
+        #4a148c
+    );
+
+    border-radius:25px;
+
+    padding:40px;
+
+    color:white;
+
+    box-shadow:
+    0 15px 35px rgba(124,77,255,.25);
+
+    margin-bottom:30px;
+
+}
+
+
+
+.hero-content {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+
+
+.hero-text {
+
+    max-width:65%;
+
+}
+
+
+
+.account-title {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-size:22px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.hero-text h1 {
+
+    font-size:38px;
+
+    margin:0 0 10px;
+
+    font-weight:700;
+
+}
+
+
+
+.hero-text p {
+
+    font-size:16px;
+
+    opacity:.9;
+
+    line-height:1.6;
+
+}
+
+
+
+/* ==========================================
+   PROFILE IMAGE RIGHT
+========================================== */
+
+
+.hero-profile {
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+.profile-picture {
+
+    width:190px;
+
+    height:190px;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    background:white;
+
+    border:
+
+    8px solid rgba(255,255,255,.7);
+
+
+    box-shadow:
+
+    0 15px 35px rgba(0,0,0,.25);
+
+}
+
+
+
+.profile-picture img {
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+
+
+/* ==========================================
+   EDIT BUTTON
+========================================== */
+
+
+.hero-actions {
+
+    margin-top:25px;
+
+}
+
+
+
+.primary-btn {
+
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+
+    background:white;
+
+    color:#7c4dff;
+
+
+    padding:14px 30px;
+
+    border-radius:14px;
+
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    font-size:15px;
+
+
+    transition:.3s;
+
+}
+
+
+
+.primary-btn:hover {
+
+
+    background:#f3f0ff;
+
+    color:#4a148c;
+
+    transform:translateY(-2px);
+
+}
+
+
+
+
+
+/* ==========================================
+   CONTENT GRID
+========================================== */
+
+
+.account-grid {
+
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(2,1fr);
+
 
     gap:25px;
 
-    }
 
+}
 
-    .profile-picture{
 
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        gap:12px;
 
-    }
 
 
-    .hero-profile img{
 
-        width:120px;
-        height:120px;
+/* ==========================================
+   CARD DESIGN
+========================================== */
 
-        border-radius:50%;
 
-        object-fit:cover;
+.account-card {
 
-        border:6px solid #f3efff;
 
-        box-shadow:
-            0 15px 35px rgba(124,77,255,.25);
+    background:white;
 
-        transition:.35s;
 
-    }
+    border-radius:22px;
 
 
-    .hero-profile img:hover{
+    padding:28px;
 
-        transform:scale(1.06);
 
-    }
+    margin-bottom:25px;
 
 
-    /* ==========================================
-    HERO INFO
-    ========================================== */
 
+    box-shadow:
 
-    .hero-info{
+    0 10px 30px rgba(0,0,0,.08);
 
-        display:flex;
-        flex-direction:column;
 
-    }
 
+    border:
 
-    .hero-badge{
+    1px solid rgba(124,77,255,.08);
 
-        width:max-content;
 
-        padding:9px 20px;
+}
 
-        border-radius:50px;
 
-        background:#f1ebff;
 
-        color:#7c4dff;
 
-        font-size:.90rem;
 
-        font-weight:700;
+.account-card h2 {
 
-        border:1px solid #e4d8ff;
 
-        margin-bottom:15px;
+    display:flex;
 
-    }
+    align-items:center;
 
 
+    gap:12px;
 
-    .hero-info h1{
 
-        margin:0;
+    font-size:20px;
 
-        font-size:2.1rem;
 
-        color:#382568;
+    margin-bottom:25px;
 
-        font-weight:800;
 
-    }
+    color:#4a148c;
 
 
+}
 
-    .hero-username{
 
-        margin:10px 0 5px;
 
-        color:#7c4dff;
+.account-card h2 i {
 
-        font-weight:700;
 
-        font-size:1rem;
+    color:#7c4dff;
 
-    }
+}
 
 
 
-    .hero-id{
 
-        color:#777;
 
-        font-size:.95rem;
+/* ==========================================
+   DISPLAY INFORMATION
+========================================== */
 
-        font-weight:600;
 
-    }
+.info-item {
 
 
+    display:flex;
 
-    /* ==========================================
-    PROFILE BUTTON
-    ========================================== */
 
-    .edit-photo-btn{
+    flex-direction:column;
 
-        display:flex;
 
-        align-items:center;
+    gap:8px;
 
-        justify-content:center;
 
-        gap:10px;
+    margin-bottom:20px;
 
-        width:240px;
 
-        padding:15px 20px;
+}
 
-        border-radius:15px;
 
-        background:#7c4dff;
 
-        color:white;
 
-        text-decoration:none;
+.info-item label {
 
-        font-weight:700;
 
-        box-shadow:
-            0 12px 25px rgba(124,77,255,.25);
+    font-size:14px;
 
-        transition:.3s;
 
-    }
+    font-weight:700;
 
 
-    .edit-photo-btn:hover{
+    color:#636e72;
 
-        background:#6635e8;
 
-        color:white;
+}
 
-        transform:translateY(-3px);
 
-    }
 
 
 
-    /* ==========================================
-    HERO ACTIONS
-    ========================================== */
+.info-item p {
 
 
-    .hero-actions{
+    margin:0;
 
-        display:flex;
 
-        flex-direction:column;
+    padding:14px 16px;
 
-        gap:15px;
 
-        min-width:230px;
+    background:#f8f6ff;
 
-    }
 
+    border-radius:12px;
 
-    .hero-actions a{
 
-        display:flex;
+    color:#2d3436;
 
-        justify-content:center;
 
-        align-items:center;
+    font-size:15px;
 
-        gap:10px;
 
-        padding:15px 20px;
+    font-weight:500;
 
-        border-radius:15px;
 
-        text-decoration:none;
+}
 
-        font-weight:700;
 
-        transition:.3s;
 
-    }
+.info-item strong {
 
 
+    padding:14px 16px;
 
-    .primary-btn{
 
-    
-        display:flex;
+    background:#f8f6ff;
 
-        align-items:center;
 
-        justify-content:center;
+    border-radius:12px;
 
-        gap:10px;
 
-        width:240px;
+    color:#4a148c;
 
-        padding:15px 20px;
 
-        border-radius:15px;
+    font-weight:600;
 
-        background:#7c4dff;
 
-        color:white;
+}
 
-        text-decoration:none;
 
-        font-weight:700;
 
-        box-shadow:
-            0 12px 25px rgba(124,77,255,.25);
 
-        transition:.3s;
-    }
 
 
+/* ADDRESS TEXT */
 
-    .primary-btn:hover{
 
-        background:#6635e8;
+.text-display {
 
-        color:white;
 
-        transform:translateY(-3px);
+    background:#f8f6ff;
 
-    }
 
+    padding:16px;
 
 
-    .secondary-btn{
+    border-radius:14px;
 
-        background:#f3efff;
 
-        color:#7c4dff;
+    line-height:1.6;
 
-        border:1px solid #e4d8ff;
 
-    }
+    color:#2d3436;
 
 
+}
 
-    .secondary-btn:hover{
 
-        background:#e9ddff;
 
-        transform:translateY(-3px);
 
-    }
 
 
 
-    /* ==========================================
-    CONTENT GRID
-    ========================================== */
+/* ==========================================
+   RESPONSIVE
+========================================== */
 
 
-    .account-grid{
+@media(max-width:900px){
 
-        display:grid;
 
-        grid-template-columns:2fr 1fr;
+.account-grid {
 
-        gap:25px;
+    grid-template-columns:1fr;
 
-    }
+}
 
 
 
-    /* ==========================================
-    ACCOUNT CARD
-    ========================================== */
+.hero-content {
 
 
-    .account-card{
+    flex-direction:column-reverse;
 
-        position:relative;
 
-        background:white;
+    text-align:center;
 
-        border-radius:25px;
 
-        padding:30px;
+    gap:30px;
 
-        margin-bottom:25px;
 
-        border:1px solid #ece5ff;
+}
 
-        box-shadow:
 
-            0 12px 35px rgba(124,77,255,.10);
 
-        overflow:hidden;
+.hero-text {
 
-        animation:fadeUp .5s ease;
 
-        transition:.35s;
+    max-width:100%;
 
-    }
 
+}
 
 
-    .account-card:hover{
 
-        transform:translateY(-5px);
+.hero-actions {
 
-        box-shadow:
 
-            0 25px 50px rgba(124,77,255,.18);
+    display:flex;
 
-    }
+    justify-content:center;
 
 
+}
 
-    .account-card::before{
 
-        content:"";
 
-        position:absolute;
+}
 
-        left:0;
 
-        top:0;
 
-        height:100%;
+@media(max-width:600px){
 
-        width:6px;
 
-        background:linear-gradient(
+.account-page {
 
-            180deg,
+    padding:15px;
 
-            #7c4dff,
+}
 
-            #b794f6
 
-        );
 
-    }
+.account-hero {
 
+    padding:25px;
 
+}
 
-    /* ==========================================
-    CARD HEADER
-    ========================================== */
 
 
-    .account-card h2{
+.hero-text h1 {
 
-        display:flex;
 
-        align-items:center;
+    font-size:28px;
 
-        gap:10px;
 
-        position:relative;
+}
 
-        margin:0 0 25px;
 
-        padding-bottom:15px;
 
-        color:#382568;
+.profile-picture {
 
-        font-size:1.3rem;
 
-        border-bottom:2px solid #eee6ff;
+    width:130px;
 
-    }
+    height:130px;
 
 
+}
 
-    .account-card h2::after{
 
-        content:"";
 
-        position:absolute;
+.primary-btn {
 
-        bottom:-2px;
 
-        left:0;
+    width:100%;
 
-        width:75px;
+    justify-content:center;
 
-        height:4px;
 
-        border-radius:20px;
+}
 
-        background:#7c4dff;
 
-    }
-
-
-
-    .account-card h2 i{
-
-        color:#7c4dff;
-
-    }
-
-
-
-    /* ==========================================
-    INFORMATION
-    ========================================== */
-
-
-    .info-item{
-
-        display:flex;
-
-        justify-content:space-between;
-
-        align-items:center;
-
-        padding:16px 0;
-
-        border-bottom:1px solid #f1edff;
-
-    }
-
-
-
-    .info-item:last-child{
-
-        border-bottom:none;
-
-    }
-
-
-
-    .info-item span{
-
-        color:#777;
-
-    }
-
-
-
-    .info-item strong{
-
-        color:#333;
-
-    }
-
-
-
-    /* ==========================================
-    ADDRESS
-    ========================================== */
-
-
-    .account-card p{
-
-        color:#555;
-
-        line-height:1.8;
-
-    }
-
-
-
-    /* ==========================================
-    ACTION BUTTONS
-    ========================================== */
-
-
-    .account-actions{
-
-        display:flex;
-
-        flex-direction:column;
-
-        gap:15px;
-
-    }
-
-
-    .account-actions a{
-
-        text-align:center;
-
-        padding:15px;
-
-        border-radius:15px;
-
-        text-decoration:none;
-
-        font-weight:700;
-
-        transition:.3s;
-
-    }
-
-
-
-    .account-actions i{
-
-        margin-right:8px;
-
-    }
-
-
-
-    /* ==========================================
-    SAVE AREA
-    ========================================== */
-
-    .save-section{
-
-        width:240px;
-
-        margin-left:auto;
-
-        margin-top:25px;
-
-        display:flex;
-
-        flex-direction:column;
-
-        gap:15px;
-
-    }
-
-
-    .save-btn,
-    .cancel-btn{
-
-        width:240px;
-
-        height:52px;
-
-        box-sizing:border-box;
-
-        display:flex;
-
-        justify-content:center;
-
-        align-items:center;
-
-        gap:10px;
-
-        padding:0 20px;
-
-        border-radius:15px;
-
-        font-weight:700;
-
-        font-size:1rem;
-
-        text-decoration:none;
-
-        transition:.3s;
-
-    }
-
-
-
-    /* SAVE BUTTON */
-
-    .save-btn{
-
-        border:none;
-
-        cursor:pointer;
-
-        background:#7c4dff;
-
-        color:white;
-
-        box-shadow:
-
-            0 12px 25px rgba(124,77,255,.25);
-
-    }
-
-
-
-    .save-btn:hover{
-
-        background:#6635e8;
-
-        transform:translateY(-3px);
-
-    }
-
-
-
-    /* CANCEL BUTTON */
-
-    .cancel-btn{
-
-        background:#f3efff;
-
-        color:#7c4dff;
-
-        border:1px solid #e5dcff;
-
-    }
-
-
-
-    .cancel-btn:hover{
-
-        background:#ebe0ff;
-
-        transform:translateY(-3px);
-
-    }
-    /* ==========================================
-    ANIMATION
-    ========================================== */
-
-
-    @keyframes fadeUp{
-
-        from{
-
-            opacity:0;
-
-            transform:translateY(20px);
-
-        }
-
-        to{
-
-            opacity:1;
-
-            transform:translateY(0);
-
-        }
-
-    }
-
-
-
-    /* ==========================================
-    RESPONSIVE
-    ========================================== */
-
-
-    @media(max-width:992px){
-
-
-        .account-grid{
-
-            grid-template-columns:1fr;
-
-        }
-
-
-    }
-
-
-
-    @media(max-width:768px){
-
-
-        .account-page{
-
-            padding:15px;
-
-        }
-
-
-        .account-hero{
-
-            flex-direction:column;
-
-            align-items:flex-start;
-
-            padding:25px;
-
-        }
-
-
-        .hero-profile{
-
-            flex-direction:column;
-
-            width:100%;
-
-            text-align:center;
-
-        }
-
-
-        .hero-info{
-
-            align-items:center;
-
-        }
-
-
-        .hero-actions{
-
-            width:100%;
-
-        }
-
-
-        .hero-actions a{
-
-            width:100%;
-
-        }
-
-
-        .account-card{
-
-            padding:25px;
-
-        }
-
-
-        .info-item{
-
-            flex-direction:column;
-
-            align-items:flex-start;
-
-            gap:8px;
-
-        }
-
-
-        .save-section{
-
-            width:100%;
-
-        }
-
-
-    }
-
-
-
-    @media(max-width:480px){
-
-
-        .hero-info h1{
-
-            font-size:1.6rem;
-
-        }
-
-
-        .account-card h2{
-
-            font-size:1.15rem;
-
-        }
-
-
-    }
+}

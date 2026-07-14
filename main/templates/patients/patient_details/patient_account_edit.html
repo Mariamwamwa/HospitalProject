@@ -1,0 +1,591 @@
+{% extends "includes/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Edit Patient Account
+{% endblock %}
+
+
+{% block sidebar %}
+{% include "patients/dashboard/sidebar.html" %}
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/register.js' %}"></script>
+{% endblock %}
+<section class="register-page">
+
+
+<div class="register-card">
+
+
+<h1>
+Edit Patient Account
+</h1>
+
+
+<p>
+Update your personal and health information.
+</p>
+
+
+
+
+
+<form 
+method="POST" 
+enctype="multipart/form-data"
+action="{% url 'patient_account_edit' %}"
+>
+
+
+{% csrf_token %}
+
+
+
+
+
+<!-- PROFILE PICTURE -->
+
+
+<div class="form-group full-width">
+
+
+<label>
+Profile Picture
+</label>
+
+
+
+<div class="profile-preview">
+
+
+{% if patient.profile_picture %}
+
+<img
+id="preview-image"
+src="{{ patient.profile_picture.url }}"
+alt="Profile Preview"
+>
+
+
+{% else %}
+
+<img
+id="preview-image"
+src="{% static 'images/default-profile.png' %}"
+alt="Profile Preview"
+>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+<label 
+for="profile_picture" 
+class="upload-btn">
+
+Choose Profile Picture
+
+</label>
+
+
+
+<input
+type="file"
+id="profile_picture"
+name="profile_picture"
+accept="image/*"
+hidden
+>
+
+
+
+<span id="file-name">
+
+No file selected
+
+</span>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<h2 class="section-title">
+Personal Information
+</h2>
+
+<hr class="section-divider">
+
+
+
+
+
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label>
+First Name
+</label>
+
+
+<input
+type="text"
+name="first_name"
+value="{{ patient.first_name }}"
+required
+>
+
+
+</div>
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Middle Name
+</label>
+
+
+<input
+type="text"
+name="middle_name"
+value="{{ patient.middle_name|default:'' }}"
+>
+
+
+</div>
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Last Name
+</label>
+
+
+<input
+type="text"
+name="last_name"
+value="{{ patient.last_name }}"
+required
+>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="form-row">
+
+
+
+<div class="form-group">
+
+
+<label>
+Date of Birth
+</label>
+
+
+<input
+type="date"
+name="date_of_birth"
+value="{{ patient.date_of_birth|date:'Y-m-d' }}"
+required
+>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Sex
+</label>
+
+
+<select name="sex">
+
+
+<option value="Male"
+{% if patient.sex == "Male" %}
+selected
+{% endif %}
+>
+Male
+</option>
+
+
+<option value="Female"
+{% if patient.sex == "Female" %}
+selected
+{% endif %}
+>
+Female
+</option>
+
+
+
+<option value="Other"
+{% if patient.sex == "Other" %}
+selected
+{% endif %}
+>
+Other
+</option>
+
+
+
+</select>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Address
+</label>
+
+
+<textarea
+name="address"
+rows="3"
+required
+>{{ patient.address }}</textarea>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+
+<label>
+Contact Number
+</label>
+
+
+<input
+type="text"
+name="contact_number"
+value="{{ patient.contact_number }}"
+required
+>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="section-title">
+Medical Information
+</h2>
+
+
+<hr class="section-divider">
+
+
+
+
+
+
+
+<div class="form-row">
+
+
+
+<div class="form-group">
+
+
+<label>
+Blood Type
+</label>
+
+
+<select name="blood_type">
+
+
+<option value="A+"
+{% if patient.blood_type == "A+" %}
+selected
+{% endif %}
+>
+A+
+</option>
+
+
+<option value="A-"
+{% if patient.blood_type == "A-" %}
+selected
+{% endif %}
+>
+A-
+</option>
+
+
+<option value="B+"
+{% if patient.blood_type == "B+" %}
+selected
+{% endif %}
+>
+B+
+</option>
+
+
+
+<option value="B-"
+{% if patient.blood_type == "B-" %}
+selected
+{% endif %}
+>
+B-
+</option>
+
+
+
+<option value="AB+"
+{% if patient.blood_type == "AB+" %}
+selected
+{% endif %}
+>
+AB+
+</option>
+
+
+
+<option value="AB-"
+{% if patient.blood_type == "AB-" %}
+selected
+{% endif %}
+>
+AB-
+</option>
+
+
+
+<option value="O+"
+{% if patient.blood_type == "O+" %}
+selected
+{% endif %}
+>
+O+
+</option>
+
+
+
+<option value="O-"
+{% if patient.blood_type == "O-" %}
+selected
+{% endif %}
+>
+O-
+</option>
+
+
+
+<option value="Unknown"
+{% if patient.blood_type == "Unknown" %}
+selected
+{% endif %}
+>
+Unknown
+</option>
+
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Height (cm)
+</label>
+
+
+<input
+type="number"
+step="0.01"
+name="height"
+value="{{ patient.height|default:'' }}"
+>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Weight (kg)
+</label>
+
+
+<input
+type="number"
+step="0.01"
+name="weight"
+value="{{ patient.weight|default:'' }}"
+>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<button 
+type="submit"
+class="register-btn">
+
+Save Changes
+
+</button>
+
+
+
+
+
+<div class="bottom-links">
+
+
+<a href="{% url 'patient_account' %}">
+Cancel
+</a>
+
+
+</div>
+
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+{% endblock %}
